@@ -270,7 +270,7 @@ footer { max-width: 1180px; margin: 0 auto; padding: 0 20px 48px; color: var(--c
   </div>
   <ol class="stepper">
     <li><a href="#step1"><span>Codespace 만들기<small>계정 A</small></span></a></li>
-    <li><a href="#step2"><span>Copilot CLI 설치<small>npm</small></span></a></li>
+    <li><a href="#step2"><span>Copilot CLI 설치<small>npm · 설치 스크립트</small></span></a></li>
     <li><a href="#step3"><span>계정 B 로그인<small>device code</small></span></a></li>
     <li><a href="#step4"><span>MCP 3종 설치<small>Learn · Azure · Playwright</small></span></a></li>
     <li><a href="#step5"><span>동작 확인<small>실제 도구 호출</small></span></a></li>
@@ -279,6 +279,7 @@ footer { max-width: 1180px; margin: 0 auto; padding: 0 20px 48px; color: var(--c
   <div class="legend">
     <span><span class="badge ok">검증됨</span> 서로 다른 두 계정(A≠B)으로 직접 실행하고 결과를 확인</span>
     <span><span class="badge">문서 기준</span> 공식 문서 인용 (이번에 실행하지 않음)</span>
+    <span><span class="badge">컨테이너에서 확인</span> Codespace가 아닌 Ubuntu 24.04 컨테이너에서 실행해 확인 (Step 2 대안 설치, 2026-11-03)</span>
   </div>
 </div></header>
 
@@ -367,7 +368,7 @@ v24.22.2
 11.19.1
 /usr/local/bin/copilot
 /usr/bin/gh</pre></div>
-      <p>기본 이미지에 <code>copilot</code>(1.0.105)과 <code>gh</code>가 이미 들어 있고, Azure CLI(<code>az</code>)는 없습니다. 2 vCPU · RAM 7.8GiB 였습니다.</p>
+      <p>기본 이미지에 <code>copilot</code>(1.0.105)과 <code>gh</code>가 이미 들어 있고, Azure CLI(<code>az</code>)는 없습니다. 2 vCPU · RAM 7.8GiB 였습니다. 다른 템플릿·이미지에서는 <code>copilot</code>이나 <code>node</code>·<code>npm</code>이 없을 수 있습니다(<code>command not found</code>가 나오거나 출력이 비어 있음). 그때는 Step 2에서 설치 방법을 고르세요.</p>
     </li>
   </ol>
   <div class="note"><strong>수명·비용 <span class="badge">문서 기준</span></strong>Codespace는 30분 동안 입력·터미널 출력이 없으면 자동 중지되고(최대 수명 12시간), 중지 후 30일간 쓰지 않으면 삭제됩니다(기본값). 켜져 있는 동안은 사용 시간이 A에 과금(무료 한도 포함)됩니다.</div>
@@ -377,23 +378,75 @@ v24.22.2
 <!-- 2 -->
 <section class="card" id="step2">
   <h2><span class="num">2</span>Copilot CLI 설치 <span class="badge ok">검증됨</span></h2>
-  <p class="sub">Node.js 22 이상이 필요합니다. 이 Codespace는 Node 24라 바로 설치됩니다.</p>
+  <p class="sub">Node.js 22 이상이 필요합니다. 이 Codespace는 Node 24라 바로 설치됩니다. 이미지에 따라 <code>copilot</code>이나 <code>npm</code>이 없을 수 있어, 그 경우의 설치 방법도 아래 2번에 함께 적었습니다.</p>
+  <div class="flow">
+    <div><b>기본: npm으로 설치</b>아래 2번 — Node.js 22 이상이 있을 때</div><span>→</span>
+    <div><b>npm이 없으면</b>apt로 Node.js·npm을 설치한 뒤 다시 npm으로 설치</div><span>→</span>
+    <div><b>그래도 안 되면</b>설치 스크립트(<code>curl … | bash</code>) — Node.js 없이 설치</div>
+  </div>
   <ol class="steps">
     <li>이미 설치돼 있는지 먼저 확인합니다.
       <div class="blk"><span class="where">Codespace 터미널</span>
 <div class="cmd"><button class="copy" type="button">복사</button><pre><code>copilot --version</code></pre></div></div>
       <div class="out"><div class="lab">실제 출력</div><pre>GitHub Copilot CLI 1.0.105.
 Run 'copilot update' to check for updates.</pre></div>
+      <p>버전이 나오면 이미 설치돼 있습니다(2번은 최신 버전으로 맞추는 용도). <code>copilot: command not found</code>가 나오면 2번으로 설치하세요.</p>
     </li>
     <li>공식 방법(npm)으로 설치·업데이트합니다. 6초 걸렸습니다.
       <div class="blk"><span class="where">Codespace 터미널</span>
 <div class="cmd"><button class="copy" type="button">복사</button><pre><code>npm install -g @github/copilot</code></pre></div></div>
       <div class="out"><div class="lab">실제 출력</div><pre>added 3 packages in 6s</pre></div>
+      <div class="note warn"><strong>npm이 없을 때 — <code>npm: command not found</code> <span class="badge">컨테이너에서 확인</span></strong>
+        <p>Codespace 이미지에 따라 Node.js·npm이 없을 수 있습니다(Ubuntu·Debian 계열 기준). apt로 설치한 뒤 위 npm 명령을 다시 실행합니다.</p>
+        <div class="blk"><span class="where">Codespace 터미널</span>
+<div class="cmd"><button class="copy" type="button">복사</button><pre><code>sudo apt update
+sudo apt install -y nodejs npm
+node -v &amp;&amp; npm -v</code></pre></div></div>
+        <div class="out"><div class="lab">컨테이너 출력 (Ubuntu 24.04)</div><pre>v18.19.1
+9.2.0</pre></div>
+        <ul>
+          <li>패키지가 수백 개(테스트에서는 642개) 함께 설치돼 1분 넘게 걸릴 수 있습니다.</li>
+          <li><b>apt로 설치한 npm은 <code>sudo</code> 없이는 전역 설치가 안 됩니다.</b> 전역 설치 경로가 <code>/usr/local</code>이라 일반 사용자의 <code>npm install -g</code>는 <code>EACCES: permission denied, mkdir '/usr/local/lib/node_modules'</code>로 실패합니다. <code>sudo</code>를 붙여 실행하거나 아래 설치 스크립트를 쓰세요.
+            <div class="cmd"><button class="copy" type="button">복사</button><pre><code>sudo npm install -g @github/copilot</code></pre></div></li>
+          <li><b>apt의 Node.js는 18.x입니다.</b> Copilot CLI(1.0.105) 자체는 Node 18에서도 실행됐지만 공식 요구 버전은 22 이상입니다. 특히 Step 4의 Azure MCP(<code>@azure/mcp</code>)는 Node.js 22 이상이 필요해 Node 18에서는 실행되지 않습니다. Step 4까지 진행한다면 아래 nvm으로 Node.js 22를 설치하세요.</li>
+        </ul>
+        <details><summary>Node.js 22 설치 (nvm) <span class="badge">컨테이너에서 확인</span></summary><div class="in">
+<p>nvm은 홈 디렉터리에 설치되어 <code>sudo</code> 없이 <code>npm install -g</code>도 됩니다. 이미 apt로 Node.js를 설치했어도 nvm의 Node가 앞서 적용됩니다.</p>
+<div class="cmd"><button class="copy" type="button">복사</button><pre><code>curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.8/install.sh | bash
+. "$HOME/.nvm/nvm.sh"
+nvm install 22
+node -v &amp;&amp; npm -v
+npm install -g @github/copilot</code></pre></div>
+<div class="out"><div class="lab">컨테이너 출력 (일부)</div><pre>Now using node v22.23.4 (npm v10.9.9)
+v22.23.4
+10.9.9
+added 3 packages in 6s</pre></div>
+        </div></details>
+      </div>
+      <div class="note warn"><strong>npm 설치가 안 될 때 — 설치 스크립트 <span class="badge">컨테이너에서 확인</span></strong>
+        <p>권한 오류(<code>EACCES</code>) 등으로 npm 설치가 실패하면 설치 스크립트를 씁니다. Node.js·npm 없이 실행 파일만 내려받아 <code>~/.local/bin/copilot</code>에 설치하므로 <code>sudo</code>도 필요 없습니다.</p>
+        <div class="blk"><span class="where">Codespace 터미널</span>
+<div class="cmd"><button class="copy" type="button">복사</button><pre><code>curl -fsSL https://gh.io/copilot-install | bash</code></pre></div></div>
+        <div class="out"><div class="lab">컨테이너 출력 (Ubuntu 24.04, 일부)</div><pre>✓ Checksum validated
+✓ GitHub Copilot CLI installed to /home/codespace/.local/bin/copilot
+
+Notice: /home/codespace/.local/bin is not in your PATH
+
+Would you like to add it to /home/codespace/.profile? [y/N]
+
+Installation complete! To get started, run:
+  export PATH="/home/codespace/.local/bin:$PATH" && copilot help</pre></div>
+        <ul>
+          <li><code>is not in your PATH</code> 안내가 나오면 <code>[y/N]</code> 질문은 Enter로 넘기고, 현재 터미널의 PATH에 추가합니다. Step 4에서 여는 새 터미널 탭에서도 쓰려면 <code>~/.bashrc</code>에도 넣어 둡니다.
+            <div class="cmd"><button class="copy" type="button">복사</button><pre><code>export PATH="$HOME/.local/bin:$PATH"
+echo 'export PATH="$HOME/.local/bin:$PATH"' &gt;&gt; ~/.bashrc</code></pre></div></li>
+          <li>이 방법은 Copilot CLI만 설치합니다. Step 4의 <code>npx</code>(Azure·Playwright MCP, Chrome 설치)에는 Node.js·npm이 필요하니, 없다면 위 apt 또는 nvm으로 따로 설치하세요.</li>
+        </ul>
+      </div>
       <details><summary>다른 설치 방법 <span class="badge">문서 기준</span></summary><div class="in">
 <p>OS에 맞는 한 줄만 실행하세요.</p>
 <div class="cmd nocopy"><pre><code>brew install --cask copilot-cli                    <span class="c"># macOS / Linux (Homebrew)</span>
-winget install GitHub.Copilot                      <span class="c"># Windows</span>
-curl -fsSL https://gh.io/copilot-install | bash    <span class="c"># macOS / Linux 설치 스크립트</span></code></pre></div>
+winget install GitHub.Copilot                      <span class="c"># Windows</span></code></pre></div>
       </div></details>
     </li>
     <li>버전과 업데이트 상태를 확인합니다.
@@ -492,6 +545,7 @@ Available users:
     </tbody>
   </table></div>
   <p class="sub">도구 수·토큰은 <code>/mcp</code> 대시보드와 세션 로그에서 관측한 값입니다. 내장 GitHub MCP 서버(5개 도구, 약 1.1k)는 따로 설치하지 않아도 같이 보입니다.</p>
+  <div class="note warn"><strong>Node.js 22 이상과 <code>npx</code>가 필요합니다 <span class="badge">컨테이너에서 확인</span></strong>azure·playwright 서버와 4-1의 Chrome 설치는 <code>npx</code>로 실행합니다. 특히 Azure MCP(<code>@azure/mcp</code>)는 Node.js 22 이상을 요구합니다. apt의 Node 18에서는 <code>npx -y @azure/mcp@latest</code>가 <code>EBADENGINE</code> 경고만 남기고 종료 코드 1로 실패했습니다(<code>npm install @azure/mcp</code>로 설치하면 <code>Missing required package: '@azure/mcp-linux-…'</code> 오류). <code>node -v</code>가 22 미만이거나 없다면 Step 2의 “npm이 없을 때”에서 nvm으로 Node.js 22를 설치하세요.</div>
 
   <h3>4-1. Playwright용 Chrome 설치 (한 번만)</h3>
   <p>Codespace에는 화면이 없으므로 <code>--headless</code>로 띄우지만, 브라우저 자체는 설치돼 있어야 합니다. Chrome만 설치해도 동작했습니다(약 88초).</p>
@@ -631,6 +685,10 @@ and use Linux for Python Functions.</pre></div>
       <tr><td>컨텍스트가 빨리 참 (<code>/mcp</code>에 azure 14.9k)</td><td>Azure MCP 도구 73개의 스키마가 매 요청에 포함됨</td><td>안 쓸 땐 <code>copilot mcp disable azure</code>. <code>--namespace</code>로 서비스를 제한할 수 있음(옵션 존재 확인)</td></tr>
       <tr><td><code>/logout</code> 후에도 <code>/user list</code>에 B가 계속 <code>(active)</code></td><td>이 환경(1.0.105, 평문 저장)에서 <code>/logout</code>이 토큰을 지우지 않음(관측) — 문서와 다름</td><td>Codespace를 삭제해 정리(Step 6). 계정만 바꾸려면 <code>/user switch</code></td></tr>
       <tr><td><code>/user list</code>에 A 항목이 3줄 보임</td><td>Codespace가 주입한 <code>GITHUB_TOKEN</code>·<code>gh</code> 로그인</td><td>정상입니다. <code>(active)</code>가 B인지만 확인. 직접 export한 <code>GH_TOKEN</code> 등이 있으면 그것이 우선하므로 <code>unset</code> <span class="badge">문서 기준</span></td></tr>
+      <tr><td><code>copilot: command not found</code> 또는 <code>npm: command not found</code></td><td>이미지에 Copilot CLI·Node.js·npm이 없음 (Codespace 이미지에 따라 다름)</td><td>Step 2의 “npm이 없을 때”(<code>sudo apt update &amp;&amp; sudo apt install -y nodejs npm</code>) 후 설치. CLI만 필요하면 Step 2의 설치 스크립트 <span class="badge">컨테이너에서 재현</span></td></tr>
+      <tr><td><code>npm install -g @github/copilot</code> → <code>EACCES: permission denied, mkdir '/usr/local/lib/node_modules'</code></td><td>apt로 설치한 npm의 전역 설치 경로(<code>/usr/local</code>)에 일반 사용자는 쓸 수 없음</td><td><code>sudo npm install -g @github/copilot</code> 또는 <code>curl -fsSL https://gh.io/copilot-install | bash</code> <span class="badge">컨테이너에서 재현</span></td></tr>
+      <tr><td>설치 스크립트 후 <code>copilot: command not found</code></td><td>설치 위치 <code>~/.local/bin</code>이 PATH에 없음 (스크립트가 <code>Notice: … is not in your PATH</code>를 출력)</td><td><code>export PATH="$HOME/.local/bin:$PATH"</code>. 새 터미널 탭에서도 쓰려면 <code>~/.bashrc</code>에 같은 줄 추가 <span class="badge">컨테이너에서 재현</span></td></tr>
+      <tr><td><code>npx -y @azure/mcp@latest</code>가 <code>EBADENGINE</code>(required <code>node: '&gt;=22.0.0'</code>) 경고만 남기고 종료 코드 1로 실패</td><td>Node.js 22 미만(apt의 18.x 등)이라 플랫폼 패키지(<code>@azure/mcp-linux-…</code>)가 설치되지 않음. <code>npm install @azure/mcp</code>로 설치하면 <code>Missing required package</code> 오류</td><td>Step 2의 nvm으로 Node.js 22 설치 후 다시 실행 <span class="badge">컨테이너에서 재현</span></td></tr>
     </tbody>
   </table></div>
 </section>
@@ -638,12 +696,19 @@ and use Linux for Python Functions.</pre></div>
 <!-- log -->
 <section class="card" id="log">
   <h2>검증 기록 <span class="badge ok">2026-10-31 KST</span></h2>
-  <p class="sub">서로 다른 두 계정 A, B로 실제 실행한 내용입니다. 실제 사용자명은 <code>account-a</code>·<code>account-b</code>로 가렸습니다.</p>
+  <p class="sub">서로 다른 두 계정 A, B로 실제 실행한 내용입니다. 실제 사용자명은 <code>account-a</code>·<code>account-b</code>로 가렸습니다. “대안 설치” 행만 2026-11-03에 Codespace가 아닌 Ubuntu 24.04 컨테이너에서 확인한 내용입니다.</p>
   <div class="tw"><table>
     <thead><tr><th>단계</th><th>실행</th><th>관측 결과</th></tr></thead>
     <tbody>
       <tr><td>1. Codespace</td><td>A로 로그인 → Blank 템플릿</td><td>기존 Codespace 0개 → 생성, 웹 VS Code 약 20초 후 열림. Ubuntu 24.04.5 · x86_64 · 2 vCPU · 7.8GiB · Node v24.22.2 · npm 11.19.1</td></tr>
       <tr><td>2. CLI 설치</td><td><code>npm install -g @github/copilot</code></td><td>6초. 1.0.105 (사전 설치본과 동일), <code>copilot update</code> → 최신. 첫 실행은 A로 자동 인증</td></tr>
+      <tr><td>2. 대안 설치 <span class="badge">컨테이너 · 2026-11-03</span></td><td>Ubuntu 24.04.5 컨테이너(arm64, 일반 사용자 + 비밀번호 없는 sudo)에서 <code>copilot</code>·<code>node</code>·<code>npm</code>이 없는 상태로 시작</td><td>
+        <ul style="margin:0;padding-left:18px">
+          <li><code>sudo apt update</code> → <code>sudo apt install -y nodejs npm</code>: 패키지 642개, 약 76초. Node v18.19.1 · npm 9.2.0</li>
+          <li><code>npm install -g @github/copilot</code>(일반 사용자): <code>EACCES … mkdir '/usr/local/lib/node_modules'</code>. <code>sudo</code>를 붙이면 4 packages, <code>copilot --version</code> → 1.0.105</li>
+          <li><code>curl -fsSL https://gh.io/copilot-install | bash</code>: <code>~/.local/bin/copilot</code>에 설치, PATH 안내 출력, <code>copilot update</code> → 최신(1.0.105)</li>
+          <li><code>npx -y @azure/mcp@latest</code>: Node 18은 <code>EBADENGINE</code> 경고만 남기고 종료 코드 1로 실패(<code>npm install</code>은 <code>Missing required package</code>, npm 9·10 모두), nvm v0.40.8의 Node 22.23.4는 정상 실행. 이 Node 22에서 <code>npm install -g @github/copilot</code>은 <code>sudo</code> 없이 3 packages</li>
+        </ul></td></tr>
       <tr><td>3. B 로그인</td><td><code>/login</code> → device code</td><td>1차: A 브라우저에서 승인되어 A로 등록(실패 재현). 2차: B 전용 브라우저에서 2단계 인증을 QR 대신 코드 입력 방식으로 진행 → <code>account-b (active)</code>, 평문 저장 선택</td></tr>
       <tr><td>4. Chrome</td><td><code>npx -y playwright install chrome</code></td><td>88초, Google Chrome 156.0.8078.79, headless <code>--dump-dom</code> → Example Domain</td></tr>
       <tr><td>4. MCP 등록</td><td><code>copilot mcp add</code> ×3</td><td><code>copilot mcp list</code> 3종 + 내장 GitHub, <code>/mcp</code> 4/4 enabled. 도구 수 azure 73 · playwright 25 · microsoft-learn 3 · github 5</td></tr>
@@ -665,7 +730,8 @@ and use Linux for Python Functions.</pre></div>
   <div class="note warn"><strong>이번에 검증하지 않은 것</strong>
     <ul>
       <li><code>gh codespace create</code> 등 CLI로 Codespace 만들기 (A의 <code>gh</code> 토큰에 codespace 스코프 없음)</li>
-      <li>brew · winget · 설치 스크립트 방식의 Copilot CLI 설치, 로컬 PC·데스크톱 VS Code 연결</li>
+      <li>brew · winget 방식의 Copilot CLI 설치, 로컬 PC·데스크톱 VS Code 연결</li>
+      <li>Node.js·npm·<code>copilot</code>이 없는 <b>실제 Codespace</b>에서 Step 2의 대안 설치 (같은 Ubuntu 24.04.5 이미지 계열의 컨테이너에서만 확인했고, CPU 구조는 arm64라 Codespace의 x86_64와 다릅니다)</li>
       <li><code>/plugin install microsoftdocs/mcp</code>, Azure MCP의 <code>--read-only</code> 동작, Azure 로그인 후 실제 리소스 조작</li>
       <li>GitHub의 <b>Authorized OAuth Apps → Revoke</b> (다른 기기의 로그인에 영향을 줄 수 있어 실행하지 않음)</li>
     </ul>
@@ -680,6 +746,11 @@ and use Linux for Python Functions.</pre></div>
 <div class="cmd"><button class="copy" type="button">복사</button><pre><code>npm install -g @github/copilot
 copilot --version
 cd /workspaces/codespaces-blank &amp;&amp; copilot</code></pre></div></div>
+  <div class="blk"><span class="where">참고 · copilot·npm이 없거나 npm 설치가 안 될 때만</span> <span class="c">— ①의 첫 줄을 대신하는 대안입니다 (Step 2)</span>
+<div class="cmd nocopy"><pre><code>sudo apt update &amp;&amp; sudo apt install -y nodejs npm   <span class="c"># npm이 없을 때 (apt의 Node.js는 18.x)</span>
+sudo npm install -g @github/copilot                 <span class="c"># apt로 설치한 npm은 sudo가 필요</span>
+curl -fsSL https://gh.io/copilot-install | bash     <span class="c"># npm 설치가 안 될 때 (Node.js 불필요)</span>
+export PATH="$HOME/.local/bin:$PATH"                <span class="c"># 스크립트가 PATH 안내를 출력하면</span></code></pre></div></div>
   <div class="blk"><span class="where cli">② Copilot CLI 안</span> <span class="c">— 한 줄씩 입력하세요</span>
     <ol style="margin:6px 0 0;padding-left:22px">
       <li><code>/login</code> → <code>1.&nbsp;GitHub.com</code> → <code>1.&nbsp;device code</code>, 키는 누르지 말고 B 전용 브라우저에서 승인</li>
@@ -716,7 +787,7 @@ copilot mcp list</code></pre></div></div>
 </main>
 </div>
 
-<footer>이 가이드의 “실제 출력”은 2026-10-31에 서로 다른 두 계정(A, B)으로 Codespace에서 직접 실행한 결과입니다. 계정 사용자명은 가려서 표기했고, 버전·모델 응답은 시점에 따라 달라질 수 있습니다.</footer>
+<footer>이 가이드의 “실제 출력”은 2026-10-31에 서로 다른 두 계정(A, B)으로 Codespace에서 직접 실행한 결과입니다. “컨테이너 출력”(Step 2의 대안 설치)은 2026-11-03에 Codespace가 아닌 Ubuntu 24.04 컨테이너에서 실행한 결과입니다. 계정 사용자명은 가려서 표기했고, 버전·모델 응답은 시점에 따라 달라질 수 있습니다.</footer>
 
 <script>
 (() => {

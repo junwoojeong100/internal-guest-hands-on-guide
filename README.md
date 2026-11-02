@@ -67,6 +67,7 @@ open github-copilot-cli-codespaces.html
 | --- | --- | --- |
 | 계정 구성 (A ≠ B) | Codespace 소유 계정(A)과 Copilot 로그인 계정(B)이 다른 경우. 첫 실행은 주입된 `GITHUB_TOKEN`으로 A에 자동 인증됨 | 새 Codespace에서 첫 `copilot` 실행 후 `/user list`의 `(active)`가 A인지 확인 |
 | Copilot CLI 버전·설치 | `npm install -g @github/copilot`, 1.0.105 | 새 Codespace에서 설치 후 `copilot --version`, `copilot update` |
+| 대안 설치 (Node.js·npm 없음) | apt `nodejs npm` = Node 18.19.1 · npm 9.2.0(Ubuntu 24.04)이라 일반 사용자의 `npm install -g`는 `EACCES`. 설치 스크립트 `curl -fsSL https://gh.io/copilot-install \| bash`는 `~/.local/bin`에 설치. Azure MCP는 Node 22 이상, nvm v0.40.8 | Node.js·npm·`copilot`이 없는 Ubuntu 컨테이너(또는 Codespace)에서 같은 명령을 다시 실행. `npm view @azure/mcp engines`, `gh api repos/nvm-sh/nvm/releases/latest --jq .tag_name` |
 | 로그인 흐름 | device code 로그인, 코드를 승인한 브라우저의 계정으로 등록됨, 키체인 없을 때 평문 저장 질문 | 두 번째 계정으로 `/login` 후 `/user list`의 `(active)` 확인 |
 | `/logout` 동작 | 1.0.105에서는 토큰이 지워지지 않음(문서와 다름) | `/logout` 후 `/user list`와 `~/.copilot/config.json` 확인 |
 | Microsoft Learn MCP | `https://learn.microsoft.com/api/mcp`, 도구 3개 | `copilot mcp add` 후 `/mcp`에서 도구 수와 실제 호출 |
