@@ -1,0 +1,173 @@
+{
+  "status": "passed",
+  "checkedAt": "2026-11-05T14:52:16.424189+00:00",
+  "auditMode": "GET-only; no administrator fallback; no additional inference",
+  "identity": {
+    "objectId": "896d65b7-dbd6-467b-86cf-220a0591c015",
+    "userType": "Guest",
+    "accountEnabled": true,
+    "creationType": null,
+    "externalUserState": null
+  },
+  "authenticationAudiences": {
+    "https://graph.microsoft.com/": {
+      "tenantId": "bef96070-a122-48bc-bf5c-03149f4ac286",
+      "objectId": "896d65b7-dbd6-467b-86cf-220a0591c015",
+      "authenticationMethods": [
+        "pwd",
+        "mfa"
+      ]
+    },
+    "https://management.azure.com/": {
+      "tenantId": "bef96070-a122-48bc-bf5c-03149f4ac286",
+      "objectId": "896d65b7-dbd6-467b-86cf-220a0591c015",
+      "authenticationMethods": [
+        "pwd",
+        "mfa"
+      ]
+    },
+    "https://ai.azure.com": {
+      "tenantId": "bef96070-a122-48bc-bf5c-03149f4ac286",
+      "objectId": "896d65b7-dbd6-467b-86cf-220a0591c015",
+      "authenticationMethods": [
+        "pwd",
+        "mfa"
+      ]
+    }
+  },
+  "resources": [
+    {
+      "label": "Foundry resource",
+      "name": "foundry-guest-guide-babec8",
+      "type": "Microsoft.CognitiveServices/accounts",
+      "provisioningState": "Succeeded",
+      "createdBy": "foundry-guest-e2e-1105-babec8@m365cpi76716695.onmicrosoft.com"
+    },
+    {
+      "label": "Default project",
+      "name": "foundry-guest-guide-babec8/guest-portal-lab",
+      "type": "Microsoft.CognitiveServices/accounts/projects",
+      "provisioningState": "Succeeded",
+      "createdBy": "foundry-guest-e2e-1105-babec8@m365cpi76716695.onmicrosoft.com"
+    },
+    {
+      "label": "Model deployment",
+      "name": "gpt-5-mini-workshop",
+      "type": "Microsoft.CognitiveServices/accounts/deployments",
+      "provisioningState": "Succeeded",
+      "createdBy": "foundry-guest-e2e-1105-babec8@m365cpi76716695.onmicrosoft.com"
+    },
+    {
+      "label": "Log Analytics",
+      "name": "law-guest-guide-babec8",
+      "type": "Microsoft.OperationalInsights/workspaces",
+      "provisioningState": "Succeeded",
+      "createdBy": null
+    },
+    {
+      "label": "Application Insights",
+      "name": "appi-guest-guide-babec8",
+      "type": "microsoft.insights/components",
+      "provisioningState": "Succeeded",
+      "createdBy": null
+    }
+  ],
+  "resourceInventory": [
+    {
+      "name": "foundry-guest-guide-babec8",
+      "type": "Microsoft.CognitiveServices/accounts"
+    },
+    {
+      "name": "foundry-guest-guide-babec8/guest-portal-lab",
+      "type": "Microsoft.CognitiveServices/accounts/projects"
+    },
+    {
+      "name": "law-guest-guide-babec8",
+      "type": "Microsoft.OperationalInsights/workspaces"
+    },
+    {
+      "name": "appi-guest-guide-babec8",
+      "type": "microsoft.insights/components"
+    }
+  ],
+  "roles": [
+    {
+      "scope": "/subscriptions/e7455306-2702-49fc-b465-d341d758858d",
+      "roleDefinitionId": "/subscriptions/e7455306-2702-49fc-b465-d341d758858d/providers/Microsoft.Authorization/roleDefinitions/bba48692-92b0-4667-a9ad-c31c7b334ac2"
+    },
+    {
+      "scope": "/subscriptions/e7455306-2702-49fc-b465-d341d758858d/resourceGroups/rg-internal-guest-guide-babec8",
+      "roleDefinitionId": "/subscriptions/e7455306-2702-49fc-b465-d341d758858d/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+    },
+    {
+      "scope": "/subscriptions/e7455306-2702-49fc-b465-d341d758858d/resourceGroups/rg-internal-guest-guide-babec8",
+      "roleDefinitionId": "/subscriptions/e7455306-2702-49fc-b465-d341d758858d/providers/Microsoft.Authorization/roleDefinitions/53ca6127-db72-4b80-b1b0-d745d6d5456d"
+    }
+  ],
+  "model": {
+    "model": {
+      "format": "OpenAI",
+      "name": "gpt-5-mini",
+      "version": "2025-08-07"
+    },
+    "sku": {
+      "name": "GlobalStandard",
+      "capacity": 10
+    }
+  },
+  "agent": {
+    "name": "guest-workshop-assistant",
+    "version": "2",
+    "kind": "prompt",
+    "model": "gpt-5-mini-workshop",
+    "tools": [],
+    "instructionsMatch": true,
+    "parameters": {
+      "reasoning": {
+        "effort": "minimal"
+      }
+    }
+  },
+  "tracingConnection": {
+    "name": "appi-guest-guide-babec8-8655",
+    "category": "AppInsights",
+    "authType": "ApiKey",
+    "target": "/subscriptions/e7455306-2702-49fc-b465-d341d758858d/resourceGroups/rg-internal-guest-guide-babec8/providers/microsoft.insights/components/appi-guest-guide-babec8"
+  },
+  "monitorMetrics": {
+    "agentRuns": 3,
+    "totalTokens": 1060,
+    "errorRate": 0,
+    "dateRange": "Last Day",
+    "verifiedAt": "2026-11-05T14:27:10.384Z"
+  },
+  "traceCorrelations": [
+    {
+      "traceId": "586b4c7d54b14eb098e036a425f8e1e6",
+      "responseId": "resp_0e9d2d5690bbb704006aec91b812148190b228806e168eb08f",
+      "conversationId": "conv_0e9d2d5690bbb70400JxNzHgr3Sxf5u1KOWW0xucUm2y8sDT4a",
+      "userId": "896d65b7-dbd6-467b-86cf-220a0591c015",
+      "spanCount": 2,
+      "modelSpan": {
+        "model": "gpt-5-mini-2025-08-07",
+        "inputTokens": 413,
+        "outputTokens": 54
+      }
+    },
+    {
+      "traceId": "10dc1432e03d4305a7cac88c2846503e",
+      "responseId": "resp_0e9d2d5690bbb704006aec916dddf4819096ea1d2a68fbc6d9",
+      "conversationId": "conv_0e9d2d5690bbb70400JxNzHgr3Sxf5u1KOWW0xucUm2y8sDT4a",
+      "userId": "896d65b7-dbd6-467b-86cf-220a0591c015",
+      "spanCount": 2
+    },
+    {
+      "traceId": "eeb2745ad96241928e0e85c65b695f24",
+      "responseId": "resp_0e9d2d5690bbb704006aec913fb70c8190b106ed2a80b89974",
+      "conversationId": "conv_0e9d2d5690bbb70400JxNzHgr3Sxf5u1KOWW0xucUm2y8sDT4a",
+      "userId": "896d65b7-dbd6-467b-86cf-220a0591c015",
+      "spanCount": 2
+    }
+  ],
+  "credentialsIncluded": false
+}
