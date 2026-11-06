@@ -6,8 +6,8 @@
 
 | 가이드 | 대상·내용 |
 |---|---|
-| [운영자 가이드](https://junwoojeong100.github.io/internal-guest-hands-on-guide/operator.html) | SE팀: 계정·RG·RBAC·RP·쿼터 준비, 리허설·격리 검증, 인계 템플릿, 권한 지원·장애 대응·승인된 종료 |
-| [실습자 가이드](https://junwoojeong100.github.io/internal-guest-hands-on-guide/) | 고객: 공통 계정 유형·필수 RBAC·기능별 추가 요건·문제 대응 + 배정 RG 안에서 직접 생성하는 실제 포털 실습 |
+| [운영자 가이드](https://junwoojeong100.github.io/internal-guest-hands-on-guide/operator.html) | SE팀: **부여할 역할 → A 스크립트 / B 포털 수동 → 공통 필수 점검 → 인계·지원·종료** |
+| [실습자 가이드](https://junwoojeong100.github.io/internal-guest-hands-on-guide/) | 고객: **시작 전 배정값 확인 → 본인 RG 안에 직접 생성 → 실행·추적**, 공통 계정·권한·문제 대응 참고 |
 
 | 담당 | 작업 |
 |---|---|
@@ -15,18 +15,21 @@
 | 참가자 · 실습 | Foundry 리소스·프로젝트 생성, 모델 배포, 에이전트 생성·실행, Application Insights 연결, Monitor·Traces 확인 |
 | 운영자 · 종료 후 | 로그 보존과 완료 기록 확인, 승인된 정책에 따른 권한 회수·계정 차단·리소스 정리 |
 
-## SE는 스크립트로 일괄 준비합니다
+## SE 준비: A 스크립트 일괄 / B 포털 수동
 
-계정·RG·역할을 포털에서 50번씩 만들지 않습니다. **필요할 때 일괄 생성 → 독립 검증 → 고객 인계**하고, HTML은 권한·설계·장애 대응 참고 문서로 사용합니다.
+**50명 반복 운영은 [A · 스크립트 일괄 준비](https://junwoojeong100.github.io/internal-guest-hands-on-guide/operator.html#automation)를 권장합니다.** 소규모 수동 준비는 [B · 포털 절차](https://junwoojeong100.github.io/internal-guest-hands-on-guide/operator.html#portal)를 따릅니다. 같은 참가자 환경에 A/B를 중복 실행하지 않습니다. HTML은 실행 절차·권한·장애 대응의 참조 문서입니다.
 
-Azure Cloud Shell **Bash의 영구 저장소**, Linux/macOS 또는 WSL에서 **Python 3.11+·Azure CLI**를 사용합니다. 추가 Python 패키지는 없습니다. SE 실행 계정에는 Entra 사용자 생성, Entra 역할·그룹 조회, Azure RG 생성·역할 할당 권한이 필요합니다. [필요한 SE 권한·전체 실행 안내](https://junwoojeong100.github.io/internal-guest-hands-on-guide/operator.html#automation)를 먼저 확인하세요.
+참가자에게 줄 역할은 **본인 RG의 Contributor·Foundry User + 구독의 Cognitive Services Usages Reader**, Entra 관리자 역할은 **없음**입니다. [정확한 역할·Scope](https://junwoojeong100.github.io/internal-guest-hands-on-guide/operator.html#participant-roles)와 [SE 자신의 권한](https://junwoojeong100.github.io/internal-guest-hands-on-guide/operator.html#operator-roles)을 구분하세요. 두 방법 모두 [인계 전 6가지 필수 점검](https://junwoojeong100.github.io/internal-guest-hands-on-guide/operator.html#preflight)을 수행합니다.
+
+아래는 **A의 실행 예시**입니다. Azure Cloud Shell **Bash의 영구 저장소**, Linux/macOS 또는 WSL에서 **Python 3.11+·Azure CLI**를 사용합니다. 추가 Python 패키지는 없습니다.
 
 ```bash
 git clone https://github.com/junwoojeong100/internal-guest-hands-on-guide.git
 cd internal-guest-hands-on-guide
 cp config/workshop.example.json config/workshop.local.json
 # local.json의 테넌트·구독·고유 workshopId·지역·인원을 확인/수정합니다.
-az login --tenant <tenantId>
+# 아래 따옴표 안을 local.json의 실제 tenantId로 바꿉니다.
+az login --tenant "REPLACE_WITH_TENANT_ID"
 
 # 기본값: 읽기 전용 계획. 계정·RG·역할·암호 파일을 생성하지 않습니다.
 python3 scripts/provision_workshop.py --config config/workshop.local.json
@@ -44,7 +47,7 @@ python3 scripts/verify_workshop.py --config config/workshop.local.json
 
 **비공개 결과:** `.workshop-runs/<workshopId>/credentials.private.csv`는 초기 암호가 포함된 민감 파일입니다. `state.private.json`도 암호를 포함하는 복구 기록이며, `verification.private.json`은 검증 결과입니다. 폴더 0700·파일 0600, Git 제외·Pages 배포 제외로 보호합니다. 승인된 비공개 저장소에 백업하고, 전체 CSV를 고객에게 보내지 마세요. 참가자별 초기 암호는 승인된 별도 경로로만 전달합니다. Cloud Shell 임시 저장소에서는 복구 기록이 사라질 수 있습니다.
 
-**검증 범위:** 계정 유형·활성·소유권, RG·지역·태그, 정확한 역할·Scope, 대상 구독의 하위·상위 범위/그룹 경유 추가 Azure 권한, 활성 Entra 역할, RP를 검사합니다. Usages Reader의 실제 정의도 확인해 다른 RG를 읽는 권한이 추가되지 않았는지 점검합니다. 다른 구독·테넌트, PIM eligible·향후 그룹 변경, 로그인·MFA·정책·실제 포털 접근·Foundry E2E·TPM·50명 부하는 별도 리허설 대상입니다. **검증 PASS가 개최 승인이나 로그인 성공을 대신하지 않습니다.**
+**A의 검증 범위:** 계정 유형·활성·소유권, RG·지역·태그, 정확한 역할·Scope, 대상 구독의 하위·상위 범위/그룹 경유 추가 Azure 권한, 활성 Entra 역할, RP를 검사합니다. Usages Reader의 실제 정의도 확인합니다. 소유권 마커·이름·태그가 다른 **B의 수동 환경에는 전용 검증 스크립트를 그대로 적용하지 않으며**, 운영 대장·Entra·IAM Check access로 대조합니다. 두 방법 모두 다른 구독·테넌트, PIM eligible·향후 그룹 변경, 로그인·MFA·정책·실제 포털 접근·Foundry E2E·TPM·50명 부하는 별도 점검 대상입니다. **검증 PASS가 개최 승인이나 로그인 성공을 대신하지 않습니다.**
 
 오프라인 자동화 테스트는 실제 Azure에 접속하지 않습니다.
 

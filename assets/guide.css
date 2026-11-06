@@ -59,8 +59,18 @@ main{min-width:0}
 .role-title{font-size:17px;line-height:1.5;margin-top:24px;color:var(--navy)}
 .task-list{font-size:12px;color:#365675;padding-left:21px;margin:15px 0 0}
 .task-list li+li{margin-top:8px}
-h2{font-size:24px;line-height:1.4;letter-spacing:-.035em;font-weight:750}
+h2{font-size:24px;line-height:1.4;letter-spacing:-.035em;font-weight:750;word-break:keep-all}
 .intro{color:var(--muted);font-size:14px;margin-top:10px;word-break:keep-all}
+.runbook-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:22px}
+.runbook-card{display:flex;flex-direction:column;align-items:flex-start;gap:10px;min-width:0;padding:20px;border:1px solid var(--line);border-radius:12px;background:var(--bg)}
+.runbook-card.recommended{border-color:var(--teal);background:var(--paper)}
+.runbook-card h3{font-size:17px;line-height:1.5;color:var(--navy)}
+.runbook-card p{font-size:13px;color:var(--muted)}
+.runbook-card .section-label{font-size:10px;color:var(--teal);margin:0}
+.runbook-card .button{margin-top:auto}
+.grant-table td:first-child{width:32%;white-space:normal}
+.grant-table td:first-child strong{color:var(--ink)}
+.scope-badge{display:inline-block;padding:2px 7px;border:1px solid var(--line);border-radius:5px;background:var(--soft);color:var(--blue);font-size:11px;font-weight:700;white-space:nowrap}
 .flow{display:flex;align-items:stretch;gap:25px;margin:25px 0 18px;list-style:none;padding:0}
 .flow li{position:relative;flex:1;background:#edf4fa;border:1px solid #dce8f1;border-radius:10px;padding:13px 8px;text-align:center;font-size:12px;font-weight:700}
 .flow li+li:before{content:"→";position:absolute;left:-20px;top:15px;color:#7a94aa}
@@ -230,6 +240,7 @@ dialog::backdrop{background:#0a1d32bd;backdrop-filter:blur(5px)}
   .toc a.active{border-bottom-color:var(--blue)}.nav-number{font-size:9px;min-width:12px}
   .panel,.stage{padding:20px 17px;border-radius:13px;margin-bottom:17px}h2{font-size:21px}
   .intro{font-size:12px}.flow{gap:18px;margin-top:19px}.flow li{font-size:10px;padding:10px 3px}.flow li+li:before{left:-15px;top:12px}.flow small{font-size:8px}
+  .runbook-grid{grid-template-columns:1fr;gap:12px;margin-top:18px}.runbook-card{padding:16px}.runbook-card h3{font-size:16px}.scope-badge{font-size:10px;padding:2px 5px}
   .stage-header{gap:10px;flex-wrap:wrap}.stage-number{width:32px;height:32px;font-size:12px;border-radius:9px}.stage-header h2{font-size:19px}.stage-header>div:nth-child(2){flex:1;min-width:180px}.stage-jump{margin-left:42px}
   .stage-note{font-size:11px}.gallery{margin-top:18px}.gallery-caption h3{font-size:14px}.gallery-caption .action{font-size:12px}
   .gallery-tools{align-items:flex-start;gap:8px}.gallery-tools .button{font-size:10px;padding:6px 8px}.thumb{width:90px}.thumb img{width:86px;height:48px}
@@ -243,4 +254,5 @@ dialog::backdrop{background:#0a1d32bd;backdrop-filter:blur(5px)}
   .topbar,aside,.hero-actions,.video-frame,.video-tools,.chapters,.stage-jump,.gallery-tools,.thumbnails,dialog{display:none!important}
   body{background:white;color:black}.workspace{display:block;padding:0}.hero{background:white;color:black}.hero-inner{padding:20px 0}.hero-grid{display:block}.proof{display:none}.hero-lead,.hero-meta,.eyebrow{color:#333}
   .panel,.stage{break-inside:avoid;border:0;padding:15px 0}.gallery-caption{padding-bottom:0}details{display:block}.footnotes{font-size:9px}
+  .runbook-card{break-inside:avoid}
 }

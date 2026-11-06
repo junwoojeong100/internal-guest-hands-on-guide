@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2040%2040'%3E%3Crect%20width='40'%20height='40'%20rx='10'%20fill='%2310263d'/%3E%3Ctext%20x='20'%20y='26'%20text-anchor='middle'%20fill='white'%20font-family='sans-serif'%20font-size='16'%20font-weight='700'%3ESE%3C/text%3E%3C/svg%3E">
-  <meta name="description" content="SE팀의 Microsoft Foundry 고객 워크샵 준비 가이드. 스크립트로 Internal Guest 계정·고객별 RG·RBAC를 일괄 생성·검증하고, 쿼터·MFA·프로젝트 MI·장애 대응을 참고합니다.">
+  <meta name="description" content="SE팀의 Microsoft Foundry 워크샵 운영 가이드. 실습자에게 부여할 세 역할, 스크립트 일괄 준비와 포털 수동 준비, 인계 전 필수 점검을 구분합니다.">
   <title>Microsoft Foundry · SE 운영자 가이드</title>
   <script src="assets/theme.js"></script>
   <link rel="stylesheet" href="assets/guide.css">
@@ -27,20 +27,21 @@
       <div class="hero-grid">
         <div>
           <div class="eyebrow">SE RUNBOOK · PREPARE BEFORE CUSTOMERS ARRIVE</div>
-          <h1>고객이 로그인하면,<br>실습 환경이 준비되어 있도록.</h1>
-          <p class="hero-lead">SE는 스크립트로 계정·고객별 RG·RBAC를 일괄 준비·검증합니다.<br>실습자는 그 RG 안에서 필요한 리소스를 직접 만듭니다.<br>아래 상세 가이드는 설계·권한·장애 대응 참고 문서로 사용합니다.</p>
+          <h1>계정·RG·권한을 준비하고,<br>고객에게 인계하세요.</h1>
+          <p class="hero-lead">먼저 부여할 역할을 확인하고, 준비 방법 A 또는 B를 선택합니다.<br>두 방법 모두 같은 인계 전 점검을 통과해야 합니다.<br>Foundry·프로젝트·모델은 고객이 본인 RG 안에 직접 만듭니다.</p>
           <div class="hero-actions">
-            <a class="button primary" href="#automation">스크립트로 환경 준비 <span aria-hidden="true">→</span></a>
-            <a class="button dark" href="#preflight">개최 전 검증 기준</a>
+            <a class="button primary" href="#participant-roles">실습자에게 줄 역할 <span aria-hidden="true">→</span></a>
+            <a class="button dark" href="#automation">A. 스크립트 준비</a>
+            <a class="button dark" href="#portal">B. 포털 수동 준비</a>
             <a class="button dark" href="index.html">고객용 실습자 가이드 ↗</a>
           </div>
         </div>
         <div class="proof">
           <p class="proof-label"><strong>환경 제공 방식</strong> · 약 50명 · 약 5시간 계획 예시</p>
           <div class="stats">
-            <div class="stat"><strong>계정</strong><span>참가자별 발급·MFA</span></div>
-            <div class="stat"><strong>RG</strong><span>고객별 접근 범위</span></div>
-            <div class="stat"><strong>RBAC</strong><span>실습 범위별 권한</span></div>
+            <div class="stat"><strong>3개</strong><span>사용자 Azure 역할</span></div>
+            <div class="stat"><strong>개인 RG</strong><span>리소스 생성 범위</span></div>
+            <div class="stat"><strong>6가지</strong><span>인계 전 필수 점검</span></div>
           </div>
           <p class="proof-note">운영자 계정으로 성공한 것은 준비 완료의 증거가 아닙니다.<br>참가자 로그인·실행·로그 조회·접근 격리를 확인하세요.</p>
           <p class="proof-note">현재 실환경 근거는 Internal Guest 1명의 기본 Prompt Agent E2E입니다. 50명 환경 생성·동시 부하 검증을 완료했다는 뜻이 아닙니다.</p>
@@ -54,13 +55,13 @@
     <aside aria-label="운영자 목차">
       <p class="nav-title">WORKSHOP OPERATIONS</p>
       <nav class="toc" id="toc" aria-label="페이지 목차">
-        <a href="#automation"><span class="nav-number">01</span>스크립트로 일괄 준비</a>
-        <a href="#plan"><span class="nav-number">02</span>실습 범위·환경 설계</a>
-        <a href="#operator-roles"><span class="nav-number">03</span>운영자 권한</a>
-        <a href="#identity"><span class="nav-number">04</span>계정·MFA 준비</a>
-        <a href="#provision"><span class="nav-number">05</span>RG·RP·RBAC·MI</a>
-        <a href="#capacity"><span class="nav-number">06</span>50명 쿼터·비용</a>
-        <a href="#preflight"><span class="nav-number">07</span>리허설·격리 검증</a>
+        <a href="#plan"><span class="nav-number">01</span>한눈에 보는 준비 흐름</a>
+        <a href="#participant-roles"><span class="nav-number">02</span>실습자에게 부여할 역할</a>
+        <a href="#operator-roles"><span class="nav-number">03</span>SE 자신에게 필요한 권한</a>
+        <a href="#automation"><span class="nav-number">04</span>A · 스크립트 일괄 준비</a>
+        <a href="#portal"><span class="nav-number">05</span>B · 포털 수동 준비</a>
+        <a href="#preflight"><span class="nav-number">06</span>공통 · 인계 전 필수 점검</a>
+        <a href="#capacity"><span class="nav-number">07</span>참고 · 모델·TPM·비용</a>
         <a href="#handoff"><span class="nav-number">08</span>고객 인계 템플릿</a>
         <a href="#day-ops"><span class="nav-number">09</span>당일 장애 대응</a>
         <a href="#close"><span class="nav-number">10</span>종료·정리</a>
@@ -70,10 +71,91 @@
     </aside>
 
     <main id="main">
+      <section class="panel observed-section" id="plan">
+        <p class="section-label">START HERE · ONE HANDOFF STANDARD</p>
+        <h2>준비 방법은 둘, 고객에게 제공하는 범위는 하나입니다.</h2>
+        <div class="table-wrap">
+          <table aria-label="운영자와 실습자의 생성 경계">
+            <thead><tr><th>운영자가 제공</th><th>실습자가 직접 생성</th></tr></thead>
+            <tbody><tr><td><strong>계정 + 고객별 RG + 사용자 RBAC</strong><br>구독 RP·쿼터·정책 사전 확인, 인계·지원 경로.</td><td><strong>배정 RG 안의 Foundry·프로젝트·모델·Agent·관측성</strong><br>새 RG 생성·역할 할당·구독 설정은 참가자 작업이 아닙니다.</td></tr></tbody>
+          </table>
+        </div>
+        <ol class="flow" aria-label="운영자 준비 순서">
+          <li>역할 확인<small>받는 주체·Scope</small></li><li>A 또는 B<small>하나만 선택</small></li><li>공통 점검<small>로그인·격리·용량</small></li><li>고객 인계<small>본인 값만 전달</small></li>
+        </ol>
+        <div class="runbook-grid" aria-label="환경 준비 방법 선택">
+          <article class="runbook-card recommended">
+            <p class="section-label">METHOD A · 50명 운영 권장</p>
+            <h3>스크립트로 일괄 준비</h3>
+            <p>계정·RG·역할·RP를 한 번에 준비합니다. 같은 설정으로 누락분을 보완하고 전용 검증 스크립트로 재조회합니다.</p>
+            <a class="button" href="#automation">A 절차로 이동 →</a>
+          </article>
+          <article class="runbook-card">
+            <p class="section-label">METHOD B · 소규모·수동 준비</p>
+            <h3>포털에서 하나씩 준비</h3>
+            <p>Entra/Azure Portal에서 계정·RG·역할을 만들고 운영 대장과 Check access로 대조합니다. 생성 결과는 A와 같습니다.</p>
+            <a class="button" href="#portal">B 절차로 이동 →</a>
+          </article>
+        </div>
+        <div class="notice warning"><strong>같은 참가자 환경을 A와 B로 중복 생성하지 않습니다.</strong> 준비 후에는 방법과 관계없이 <a href="#preflight">6가지 필수 점검</a>을 수행합니다. 운영자 로그인 성공이나 “생성 완료” 메시지만으로 고객에게 인계하지 않습니다.</div>
+      </section>
+
+      <section class="panel observed-section" id="participant-roles">
+        <p class="section-label">GRANT TO THE PARTICIPANT · NOT TO THE PROJECT MI</p>
+        <h2>참가자 사용자에게 아래 Azure 역할 3개를 부여합니다.</h2>
+        <p class="intro"><strong>계정 기준:</strong> 대상 workforce 테넌트의 활성 <strong>Internal Guest</strong>, Entra 관리자 역할 <strong>없음</strong>. 아래 역할을 받을 주체는 해당 참가자의 <strong>사용자 Object ID</strong>입니다. 표시 이름이나 프로젝트 MI를 대신 선택하지 않습니다.</p>
+        <div class="table-wrap">
+          <table class="grant-table" aria-label="운영자가 실습자에게 부여할 필수 역할" data-actor="participant">
+            <thead><tr><th>역할</th><th>정확한 Scope</th><th>허용할 작업</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Contributor</strong></td><td><span class="scope-badge">본인 RG</span></td><td>배정 RG 안의 Foundry·프로젝트·모델·관측성 자원 생성·관리. 역할 할당 권한은 없음.</td></tr>
+              <tr><td><strong>Foundry User</strong></td><td><span class="scope-badge">본인 RG</span></td><td>해당 RG 아래 Foundry·프로젝트의 모델/Agent 데이터 평면 사용. 이 역할만으로 자원 배포는 안 됨.</td></tr>
+              <tr><td><strong>Cognitive Services Usages Reader</strong></td><td><span class="scope-badge">실습 구독</span></td><td>모델 배포 검증에 필요한 사용량·쿼터 조회. RG 범위만으로 구독 Usages API를 읽을 수 없음.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="notice warning"><strong>주지 않는 권한:</strong> 참가자에게 구독 Contributor·Reader, Owner, RBAC Administrator, Entra 관리자 역할을 일괄 부여하지 않습니다. 모두를 묶은 그룹에 모든 개인 RG 역할을 주지 않습니다. <strong>RG 권한은 개인별 비용·TPM 하드캡이 아닙니다.</strong></div>
+        <details>
+          <summary>역할 GUID·Scope 예시와 계정 유형 참고</summary>
+          <div class="details-body">
+            <div class="table-wrap"><table aria-label="필수 역할 GUID"><thead><tr><th>역할</th><th>GUID</th></tr></thead><tbody>
+              <tr><td>Contributor</td><td><code>b24988ac-6180-42a0-ab88-20f7382dd24c</code></td></tr>
+              <tr><td>Foundry User</td><td><code>53ca6127-db72-4b80-b1b0-d745d6d5456d</code></td></tr>
+              <tr><td>Cognitive Services Usages Reader</td><td><code>bba48692-92b0-4667-a9ad-c31c7b334ac2</code></td></tr>
+            </tbody></table></div>
+            <p>앞의 두 역할 Scope: <code>/subscriptions/&lt;subscription-id&gt;/resourceGroups/&lt;my-rg&gt;</code><br>Usages Reader Scope: <code>/subscriptions/&lt;subscription-id&gt;</code></p>
+            <p>Foundry User의 이전 이름은 Azure AI User이며 GUID는 같습니다. Internal Member 전환은 이 실습의 필수 조건이 아닙니다. External Guest는 외부 초대·로그인 정책을 별도로 검증해야 하며 일괄 생성 스크립트의 대상이 아닙니다.</p>
+            <p><a href="index.html#account-types">고객용 계정 유형 설명</a> · <a href="https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry" target="_blank" rel="noopener noreferrer">Foundry 공식 RBAC·실행 신원 기준</a></p>
+          </div>
+        </details>
+      </section>
+
+      <section class="panel observed-section" id="operator-roles">
+        <p class="section-label">SE PERMISSIONS · DO NOT COPY TO PARTICIPANTS</p>
+        <h2>다음은 SE 자신에게 필요한 권한입니다.</h2>
+        <p class="intro">참가자에게 주는 위 세 역할과 구분합니다. 담당은 분리할 수 있지만 스크립트 적용 주체는 계정 생성·Azure 생성/할당 권한을 함께 사용할 수 있어야 합니다. 기존 권한으로 가능하면 중복 부여하지 않습니다.</p>
+        <div class="table-wrap">
+          <table class="grant-table" aria-label="운영자 역할과 작업" data-actor="operator">
+            <thead><tr><th>SE 역할·Scope</th><th>필요한 작업</th><th>적용</th></tr></thead>
+            <tbody>
+              <tr><td><strong>User Administrator</strong><br>Entra · 대상 테넌트</td><td>Internal Guest 계정 생성·초기 암호 관리, 승인된 차단·삭제.</td><td>A·B 공통</td></tr>
+              <tr><td><strong>Contributor</strong><br>Azure · 실습 구독</td><td>개인별 RG 생성·RP 등록·자원 조회. 사용자 역할 할당은 이 역할만으로 안 됨.</td><td>A·B 공통</td></tr>
+              <tr><td><strong>Role Based Access Control Administrator</strong><br>Azure · 실습 구독</td><td>참가자 세 역할과 필요한 MI 역할 할당·회수. 할당 조건이 있으면 대상·역할·Scope 허용을 확인.</td><td>A·B 공통</td></tr>
+              <tr><td><strong>Directory Readers 등 승인된 읽기 권한</strong><br>Entra · 대상 테넌트</td><td>사용자·전이 그룹·활성 Entra 역할 조회. A의 Graph 검증에는 위임 권한·관리자 동의도 확인. 403을 무시하고 통과시키지 않음.</td><td>권한 검증</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="notice"><strong>기존 구독 Owner</strong>는 Azure Contributor + RBAC Administrator의 대안입니다. Contributor + User Access Administrator도 대안입니다. <strong>Azure Owner는 Entra User Administrator를 대체하지 않습니다.</strong> 스크립트는 SE 역할·Graph 앱 동의를 부여하지 않습니다.</div>
+        <details><summary>MFA·조건부 액세스 지원과 공식 권한 참고</summary><div class="details-body">
+          <p>기존 인증 정책을 유지하면 추가 정책 관리 역할을 줄 이유가 없습니다. 정책 변경은 Conditional Access Administrator, 비관리자 참가자 인증 방법 초기화는 Authentication Administrator 등 해당 담당자가 승인된 절차로 지원합니다. Entra 관리자 역할의 최초 부여도 기존 권한 담당자에게 요청합니다.</p>
+          <p><a href="https://learn.microsoft.com/entra/fundamentals/how-to-create-delete-users" target="_blank" rel="noopener noreferrer">계정 생성 권한</a> · <a href="https://learn.microsoft.com/azure/role-based-access-control/rbac-and-directory-admin-roles" target="_blank" rel="noopener noreferrer">Entra와 Azure 역할 구분</a> · <a href="https://learn.microsoft.com/azure/role-based-access-control/built-in-roles/privileged" target="_blank" rel="noopener noreferrer">Azure 관리 역할 정의</a></p>
+        </div></details>
+      </section>
+
       <section class="panel observed-section" id="automation">
-        <p class="section-label">SCRIPT FIRST · PLAN → APPLY → VERIFY → HANDOFF</p>
-        <h2>50번 클릭하지 않고, 필요할 때마다 일괄 실행합니다.</h2>
-        <p class="intro"><strong>실제 환경 구성은 아래 스크립트로 수행합니다.</strong> 이 페이지의 나머지 내용은 계정·역할·쿼터·문제 대응 참고 문서입니다. 일괄 생성과 검증을 통과한 뒤 MFA·모델 쿼터·참가자 E2E를 리허설하고 고객에게 인계합니다.</p>
+        <p class="section-label">METHOD A · SCRIPT · 50명 운영 권장</p>
+        <h2>A. 스크립트로 계정·RG·RBAC를 일괄 준비합니다.</h2>
+        <p class="intro"><strong>A를 선택했다면 B의 수동 생성은 하지 않습니다.</strong> 기본은 읽기 전용 계획이며 <code>--apply</code>를 명시해야 생성됩니다. 생성 후 전용 검증을 실행하고 <a href="#preflight">공통 필수 점검</a>으로 이동합니다.</p>
         <div class="table-wrap">
           <table aria-label="일괄 준비 도구와 기본 동작">
             <thead><tr><th>도구</th><th>동작</th></tr></thead>
@@ -89,8 +171,8 @@
         <pre aria-label="스크립트 설치와 설정">git clone https://github.com/junwoojeong100/internal-guest-hands-on-guide.git
 cd internal-guest-hands-on-guide
 cp config/workshop.example.json config/workshop.local.json
-# local.json을 편집한 뒤 대상 테넌트의 승인된 SE 계정으로 로그인
-az login --tenant &lt;tenantId&gt;</pre>
+# local.json을 편집하고 아래 값을 실제 tenantId로 바꾼 뒤 SE 계정으로 로그인
+az login --tenant "REPLACE_WITH_TENANT_ID"</pre>
         <p class="intro">예제의 대상 테넌트·구독을 확인하고 <strong>행사별 고유 <code>workshopId</code>·허용 지역·인원</strong>을 설정합니다. <code>participantCount</code>는 기본 50명이며 1~999의 정수입니다. 아래 값은 예시이고 자동 실행되지 않습니다.</p>
         <pre aria-label="워크샵 JSON 설정 예시">{
   "tenantId": "bef96070-a122-48bc-bf5c-03149f4ac286",
@@ -110,7 +192,12 @@ python3 scripts/provision_workshop.py --config config/workshop.local.json --appl
 # 별도 검증: 실제 상태를 재조회, 비정상이면 종료 코드 1
 python3 scripts/verify_workshop.py --config config/workshop.local.json</pre>
         <div class="notice"><strong>자동화 범위는 사전 계정·RG·사용자 RBAC·RP까지입니다.</strong> Foundry·프로젝트·모델·Log Analytics·App Insights, 모델 그룹/TPM 설정, MFA/조건부 액세스 변경, SE 역할 부여, 프로젝트 MI 후속 권한, 자동 종료·삭제는 포함하지 않습니다. 필요한 리소스는 참가자가 본인 RG 안에서 생성합니다. 인원 수 입력은 Foundry 자원 수·쿼터·부하 수용을 보장하지 않습니다.</div>
-        <h3 class="role-title">3. 비공개 결과를 보관하고 필요한 값만 인계합니다.</h3>
+        <h3 class="role-title">3. 검증 결과를 확인하고 공통 점검으로 이동합니다.</h3>
+        <p class="intro"><code>verification.private.json</code>의 <strong><code>passed=true</code> · <code>status=complete</code> · 최신 시각</strong>을 확인합니다. 종료 코드 1·미완료·조회 오류는 통과가 아닙니다. 이 검증은 스크립트의 이름·마커·태그를 가진 환경 전용이며 포털 수동 생성분을 자동 채택하지 않습니다.</p>
+        <a class="button" href="#preflight">A 생성·검증 후 → 공통 필수 점검</a>
+        <details>
+          <summary>A 운영 참고 · 비공개 결과·재실행·실패 복구</summary>
+          <div class="details-body">
         <div class="table-wrap">
           <table aria-label="비공개 실행 파일과 용도">
             <thead><tr><th><code>.workshop-runs/&lt;workshopId&gt;/</code></th><th>내용·취급</th></tr></thead>
@@ -130,10 +217,8 @@ python3 scripts/verify_workshop.py --config config/workshop.local.json</pre>
           <li><strong>새 행사:</strong> 새 고유 <code>workshopId</code>로 준비합니다. 같은 워크샵은 한 SE가 한 실행 폴더에서 순차 실행하며 다른 기기에서 동시에 적용하지 않습니다.</li>
           <li><strong>전파·조회 오류:</strong> 권한 반영에는 시간이 걸릴 수 있습니다. 401/403은 로그인·Graph 동의·SE 역할·Scope를 확인하고, 전파 대기 후 검증을 다시 실행합니다. 오류를 숨기거나 참가자에게 더 높은 역할을 주지 않습니다.</li>
         </ol>
-        <h3 class="role-title" id="rg-visibility">참가자는 본인 RG만 보이고 접근하나요?</h3>
-        <p class="intro"><strong>대상 구독에 위 세 역할만 있으면 본인 RG가 접근 범위입니다.</strong> 구독 범위의 Cognitive Services Usages Reader는 <code>Microsoft.CognitiveServices/locations/usages/read</code>만 허용하며 다른 RG 목록·리소스 조회 역할이 아닙니다. 쿼터는 구독 단위로 공유되어 조회할 수 있습니다. 구독 Reader·Contributor를 참가자에게 주는 방식과 다릅니다.</p>
-        <p class="intro">검증 스크립트는 정확한 세 직접 역할뿐 아니라 <strong>대상 구독의 다른 RG·리소스·구독·상위 관리 그룹/루트 Scope, 중첩 그룹 경유 추가 Azure 역할, 활성 Entra 역할</strong>도 검사해 실패 처리합니다. Usages Reader의 실제 역할 정의가 달라져도 중단합니다. 기존 권한은 자동 삭제하지 않습니다.</p>
-        <div class="notice warning"><strong>검증은 현재 상태의 API 점검이지 모든 접근의 영구 보장이 아닙니다.</strong> 다른 구독·테넌트의 권한, PIM eligible·향후 동적 그룹 변경, 로그인·MFA·조건부 액세스·정책/deny, 실제 포털 접근 거부·Foundry 실행·TPM·50명 부하는 별도입니다. 검증 후에도 최소 두 테스트 계정으로 <a href="#preflight">상호 접근 거부와 E2E 리허설</a>을 수행하세요. 모델 한도는 <a href="#model-groups">별도 배정·점검</a>합니다.</div>
+          </div>
+        </details>
         <details>
           <summary>Azure를 변경하지 않는 스크립트 자체 테스트·공식 API 근거</summary>
           <div class="details-body">
@@ -144,78 +229,26 @@ python3 scripts/verify_workshop.py --config config/workshop.local.json</pre>
         </details>
       </section>
 
-      <section class="panel observed-section" id="plan">
-        <p class="section-label">FIXED HANDOFF BOUNDARY · RESOURCE GROUP ONLY</p>
-        <h2>운영자는 RG까지, 실습자는 RG 안의 리소스를 만듭니다.</h2>
-        <p class="intro">이 가이드의 환경 제공 방식은 고정입니다. 운영자가 Foundry·프로젝트·모델을 미리 만들어 고객에게 넘기는 방식이 아닙니다. 워크샵마다 테넌트·구독·지역·계정 유형·필요한 리소스·종료 시각·지원 담당자를 확정합니다.</p>
-        <div class="table-wrap">
-          <table aria-label="운영자와 실습자의 생성 경계">
-            <thead><tr><th>담당·시점</th><th>제공·생성 대상</th><th>경계</th></tr></thead>
-            <tbody>
-              <tr><td><strong>운영자 · 인계 전</strong></td><td>참가자별 계정·RG·사용자 RBAC, 구독 RP 등록·쿼터·정책 점검.</td><td>고객에게는 계정과 배정 RG를 제공합니다. 실습용 Foundry·프로젝트·모델·Log Analytics·App Insights는 미리 생성하지 않습니다.</td></tr>
-              <tr><td><strong>실습자 · 실습 중</strong></td><td>본인 RG 안의 Foundry·프로젝트·모델 배포·Agent·관측성 등 실습에 필요한 리소스.</td><td>고객별 본인 RG만 사용합니다. 새 RG·다른 고객 계정·RBAC 역할 할당·구독 설정은 실습자 작업이 아닙니다.</td></tr>
-              <tr><td><strong>운영자 · 필요 시 지원</strong></td><td>실습자 생성 이후의 권한·MI·RP·쿼터 관련 지원.</td><td>필요한 권한만 확인·지원하며 리소스 생성 주체를 운영자로 바꾸거나 고객에게 역할 할당 권한을 넘기지 않습니다.</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <ol class="flow" aria-label="준비 순서">
-          <li>계정<small>로그인·MFA</small></li><li>배정 RG<small>고객별 범위</small></li><li>권한<small>사용자·MI</small></li><li>검증<small>인계 전 확인</small></li>
-        </ol>
-        <div class="flow-bottom">운영자: 계정 + RG + RBAC → 실습자: RG 안에서 리소스 생성·실행·추적 → 운영자: 승인된 종료 처리</div>
-        <div class="notice warning"><strong>RG가 비용·쿼터까지 격리하지는 않습니다.</strong> 개인별 Foundry 리소스여도 모델 쿼터는 같은 구독·지역·모델·배포 유형에서 공유됩니다. RG Contributor의 삭제 권한도 있으므로, 본인 RG 안의 작업·삭제 정책을 함께 안내합니다.</div>
-        <ol class="task-list">
-          <li><strong>개최 전 계획:</strong> 구독 오퍼의 외부 고객 교육 사용 허용 여부, 서비스 약관·조직 정책, 지역·데이터 처리 요건, 예상 비용과 쿼터 신청을 확인합니다.</li>
-          <li><strong>계정 배포 전:</strong> 별도 테스트 계정 2개가 각자 테스트 RG 안에 리소스를 생성·실행하고 상호 접근이 거부되는지 검증합니다. 다른 실습 내용·도구·외부 B2B 계정은 별도로 검증합니다.</li>
-          <li><strong>개최 전날·당일:</strong> 대상 인원·환경 대장·만료 시각·문의 경로·운영자 대체 담당을 확정하고, 모델 가용성과 권한·로그 동작을 다시 확인합니다.</li>
-        </ol>
-      </section>
-
-      <section class="panel observed-section" id="operator-roles">
-        <p class="section-label">OPERATOR PERMISSIONS ARE NOT PARTICIPANT PERMISSIONS</p>
-        <h2>Entra 계정 관리와 Azure 자원 관리를 구분합니다.</h2>
-        <p class="intro">아래는 준비 작업에 필요한 권한 구성이지 특정 SE 계정의 실제 역할 감사 목록이 아닙니다. 담당은 분리할 수 있지만, 일괄 생성 스크립트의 실행 주체는 사용자 생성·권한 조회·Azure 생성/할당 권한을 함께 사용할 수 있어야 합니다. 검증은 필요한 읽기 권한을 가진 별도 SE가 수행할 수 있습니다.</p>
-        <div class="table-wrap">
-          <table aria-label="운영자 역할과 작업" data-actor="operator">
-            <thead><tr><th>체계</th><th>운영자 역할 · 범위</th><th>작업</th></tr></thead>
-            <tbody>
-              <tr><td>Entra ID</td><td><strong>User Administrator · 대상 테넌트</strong></td><td>내부 사용자·Internal Guest 생성, 초기 암호 관리, 계정 차단·승인된 삭제. 외부 초대만 하는 담당자는 Guest Inviter 등 초대 권한으로 별도 설계합니다.</td></tr>
-              <tr><td>Entra · 검증 읽기</td><td><strong>Directory Readers 등 승인된 역할 조회 권한 · 대상 테넌트</strong></td><td>Graph의 사용자 속성·도메인·전이 그룹과 활성 <code>roleManagement/directory/roleAssignments</code>를 조회합니다. 필요한 Graph 위임 권한·관리자 동의도 확인합니다. 기존 권한으로 조회되면 중복 할당하지 않으며, 403을 무시하고 “관리 역할 없음”으로 판정하지 않습니다.</td></tr>
-              <tr><td>Azure RBAC</td><td><strong>Contributor · 실습 구독</strong></td><td>고객별 RG 생성, 필요한 RP 등록, 리소스·모델 배포·쿼터 조회, 승인된 자원 정리. 사용자 역할 할당 권한은 포함하지 않습니다.</td></tr>
-              <tr><td>Azure RBAC</td><td><strong>Role Based Access Control Administrator · 실습 구독</strong></td><td>사용자·Managed Identity에 필요한 Azure 역할 할당·회수. 구독 Usages Reader와 RG 내부 역할을 모두 준비하므로 구독 범위가 필요합니다. 역할·대상에 할당 조건을 적용할 수 있습니다.</td></tr>
-              <tr><td>필요할 때만</td><td><strong>정책·인증 담당자의 해당 Entra 역할</strong></td><td>조건부 액세스 변경은 Conditional Access Administrator, 비관리자 참가자 인증 방법 초기화는 Authentication Administrator 등 해당 권한의 담당자에게 요청합니다. 기존 정책을 유지하면 정책 변경 역할을 추가할 이유가 없습니다.</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="notice"><strong>이미 구독 Owner인 Azure 담당자</strong>는 Contributor + RBAC Administrator 작업을 수행할 수 있으므로 중복 할당하지 않습니다. Contributor + User Access Administrator도 대안입니다. <strong>Azure Owner는 Entra User Administrator를 대체하지 않으며, Entra Global Administrator도 기본적으로 Azure Owner가 아닙니다.</strong> Entra 관리자 역할을 최초 부여하는 작업은 기존 권한 담당자에게 요청합니다.</div>
-        <div class="notice warning">위 운영자 역할을 참가자에게 복사하지 않습니다. 참가자의 Entra 관리자 역할은 <strong>없음</strong>이 기본이며, Azure 역할은 본인 RG의 Contributor·Foundry User와 구독의 Cognitive Services Usages Reader를 기준으로 합니다. 최종 리허설은 참가자 계정이 직접 리소스를 생성·실행하는 방식으로 합니다.</div>
-        <p class="intro"><a href="https://learn.microsoft.com/entra/fundamentals/how-to-create-delete-users" target="_blank" rel="noopener noreferrer">계정 생성 권한</a> · <a href="https://learn.microsoft.com/azure/role-based-access-control/rbac-and-directory-admin-roles" target="_blank" rel="noopener noreferrer">Entra 역할과 Azure RBAC 차이</a> · <a href="https://learn.microsoft.com/azure/role-based-access-control/built-in-roles/privileged" target="_blank" rel="noopener noreferrer">Azure 관리 역할 정의</a></p>
-      </section>
-
-      <section class="panel observed-section" id="identity">
-        <p class="section-label">ONE IDENTITY PER PARTICIPANT</p>
-        <h2>계정 유형과 로그인 방법을 함께 전달합니다.</h2>
-        <p class="intro">기본 예시는 <strong>workforce 테넌트의 Internal Guest</strong>입니다. 테넌트 내부 자격 증명으로 로그인하지만 디렉터리 기본 권한은 Guest 수준입니다. Guest는 Azure 역할 이름이 아닙니다. <strong>계정은 <a href="#automation">스크립트로 일괄 생성</a>하고 아래 포털 경로는 속성 확인·문제 대응 참고로 사용합니다.</strong></p>
+      <section class="panel observed-section" id="portal">
+        <p class="section-label">METHOD B · PORTAL · 수동 준비</p>
+        <h2>B. Entra/Azure Portal에서 계정·RG·RBAC를 만듭니다.</h2>
+        <p class="intro"><strong>B만 수행해도 같은 인계 범위를 준비할 수 있습니다.</strong> 참가자별로 아래 절차를 반복하고 운영 대장에 계정·Object ID·RG·세 역할의 Scope를 기록합니다. 50명 반복 운영에는 <a href="#automation">A의 일괄 준비</a>를 권장합니다.</p>
+        <h3 class="role-title" id="identity">1. Entra Portal에서 Internal Guest 계정을 생성합니다.</h3>
         <ol class="task-list">
           <li><a href="https://entra.microsoft.com/" target="_blank" rel="noopener noreferrer">Entra admin center</a>에서 대상 테넌트 확인 → Entra ID → Users → New user → <strong>Create new user</strong>.</li>
-          <li>참가자별 고유 UPN·표시 이름·초기 암호를 준비하고, Properties → Identity → <strong>User type=Guest</strong>를 선택합니다. 계정 활성 상태를 확인하고 Entra 관리자 역할은 할당하지 않습니다.</li>
+          <li>참가자별 고유 UPN·표시 이름·초기 암호를 준비하고, Properties → Identity → <strong>User type=Guest</strong>를 선택합니다. 계정을 활성화하고 최초 로그인 암호 변경을 요구합니다. Entra 관리자 역할은 할당하지 않습니다.</li>
           <li>대상 테넌트의 <strong>사용자 Object ID</strong>를 운영 대장에 기록합니다. 비슷한 표시 이름이나 외부 계정의 홈 테넌트 Object ID로 Azure 역할을 잘못 할당하지 않습니다.</li>
           <li>초기 암호는 가이드·GitHub·영상·일반 고객 명단과 분리된 승인된 경로로 전달합니다. 첫 로그인·필요한 암호 변경·MFA 등록은 참가자가 직접 완료합니다.</li>
           <li>실제 고객 기기·네트워크에서 로그인과 MFA를 미리 시험합니다. “5시간 실습”이 인증 정책 예외나 세션 만료를 없애 주지는 않습니다.</li>
         </ol>
-        <div class="notice"><strong>Internal Member도 사용할 수 있지만 필수는 아닙니다.</strong> Member 변경은 디렉터리 기본 접근에 영향을 주고 Azure RBAC를 대신하지 않습니다. <strong>External Guest</strong>는 Invite external user로 초대하고 외부 계정으로 인증하는 다른 시나리오입니다. 초대 수락·cross-tenant access·조건부 액세스·MFA 신뢰를 점검하고 별도 E2E를 수행하세요.</div>
-        <div class="notice warning">이 워크샵은 Azure Portal을 사용하는 workforce 테넌트 시나리오입니다. 고객 앱 로그인용 Entra External ID 외부 테넌트·B2C 계정을 같은 방식으로 취급하지 않습니다. Guest 접근 제한이 나타나면 우선 정책과 권한 범위를 확인하고, 일괄 Guest → Member 전환이나 Guest 디렉터리 접근 제한 해제를 해결책으로 삼지 않습니다.</div>
-        <p class="intro"><a href="index.html#account-types">고객에게 안내할 계정 유형 표</a> · <a href="https://learn.microsoft.com/entra/identity-platform/reference-error-codes" target="_blank" rel="noopener noreferrer">로그인 오류 코드 참고</a></p>
-      </section>
-
-      <section class="panel observed-section" id="provision">
-        <p class="section-label">RESOURCE GROUP FIRST · IDENTITY-SPECIFIC RBAC</p>
-        <h2>고객별 RG와 사용자 역할을 준비하고, MI도 따로 점검합니다.</h2>
+        <p class="intro">외부 초대가 아닌 <strong>Create new user</strong>입니다. 계정 유형을 바꾸거나 인증 정책을 완화해 오류를 해결하지 않습니다. 다른 유형은 <a href="index.html#account-types">계정 유형 참고</a>와 별도 리허설을 따릅니다.</p>
+        <h3 class="role-title" id="provision">2. Azure Portal에서 RP·개인별 RG·사용자 역할을 준비합니다.</h3>
         <ol class="task-list">
-          <li><a href="#automation">스크립트로 RG·사용자 역할·필요한 RP를 일괄 준비·검증</a>합니다. 아래 Azure Portal 경로는 결과 확인·장애 대응 참고이며 50명 수동 생성 순서가 아닙니다.</li>
-          <li>Azure Portal → Subscriptions에서 대상 구독·테넌트·운영자 권한, Resource providers의 Registered 상태를 확인합니다. Resource groups에서 <code>rg-&lt;workshopId&gt;-&lt;participant-id&gt;</code>와 고객별 매핑·소유권 태그를 점검합니다.</li>
-          <li>각 RG → Access control (IAM) → Add role assignment에서 해당 참가자에게 <strong>Contributor + Foundry User</strong>를 할당합니다. 구독 IAM에서는 <strong>Cognitive Services Usages Reader</strong>를 할당합니다. <a href="index.html#participant-roles">실습자 필수 역할·범위</a>와 대조합니다.</li>
-          <li>인계할 고객 RG에는 실습용 Foundry·프로젝트·모델·관측성 리소스를 미리 만들지 않습니다. 모든 참가자를 묶은 그룹에 모든 개인 RG의 Contributor·Foundry User를 주지 않습니다.</li>
-          <li>역할 이름·GUID·대상 Object ID·실제 Scope·상속·그룹 멤버십을 Check access로 확인합니다. 모델 배포 검증에 필요한 Usages Reader는 RG가 아닌 <strong>구독</strong> 범위입니다.</li>
+          <li><strong>구독 RP:</strong> Azure Portal → Subscriptions → 대상 구독 → Resource providers에서 필요한 공급자를 Register하고 Registered를 확인합니다. 이 작업은 구독당 준비하며 참가자에게 구독 권한을 주지 않습니다.</li>
+          <li><strong>RG:</strong> Resource groups → Create → 대상 구독·허용 지역·참가자별 고유 이름을 지정합니다. 예: <code>rg-&lt;workshopId&gt;-001</code>. Workshop ID·참가자 번호 등의 비민감 태그와 계정/RG 매핑을 대장에 기록합니다.</li>
+          <li><strong>본인 RG 역할 2개:</strong> 해당 RG → Access control (IAM) → Add role assignment에서 <strong>Contributor</strong>와 <strong>Foundry User</strong>를 각각 추가합니다. Members는 해당 참가자의 UPN으로 찾되 <strong>Object ID</strong>를 대조하고 Review + assign합니다.</li>
+          <li><strong>구독 조회 역할 1개:</strong> Subscriptions → 대상 구독 → IAM에서 같은 사용자에게 <strong>Cognitive Services Usages Reader</strong>만 추가합니다. <a href="#participant-roles">세 역할·Scope 표</a>와 대조합니다.</li>
+          <li><strong>빈 RG로 인계:</strong> 고객 RG에 Foundry·프로젝트·모델·관측성을 미리 만들지 않습니다. 모델/MI 권한 후속 지원은 <a href="#managed-identity">참가자가 프로젝트를 만든 이후</a> 수행합니다.</li>
         </ol>
         <details>
           <summary>이번 포털 검증에서 확인한 RP와 실제 생성 오류</summary>
@@ -226,20 +259,63 @@ python3 scripts/verify_workshop.py --config config/workshop.local.json</pre>
             <p><a href="index.html#troubleshooting">고객용 실제 오류 화면</a> · <a href="https://learn.microsoft.com/azure/azure-resource-manager/management/resource-providers-and-types" target="_blank" rel="noopener noreferrer">RP 등록 권한·절차</a></p>
           </div>
         </details>
-        <h3 class="role-title" id="managed-identity">사용자 RBAC와 프로젝트 Managed Identity는 별개입니다.</h3>
+        <h3 class="role-title">3. 운영 대장과 포털의 실제 권한을 대조합니다.</h3>
+        <ol class="task-list">
+          <li><strong>계정:</strong> Entra Users에서 UPN·Object ID·활성·User type=Guest, Assigned roles에서 활성 Entra 관리자 역할이 없음을 확인합니다. 그룹을 통한 역할과 PIM 사용 여부도 해당 담당자가 점검합니다.</li>
+          <li><strong>Azure:</strong> 구독·본인 RG의 IAM → Check access에서 해당 사용자를 선택하고 역할 이름·GUID·Scope·직접/상속/그룹 할당을 대조합니다. 다른 RG·리소스·상위 관리 그룹의 추가 접근도 점검합니다. 직접 역할 세 줄만 보지 않습니다.</li>
+          <li><strong>대장:</strong> 참가자 수와 계정·RG 매핑이 일치하고 각 참가자의 세 역할·Scope, RP Registered, 점검 시각·담당자가 모두 기록되어야 합니다. 로그인과 실제 접근 격리는 아래 공통 리허설에서 확인합니다.</li>
+        </ol>
+        <div class="notice warning"><strong>B는 포털·운영 대장으로 검증합니다.</strong> <code>verify_workshop.py</code>는 A가 만든 소유권 마커·이름·태그를 검사하므로 순수 수동 환경에는 그대로 적용할 수 없습니다. 기존 수동 계정을 A로 채택하거나 마커 검사를 우회하지 않습니다.</div>
+        <a class="button" href="#preflight">B 생성·포털 확인 후 → 공통 필수 점검</a>
+      </section>
+
+      <section class="panel observed-section" id="preflight">
+        <p class="section-label">COMMON TO A AND B · GO / NO-GO</p>
+        <h2>인계 전, 아래 6가지를 모두 확인합니다.</h2>
+        <p class="intro"><strong>생성 결과 확인은 A/B에 따라 다르고, 개최 전 리허설은 공통입니다.</strong> 운영자·Owner·공용 키의 성공으로 참가자 검증을 대신하지 않습니다. 고객에게 줄 RG는 비워 두고, 별도 테스트 계정 2개와 테스트 RG에서 고객 기기·브라우저·네트워크로 확인합니다.</p>
         <div class="table-wrap">
-          <table aria-label="사용자와 실행 신원별 권한 점검">
-            <thead><tr><th>권한을 받는 주체</th><th>SE 확인·할당</th><th>시점·주의점</th></tr></thead>
+          <table aria-label="생성 방법별 결과 검증">
+            <thead><tr><th>선택한 방법</th><th>공통 점검에 들어가기 전 확보할 결과</th></tr></thead>
             <tbody>
-              <tr><td>참가자 사용자</td><td>본인 RG의 Contributor·Foundry User와 구독의 Usages Reader.</td><td>워크샵 전에 준비합니다. 사용자에게 역할을 줘도 프로젝트 MI에 같은 역할이 생기지 않습니다.</td></tr>
-              <tr><td>프로젝트 MI</td><td>공식 시작 기준의 <strong>Foundry User · 부모 Foundry 리소스</strong>를 확인하고 필요한 미할당 권한은 SE가 지원합니다.</td><td><strong>참가자가 프로젝트를 생성한 이후</strong> MI Object ID를 확인합니다. 인계 전 프로젝트를 만드는 절차가 아닙니다. 역할 할당 권한 없는 생성자의 UI 자동 할당을 가정하지 않습니다.</td></tr>
-              <tr><td>도구·연결 실행 신원</td><td>실제 인증 주체가 사용하는 Search·Storage 등 대상 서비스의 데이터 권한.</td><td>인증 방식에 따라 사용자·프로젝트 MI·Foundry 리소스 MI 등이 다릅니다. 조회 전용이면 필요한 Reader 데이터 역할부터 검토하고 쓰기·역할 할당 권한은 별도로 판단합니다.</td></tr>
+              <tr><td><strong>A · 스크립트</strong></td><td>같은 설정의 <code>verify_workshop.py</code>가 종료 코드 0. 최신 보고서의 <code>passed=true</code>·<code>status=complete</code>, 대상 테넌트·구독·행사·인원 일치.</td></tr>
+              <tr><td><strong>B · 포털 수동</strong></td><td>운영 대장 ↔ Entra 사용자/역할 ↔ Azure IAM Check access 일치. 참가자별 Object ID·RG·세 역할의 Scope·추가 권한 확인과 담당자 기록.</td></tr>
             </tbody>
           </table>
         </div>
-        <div class="notice">기존 기본 Agent E2E는 <code>tools=[]</code>이며 사용자 역할 3개를 확인했습니다. 공개 검증 JSON은 <strong>MI의 완전한 권한 감사 자료가 아닙니다.</strong> 도구·SDK·Hosted Agent·게시 등으로 확장할 때 이 결과만으로 충분한 권한이라고 일반화하지 않습니다.</div>
-        <p class="intro"><a href="https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry" target="_blank" rel="noopener noreferrer">공식 Foundry 사용자·MI·프로젝트 Scope 기준</a>. Foundry User의 이전 이름은 Azure AI User이며 역할 ID는 <code>53ca6127-db72-4b80-b1b0-d745d6d5456d</code>로 동일합니다. 자동화 시 이름 변경을 고려해 GUID를 확인합니다.</p>
-        <div class="notice warning">MI나 연결 대상의 권한 지원이 필요해도 참가자에게 Owner·RBAC Administrator를 주지 않습니다. <strong>참가자는 리소스를 생성하고, SE는 필요한 권한만 지원</strong>한다는 경계를 유지합니다.</div>
+        <div class="runbook-grid" aria-label="인계 전 여섯 가지 필수 점검">
+          <article class="runbook-card"><h3>01 · 계정·첫 로그인·MFA</h3><p>활성 Internal Guest, 올바른 테넌트·구독·본인 RG를 확인합니다. 첫 암호 변경·MFA를 고객 로그인 경로에서 완료할 수 있어야 합니다.</p></article>
+          <article class="runbook-card"><h3>02 · 역할·고객 간 격리</h3><p>개인 Object ID와 세 역할의 Scope를 대조합니다. 상위·다른 RG·그룹 경유 접근도 확인하고, 두 테스트 참가자의 <strong>상호 RG·프로젝트 접근 거부</strong>를 확인합니다.</p></article>
+          <article class="runbook-card"><h3>03 · RP·정책·지역</h3><p>필요한 RP Registered, 허용 지역·SKU·네트워크를 확인합니다. 구독 오퍼의 외부 고객 교육 사용 허용 여부·조직 정책·데이터 처리 요건도 승인되어야 합니다.</p></article>
+          <article class="runbook-card"><h3>04 · 모델·TPM·목표 부하</h3><p>배정 모델별 잔여 쿼터·Quota Scope·RPM·지역 공급·자원 수 한도를 확인합니다. 1인 1배포 기준과 TPM을 전달하고 <strong>목표 동시 인원 부하</strong>를 검증합니다. <a href="#capacity">용량 계산 참고 →</a></p></article>
+          <article class="runbook-card"><h3>05 · 참가자 E2E·MI·Traces</h3><p>테스트 참가자가 배정 RG 안에 리소스를 직접 생성합니다. 배정할 각 모델·버전·SKU로 Playground → Agent 응답 → App Insights 연결 후 새 실행 → Monitor·Traces를 확인합니다. MI·도구 신원도 따로 점검합니다.</p></article>
+          <article class="runbook-card"><h3>06 · 비용·인계·종료</h3><p>예산 알림·사용량 점검, 종료/보존 정책·지원 담당·대체 담당을 정합니다. 개인별 배정값과 암호 전달 경로를 분리합니다. <strong>5시간·TPM·예산 알림은 자동 비용 상한이나 종료 장치가 아닙니다.</strong></p></article>
+        </div>
+        <div class="notice warning"><strong>미확인 항목이 있으면 인계·개최 승인 전 보완합니다.</strong> 현재 공개 근거는 Internal Guest 1명의 기본 E2E입니다. 50명 환경 생성·동시 부하 성공, 모든 모델·도구 지원을 증명하지 않습니다.</div>
+
+        <h3 class="role-title" id="rg-visibility">본인 RG만 보이고 접근해야 합니다.</h3>
+        <p class="intro">대상 구독에 안내한 세 역할 외 추가 접근이 없다면 본인 RG가 접근 범위입니다. 구독 Usages Reader는 <code>Microsoft.CognitiveServices/locations/usages/read</code>만 허용하며 다른 RG 목록·리소스 조회 역할이 아닙니다. 구독 쿼터는 공유되어 조회할 수 있습니다.</p>
+        <div class="notice warning"><strong>목록에 안 보임 ≠ 접근 거부.</strong> SE가 소유한 다른 테스트 RG·프로젝트의 직접 링크/허용된 조회 경로로 실제 거부를 확인하고, 공유 로그의 고객 간 노출도 점검합니다. A의 검증도 다른 구독·테넌트, PIM eligible·향후 그룹 변경, 로그인·MFA·정책/deny 효과·포털 접근·Foundry/MI·부하까지 검사하지 않습니다.</div>
+
+        <h3 class="role-title" id="managed-identity">프로젝트 생성 이후의 MI 권한은 SE가 별도로 지원합니다.</h3>
+        <p class="intro">사용자 역할은 프로젝트 Managed Identity에 자동 복사되지 않습니다. 참가자가 프로젝트를 만든 뒤 필요한 MI Object ID·Scope를 확인합니다. 이 지원을 위해 참가자에게 Owner·RBAC Administrator를 주거나, 인계 전에 Foundry를 대신 만들지 않습니다.</p>
+        <details>
+          <summary>프로젝트 MI·도구 실행 신원·로그 조회 권한 점검</summary>
+          <div class="details-body">
+            <div class="table-wrap">
+              <table aria-label="사용자와 실행 신원별 권한 점검">
+                <thead><tr><th>권한을 받는 주체</th><th>SE 확인·할당</th><th>시점·주의점</th></tr></thead>
+                <tbody>
+                  <tr><td>참가자 사용자</td><td>본인 RG의 Contributor·Foundry User와 구독의 Usages Reader.</td><td>워크샵 전에 준비합니다. 사용자에게 역할을 줘도 프로젝트 MI에 같은 역할이 생기지 않습니다.</td></tr>
+                  <tr><td>프로젝트 MI</td><td>공식 시작 기준의 <strong>Foundry User · 부모 Foundry 리소스</strong>를 확인하고 필요한 미할당 권한은 SE가 지원합니다.</td><td><strong>참가자가 프로젝트를 생성한 이후</strong> MI Object ID를 확인합니다. 역할 할당 권한 없는 생성자의 UI 자동 할당을 가정하지 않습니다.</td></tr>
+                  <tr><td>도구·연결 실행 신원</td><td>실제 인증 주체가 사용하는 Search·Storage 등 대상 서비스의 데이터 권한.</td><td>인증 방식에 따라 사용자·프로젝트 MI·Foundry 리소스 MI 등이 다릅니다. 조회 전용이면 필요한 Reader 데이터 역할부터 검토합니다.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>기존 기본 Agent E2E는 <code>tools=[]</code>이며 사용자 역할 3개를 확인했습니다. 공개 검증 JSON은 <strong>MI의 완전한 권한 감사 자료가 아닙니다.</strong> 도구·SDK·Hosted Agent·게시로 확장할 때 다시 검증합니다. <a href="https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry" target="_blank" rel="noopener noreferrer">공식 사용자·MI·Scope 기준</a></p>
+            <p><strong>로그 접근은 별도 리소스 권한입니다.</strong> 로그 조회가 거부되면 연결된 Application Insights의 Log Analytics Reader와 워크스페이스 컨텍스트 권한·접근 모드를 점검합니다. 보호된 테이블은 정책에 따라 Privileged Monitoring Data Reader 등 별도 권한이 필요할 수 있습니다. 필요 없는 권한은 일괄 추가하지 않습니다.</p>
+            <p><a href="https://learn.microsoft.com/azure/foundry/observability/how-to/trace-agent-setup" target="_blank" rel="noopener noreferrer">공식 트레이싱 연결·조회 권한</a>. 기존 실행 성공이 모든 워크스페이스 접근 모드·보호 테이블·고객 로그 격리를 보장하지 않습니다.</p>
+          </div>
+        </details>
       </section>
 
       <section class="panel observed-section" id="capacity">
@@ -305,26 +381,6 @@ python3 scripts/verify_workshop.py --config config/workshop.local.json</pre>
           <li>429 대응은 대기·재시도 간격·실습 시작 분산을 먼저 적용합니다. 승인 없이 유료 PTU나 더 큰 배포로 바꾸지 않습니다.</li>
         </ol>
         <p class="intro"><a href="https://learn.microsoft.com/azure/foundry/openai/how-to/quota" target="_blank" rel="noopener noreferrer">쿼터 관리</a> · <a href="https://learn.microsoft.com/azure/foundry/openai/quotas-limits" target="_blank" rel="noopener noreferrer">Azure OpenAI 한도</a> · <a href="https://learn.microsoft.com/azure/foundry/foundry-models/quotas-limits" target="_blank" rel="noopener noreferrer">Foundry Models 한도</a> · <a href="https://azure.microsoft.com/pricing/calculator/" target="_blank" rel="noopener noreferrer">비용 계산</a></p>
-      </section>
-
-      <section class="panel observed-section" id="preflight">
-        <p class="section-label">GO / NO-GO CHECKS</p>
-        <h2>참가자 권한으로 성공하고, 다른 참가자 접근은 거부되어야 합니다.</h2>
-        <p class="intro"><a href="#automation">독립 검증 스크립트의 최신 PASS</a>를 먼저 확보하되, 아래 리허설을 생략하지 않습니다. 운영자 계정·Owner·공용 API 키로 대체하지 않습니다. 최소 2개의 독립된 테스트 참가자가 별도 테스트 RG에서 직접 리소스를 생성하도록 하고, 고객이 사용할 기기·브라우저·네트워크로 아래 항목을 확인합니다. 고객에게 인계할 RG를 운영자 생성 리소스로 미리 채우지 않습니다.</p>
-        <div style="margin-top:20px">
-          <p class="check-row">계정 활성·올바른 테넌트·첫 로그인·MFA·구독 필터·본인 RG 접근</p>
-          <p class="check-row">사용자 Object ID, 역할 GUID·실제 Scope·상속·그룹 멤버십·필요한 RP</p>
-          <p class="check-row">참가자의 본인 RG 안 Foundry·프로젝트·모델 생성, 필요한 프로젝트 MI·도구 인증 신원</p>
-          <p class="check-row">배정할 각 모델·버전·SKU의 Playground·Agent·Reasoning Effort·도구·Traces E2E</p>
-          <p class="check-row">새 Agent 실행·응답·토큰·오류 확인, App Insights 연결 이후 새 Traces 조회</p>
-          <p class="check-row">참가자 1이 참가자 2의 테스트 RG·프로젝트를 실제로 읽거나 변경할 수 없는지 확인</p>
-          <p class="check-row">목표 동시 인원에서 모델·로그·네트워크·지원 절차와 종료 계획 확인</p>
-        </div>
-        <div class="notice warning"><strong>목록에 안 보이는 것만으로 격리가 검증되지는 않습니다.</strong> 운영자가 소유한 테스트 대상의 직접 링크·허용된 조회 경로로 접근 거부를 확인합니다. 그룹이나 상위 Scope의 역할은 권한을 합산하므로 직접 할당만 보지 않습니다. 공유 로그에 다른 고객의 프롬프트·출력이 노출되지 않는지도 확인합니다.</div>
-        <h3 class="role-title">로그 접근은 별도 리소스 권한입니다.</h3>
-        <p class="intro">실습자가 본인 RG에 만든 App Insights·Log Analytics에서도 로그 조회의 권한·접근 모드는 확인합니다. 로그 조회가 거부되면 연결된 <strong>Application Insights의 Log Analytics Reader</strong>와 워크스페이스 컨텍스트 권한을 점검합니다. 보호된 테이블은 정책에 따라 Privileged Monitoring Data Reader 등 별도 권한이 필요할 수 있으며, 필요 없는 권한은 일괄 추가하지 않습니다.</p>
-        <p class="intro"><a href="https://learn.microsoft.com/azure/foundry/observability/how-to/trace-agent-setup" target="_blank" rel="noopener noreferrer">공식 트레이싱 연결·조회 권한</a>. 기존 실행 성공이 모든 워크스페이스 접근 모드·보호 테이블·고객 로그 격리를 보장하지 않습니다.</p>
-        <div class="notice success"><strong>개최 승인 조건:</strong> RG부터 직접 만드는 실습의 E2E, 접근 격리, 목표 부하, 운영·보존 정책이 모두 확인되어야 합니다. 현재의 1명 E2E는 이 전체 승인 조건의 일부 근거입니다.</div>
       </section>
 
       <section class="panel observed-section" id="handoff">
@@ -401,7 +457,7 @@ Foundry 프로젝트 URL: 참가자가 생성한 이후 확인
             </tbody>
           </table>
         </div>
-        <div class="notice">실습자 가이드의 63장 화면·3분 요약·51분 전체 영상은 <strong>2026.11.05의 RG부터 직접 생성한 기본 Agent 예시</strong>입니다. 다른 계정 유형·기능별 추가 권한 설명은 공식 문서 기반이며, 동일한 실환경 검증을 했다는 뜻은 아닙니다.</div>
+        <div class="notice">실습자 가이드의 63장 화면·3분 요약·51분 전체 영상은 <strong>2026.11.05의 배정 RG 안에서 리소스를 직접 생성한 기본 Agent 예시</strong>입니다. 다른 계정 유형·기능별 추가 권한 설명은 공식 문서 기반이며, 동일한 실환경 검증을 했다는 뜻은 아닙니다.</div>
         <p class="intro"><a href="index.html">고객용 실습자 가이드</a> · <a href="assets/verification.json">기존 읽기 전용 E2E 근거</a> · <a href="https://github.com/junwoojeong100/internal-guest-hands-on-guide">가이드 저장소</a></p>
       </section>
       <footer class="footnotes">
