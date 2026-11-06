@@ -25,6 +25,8 @@ jobs:
           persist-credentials: false
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v6
+      - name: Test workshop automation without Azure credentials
+        run: python3 -m unittest discover -s tests -v
       - name: Build the static site
         run: |
           test -s index.html
@@ -34,6 +36,9 @@ jobs:
           mkdir -p _site
           cp index.html operator.html _site/
           cp -R assets _site/assets
+          mkdir -p _site/scripts _site/config
+          cp scripts/provision_workshop.py scripts/verify_workshop.py scripts/workshop_common.py _site/scripts/
+          cp config/workshop.example.json _site/config/
           find _site -type f -name .DS_Store -delete
           touch _site/.nojekyll
       - name: Upload the site

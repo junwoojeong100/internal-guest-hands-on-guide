@@ -5,3 +5,7 @@ node_modules/
 *storage-state*.json
 *token-cache*.json
 _site/
+.workshop-runs/
+config/*.local.json
+__pycache__/
+*.pyc
