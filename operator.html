@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2040%2040'%3E%3Crect%20width='40'%20height='40'%20rx='10'%20fill='%2310263d'/%3E%3Ctext%20x='20'%20y='26'%20text-anchor='middle'%20fill='white'%20font-family='sans-serif'%20font-size='16'%20font-weight='700'%3ESE%3C/text%3E%3C/svg%3E">
-  <meta name="description" content="SE팀의 Microsoft Foundry 워크샵 운영 가이드. 실습자에게 부여할 세 역할, 스크립트 일괄 준비와 포털 수동 준비, 인계 전 필수 점검을 구분합니다.">
+  <meta name="description" content="SE팀의 Microsoft Foundry 워크샵 운영 가이드. Internal Guest 생성 권한, 실습자 RBAC, 스크립트·포털 준비와 인계 전 실제 교육망에서의 최초 로그인·MFA 등록 필수 점검을 안내합니다.">
   <title>Microsoft Foundry · SE 운영자 가이드</title>
   <script src="assets/theme.js"></script>
   <link rel="stylesheet" href="assets/guide.css">
@@ -16,7 +16,7 @@
       <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">SE</span> Microsoft Foundry <span class="top-meta">/ 운영자 가이드</span></a>
       <div class="topbar-tools">
         <button class="button small theme-toggle" id="theme-toggle" type="button" aria-pressed="false">다크 테마</button>
-        <span class="top-meta">SE팀 준비·운영 참고 · 2026.11.06</span>
+        <span class="top-meta">SE팀 준비·운영 참고 · 2026.11.07</span>
       </div>
       <span class="sr-only" id="theme-status" role="status"></span>
     </div>
@@ -28,7 +28,7 @@
         <div>
           <div class="eyebrow">SE RUNBOOK · PREPARE BEFORE CUSTOMERS ARRIVE</div>
           <h1>계정·RG·권한을 준비하고,<br>고객에게 인계하세요.</h1>
-          <p class="hero-lead">먼저 부여할 역할을 확인하고, 준비 방법 A 또는 B를 선택합니다.<br>두 방법 모두 같은 인계 전 점검을 통과해야 합니다.<br>Foundry·프로젝트·모델은 고객이 본인 RG 안에 직접 만듭니다.</p>
+          <p class="hero-lead">먼저 부여할 역할을 확인하고, 준비 방법 A 또는 B를 선택합니다.<br><strong>두 방법 모두 운영자가 실제 교육망에서 새 Guest의 첫 로그인·MFA 등록을 인계 전에 검증해야 합니다.</strong><br>Foundry·프로젝트·모델은 고객이 본인 RG 안에 직접 만듭니다.</p>
           <div class="hero-actions">
             <a class="button primary" href="#participant-roles">실습자에게 줄 역할 <span aria-hidden="true">→</span></a>
             <a class="button dark" href="#automation">A. 스크립트 준비</a>
@@ -81,7 +81,7 @@
           </table>
         </div>
         <ol class="flow" aria-label="운영자 준비 순서">
-          <li>역할 확인<small>받는 주체·Scope</small></li><li>A 또는 B<small>하나만 선택</small></li><li>공통 점검<small>로그인·격리·용량</small></li><li>고객 인계<small>본인 값만 전달</small></li>
+          <li>역할 확인<small>받는 주체·Scope</small></li><li>A 또는 B<small>하나만 선택</small></li><li>공통 점검<small>교육망·첫 MFA·격리</small></li><li>고객 인계<small>본인 값만 전달</small></li>
         </ol>
         <div class="runbook-grid" aria-label="환경 준비 방법 선택">
           <article class="runbook-card recommended">
@@ -134,11 +134,12 @@
         <p class="section-label">SE PERMISSIONS · DO NOT COPY TO PARTICIPANTS</p>
         <h2>다음은 SE 자신에게 필요한 권한입니다.</h2>
         <p class="intro">참가자에게 주는 위 세 역할과 구분합니다. 담당은 분리할 수 있지만 스크립트 적용 주체는 계정 생성·Azure 생성/할당 권한을 함께 사용할 수 있어야 합니다. 기존 권한으로 가능하면 중복 부여하지 않습니다.</p>
+        <div class="notice warning"><strong>신규 Internal Guest 생성에는 대상 테넌트의 활성 User Administrator가 필요합니다.</strong> 아래는 최소 권한 기준이며, 기존 <strong>Global Administrator</strong>도 생성할 수 있으므로 User Administrator를 중복 부여할 필요가 없습니다. 새로 권한을 요청할 때는 최소 권한을 따릅니다. <strong>Guest Inviter는 External Guest 초대용이며 Internal Guest 신규 생성 권한을 대신하지 않습니다.</strong></div>
         <div class="table-wrap">
           <table class="grant-table" aria-label="운영자 역할과 작업" data-actor="operator">
             <thead><tr><th>SE 역할·Scope</th><th>필요한 작업</th><th>적용</th></tr></thead>
             <tbody>
-              <tr><td><strong>User Administrator</strong><br>Entra · 대상 테넌트</td><td>Internal Guest 계정 생성·초기 암호 관리, 승인된 차단·삭제.</td><td>A·B 공통</td></tr>
+              <tr><td><strong>User Administrator</strong> · 최소 권한<br>Entra · 대상 테넌트</td><td>Internal Guest 계정 생성·초기 암호 관리, 승인된 차단·삭제.</td><td>A·B 공통</td></tr>
               <tr><td><strong>Contributor</strong><br>Azure · 실습 구독</td><td>개인별 RG 생성·RP 등록·자원 조회. 사용자 역할 할당은 이 역할만으로 안 됨.</td><td>A·B 공통</td></tr>
               <tr><td><strong>Role Based Access Control Administrator</strong><br>Azure · 실습 구독</td><td>참가자 세 역할과 필요한 MI 역할 할당·회수. 할당 조건이 있으면 대상·역할·Scope 허용을 확인.</td><td>A·B 공통</td></tr>
               <tr><td><strong>Directory Readers 등 승인된 읽기 권한</strong><br>Entra · 대상 테넌트</td><td>사용자·전이 그룹·활성 Entra 역할 조회. A의 Graph 검증에는 위임 권한·관리자 동의도 확인. 403을 무시하고 통과시키지 않음.</td><td>권한 검증</td></tr>
@@ -239,7 +240,7 @@ python3 scripts/verify_workshop.py --config config/workshop.local.json</pre>
           <li>참가자별 고유 UPN·표시 이름·초기 암호를 준비하고, Properties → Identity → <strong>User type=Guest</strong>를 선택합니다. 계정을 활성화하고 최초 로그인 암호 변경을 요구합니다. Entra 관리자 역할은 할당하지 않습니다.</li>
           <li>대상 테넌트의 <strong>사용자 Object ID</strong>를 운영 대장에 기록합니다. 비슷한 표시 이름이나 외부 계정의 홈 테넌트 Object ID로 Azure 역할을 잘못 할당하지 않습니다.</li>
           <li>초기 암호는 가이드·GitHub·영상·일반 고객 명단과 분리된 승인된 경로로 전달합니다. 첫 로그인·필요한 암호 변경·MFA 등록은 참가자가 직접 완료합니다.</li>
-          <li>실제 고객 기기·네트워크에서 로그인과 MFA를 미리 시험합니다. “5시간 실습”이 인증 정책 예외나 세션 만료를 없애 주지는 않습니다.</li>
+          <li><strong>운영자가 인계 전에 <a href="#network-mfa-rehearsal">실제 교육망에서 새 테스트 Guest의 최초 로그인·MFA 등록</a>을 검증합니다.</strong> “5시간 실습”이 인증 정책 예외나 세션 만료를 없애 주지는 않습니다.</li>
         </ol>
         <p class="intro">외부 초대가 아닌 <strong>Create new user</strong>입니다. 계정 유형을 바꾸거나 인증 정책을 완화해 오류를 해결하지 않습니다. 다른 유형은 <a href="index.html#account-types">계정 유형 참고</a>와 별도 리허설을 따릅니다.</p>
         <h3 class="role-title" id="provision">2. Azure Portal에서 RP·개인별 RG·사용자 역할을 준비합니다.</h3>
@@ -272,7 +273,7 @@ python3 scripts/verify_workshop.py --config config/workshop.local.json</pre>
       <section class="panel observed-section" id="preflight">
         <p class="section-label">COMMON TO A AND B · GO / NO-GO</p>
         <h2>인계 전, 아래 6가지를 모두 확인합니다.</h2>
-        <p class="intro"><strong>생성 결과 확인은 A/B에 따라 다르고, 개최 전 리허설은 공통입니다.</strong> 운영자·Owner·공용 키의 성공으로 참가자 검증을 대신하지 않습니다. 고객에게 줄 RG는 비워 두고, 별도 테스트 계정 2개와 테스트 RG에서 고객 기기·브라우저·네트워크로 확인합니다.</p>
+        <p class="intro"><strong>생성 결과 확인은 A/B에 따라 다르고, 개최 전 리허설은 공통입니다.</strong> 운영자는 고객에게 인계하기 전에 <strong>실제 실습자가 사용할 교육장 네트워크와 같은 기기·브라우저 조건</strong>에서 확인해야 합니다. 고객에게 줄 RG는 비워 두고, <strong>아직 MFA를 등록하지 않은 새 테스트 전용 Internal Guest 2개</strong>와 테스트 RG를 사용합니다.</p>
         <div class="table-wrap">
           <table aria-label="생성 방법별 결과 검증">
             <thead><tr><th>선택한 방법</th><th>공통 점검에 들어가기 전 확보할 결과</th></tr></thead>
@@ -282,8 +283,9 @@ python3 scripts/verify_workshop.py --config config/workshop.local.json</pre>
             </tbody>
           </table>
         </div>
+        <div class="notice warning"><strong>계정 생성 ≠ 최초 로그인·MFA 등록 성공.</strong> 운영자 계정·Owner·공용 키의 성공이나 <code>verify_workshop.py</code>의 PASS는 <a href="#network-mfa-rehearsal">실제 교육망에서의 신규 Guest 인증 리허설</a>을 대신하지 않습니다. 이미 MFA를 등록한 계정의 재로그인만으로 최초 등록을 검증했다고 판단하지 않습니다.</div>
         <div class="runbook-grid" aria-label="인계 전 여섯 가지 필수 점검">
-          <article class="runbook-card"><h3>01 · 계정·첫 로그인·MFA</h3><p>활성 Internal Guest, 올바른 테넌트·구독·본인 RG를 확인합니다. 첫 암호 변경·MFA를 고객 로그인 경로에서 완료할 수 있어야 합니다.</p></article>
+          <article class="runbook-card"><h3>01 · 계정·첫 로그인·MFA</h3><p><strong>운영자가 실제 교육망에서 새 테스트 Guest로</strong> 최초 로그인·필요한 암호 변경·본인 MFA 등록·재로그인을 확인합니다. 올바른 테넌트·구독·본인 RG 접근도 대조합니다. <a href="#network-mfa-rehearsal">필수 인증 리허설 →</a></p></article>
           <article class="runbook-card"><h3>02 · 역할·고객 간 격리</h3><p>개인 Object ID와 세 역할의 Scope를 대조합니다. 상위·다른 RG·그룹 경유 접근도 확인하고, 두 테스트 참가자의 <strong>상호 RG·프로젝트 접근 거부</strong>를 확인합니다.</p></article>
           <article class="runbook-card"><h3>03 · RP·정책·지역</h3><p>필요한 RP Registered, 허용 지역·SKU·네트워크를 확인합니다. 구독 오퍼의 외부 고객 교육 사용 허용 여부·조직 정책·데이터 처리 요건도 승인되어야 합니다.</p></article>
           <article class="runbook-card"><h3>04 · 모델·TPM·목표 부하</h3><p>배정 모델별 잔여 쿼터·Quota Scope·RPM·지역 공급·자원 수 한도를 확인합니다. 1인 1배포 기준과 TPM을 전달하고 <strong>목표 동시 인원 부하</strong>를 검증합니다. <a href="#capacity">용량 계산 참고 →</a></p></article>
@@ -291,6 +293,17 @@ python3 scripts/verify_workshop.py --config config/workshop.local.json</pre>
           <article class="runbook-card"><h3>06 · 비용·인계·종료</h3><p>예산 알림·사용량 점검, 종료/보존 정책·지원 담당·대체 담당을 정합니다. 개인별 배정값과 암호 전달 경로를 분리합니다. <strong>5시간·TPM·예산 알림은 자동 비용 상한이나 종료 장치가 아닙니다.</strong></p></article>
         </div>
         <div class="notice warning"><strong>미확인 항목이 있으면 인계·개최 승인 전 보완합니다.</strong> 현재 공개 근거는 Internal Guest 1명의 기본 E2E입니다. 50명 환경 생성·동시 부하 성공, 모든 모델·도구 지원을 증명하지 않습니다.</div>
+
+        <h3 class="role-title" id="network-mfa-rehearsal">필수 · 운영자가 실제 교육망에서 최초 로그인·MFA 등록을 검증합니다.</h3>
+        <p class="intro"><strong>계정·RG·RBAC는 운영자 랩탑에서 미리 준비할 수 있지만, 고객의 첫 인증 성공까지 자동으로 준비되는 것은 아닙니다.</strong> 기존 E2E의 이미 MFA 등록된 계정이나 직원용 망의 성공으로 고객용 교육망의 최초 등록 가능 여부를 판단하지 않습니다.</p>
+        <ol class="task-list">
+          <li><strong>새 테스트 계정 준비:</strong> 고객에게 배정하지 않을 별도 테스트 전용 Internal Guest 2개와 테스트 RG·세 역할을 준비합니다. MFA 미등록 계정으로 시작하며 실제 고객 계정에 운영자 인증수단을 미리 등록하지 않습니다.</li>
+          <li><strong>현장 최초 인증:</strong> 실제 고객용 Guest Wi-Fi·유선망 등 교육에 사용할 네트워크에서, 고객과 같은 기기·브라우저·휴대폰 조건으로 테스트 계정의 UPN·초기 암호를 사용합니다. 필요한 첫 암호 변경과 테스트 등록자 본인의 MFA 등록을 완료합니다. <strong>고객이 사용하지 않는 직원용 망·강사 전용 VPN/GSA의 성공으로 대체하지 않습니다.</strong></li>
+          <li><strong>재로그인·접근 확인:</strong> 새 브라우저 세션에서 다시 로그인하고 대상 테넌트·구독·본인 RG 접근을 확인합니다. 두 계정의 상호 RG·프로젝트 접근 거부와 Playground → Agent → Traces는 위의 격리·E2E 점검으로 이어갑니다.</li>
+          <li><strong>정책·결과 기록:</strong> 보안정보 등록에 IP 조건이 있으면 계정 생성 위치가 아니라 <strong>MFA 등록 요청에서 Entra가 평가한 공인 IPv4/IPv6</strong>와 허용 Named location을 권한 담당자가 대조합니다. 사무실 Wi-Fi 이름만으로 허용을 보장하지 않습니다. 교육망·테스트 시각·대상·성공/실패·담당자를 승인된 비공개 운영 대장에 기록하고, <strong>차단되거나 미확인이면 인계를 보류</strong>해 승인된 등록 경로와 정책 지원을 확보합니다.</li>
+        </ol>
+        <div class="notice warning"><strong>운영자의 휴대폰·인증수단으로 등록한 테스트 계정은 실제 고객에게 배정하지 않습니다.</strong> 실제 참가자는 본인 계정에 본인 인증수단을 직접 등록합니다. 고객이 변경한 암호·MFA 코드·등록 QR을 수집하거나 공유하지 않습니다. 초기 암호는 기존 기준대로 승인된 개별 경로로만 전달하며, 테스트 실패를 MFA 전체 해제나 참가자 관리자 권한 확대로 해결하지 않습니다.</div>
+        <p class="intro"><a href="https://learn.microsoft.com/entra/identity/conditional-access/policy-all-users-security-info-registration" target="_blank" rel="noopener noreferrer">공식 보안정보 등록 정책</a> · <a href="https://learn.microsoft.com/entra/identity/conditional-access/concept-assignment-network" target="_blank" rel="noopener noreferrer">공식 네트워크·공인 IP 평가 기준</a></p>
 
         <h3 class="role-title" id="rg-visibility">본인 RG만 보이고 접근해야 합니다.</h3>
         <p class="intro">대상 구독에 안내한 세 역할 외 추가 접근이 없다면 본인 RG가 접근 범위입니다. 구독 Usages Reader는 <code>Microsoft.CognitiveServices/locations/usages/read</code>만 허용하며 다른 RG 목록·리소스 조회 역할이 아닙니다. 구독 쿼터는 공유되어 조회할 수 있습니다.</p>

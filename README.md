@@ -21,6 +21,10 @@
 
 참가자에게 줄 역할은 **본인 RG의 Contributor·Foundry User + 구독의 Cognitive Services Usages Reader**, Entra 관리자 역할은 **없음**입니다. [정확한 역할·Scope](https://junwoojeong100.github.io/internal-guest-hands-on-guide/operator.html#participant-roles)와 [SE 자신의 권한](https://junwoojeong100.github.io/internal-guest-hands-on-guide/operator.html#operator-roles)을 구분하세요. 두 방법 모두 [인계 전 6가지 필수 점검](https://junwoojeong100.github.io/internal-guest-hands-on-guide/operator.html#preflight)을 수행합니다.
 
+**신규 Internal Guest 생성 운영자:** 대상 테넌트의 활성 **User Administrator가 최소 권한**이며, 기존 **Global Administrator도 가능**합니다. Azure Owner나 외부 초대용 Guest Inviter만으로는 Internal Guest 신규 생성 권한을 대신할 수 없습니다.
+
+**인계 전 운영자 필수 리허설:** 계정 생성·스크립트 검증 PASS와 별개로, **실제 고객이 사용할 교육망과 같은 기기 조건에서 MFA 미등록 테스트 전용 Guest 2개의 최초 로그인·암호 변경·본인 MFA 등록·재로그인**을 확인합니다. 직원용 망·강사 전용 VPN이나 이미 MFA가 등록된 계정으로 대체하지 않습니다. 미확인·차단 상태에서는 인계를 보류합니다. [실제 교육망 인증 리허설 기준](https://junwoojeong100.github.io/internal-guest-hands-on-guide/operator.html#network-mfa-rehearsal)을 따르고 테스트 계정은 고객에게 배정하지 않습니다.
+
 아래는 **A의 실행 예시**입니다. Azure Cloud Shell **Bash의 영구 저장소**, Linux/macOS 또는 WSL에서 **Python 3.11+·Azure CLI**를 사용합니다. 추가 Python 패키지는 없습니다.
 
 ```bash
