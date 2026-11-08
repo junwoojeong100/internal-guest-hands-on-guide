@@ -71,14 +71,13 @@
           <article class="runbook-card recommended" id="admin-invitation">
             <p class="section-label">A · 관리자가 먼저 초대한 경우</p>
             <h3>받은 초대를 직접 수락합니다.</h3>
-            <figure class="screen-figure">
-              <a href="assets/onboarding/github-invitation.svg" target="_blank" rel="noopener noreferrer" aria-label="GitHub 초대 수락 확인 항목 예시 크게 보기"><img src="assets/onboarding/github-invitation.svg" width="800" height="455" loading="lazy" alt="실제 초대 링크에서 로그인한 개인 GitHub 사용자명과 조직명을 확인한 뒤 Join 또는 Accept invitation을 누르는 설명용 예시"></a>
-              <figcaption><strong>공식 절차 재구성 예시 · 공식 캡처 아님.</strong> 그림은 가입 버튼이 아닙니다. <a href="https://docs.github.com/en/organizations/managing-membership-in-your-organization/inviting-users-to-join-your-organization" target="_blank" rel="noopener noreferrer">공식 초대·수락 기준 ↗</a></figcaption>
-            </figure>
             <ol class="task-list">
-              <li><strong>실제 초대 이메일·링크</strong>를 엽니다.</li>
-              <li><strong>본인 사용자명·조직명</strong> 확인 → <strong>Join / Accept invitation</strong>.</li>
+              <li>운영자가 안내한 조직의 <strong>실제 GitHub 초대 이메일·링크</strong>를 엽니다. 이메일에 “View invitation”이 있으면 선택합니다.</li>
+              <li>GitHub 로그인 요구가 나오면 <strong>초대받은 본인 개인 계정</strong>으로 로그인합니다. Entra UPN으로 대신 로그인하지 않습니다.</li>
+              <li><strong>본인 사용자명·대상 조직명</strong> 확인 → 실제 초대 화면의 <strong>Join / Accept invitation</strong>.</li>
             </ol>
+            <p class="screen-action">수락 화면은 개인 로그인 후 표시됩니다. 비공개 계정에 대신 로그인하거나 실제 화면처럼 보이는 임의 가입 그림을 만들지 않았습니다.</p>
+            <p class="screen-note"><a href="https://docs.github.com/en/organizations/managing-membership-in-your-organization/inviting-users-to-join-your-organization" target="_blank" rel="noopener noreferrer">공식 초대·수락 기준 ↗</a></p>
             <a class="button" href="#copilot-access">다음 · Copilot 권한 확인 →</a>
           </article>
           <article class="runbook-card" id="join-request">
@@ -91,19 +90,37 @@ GitHub 사용자명: &lt;본인 username&gt;
 신청 목적: 워크샵·조직 Copilot 사용</pre>
             </div>
             <ol class="task-list">
-              <li>위 문구를 <strong>가입 신청 링크·승인된 문의 경로</strong>로 전달합니다.</li>
+              <li>아래 실제 계정 메뉴의 <strong>1번처럼 본인 사용자명</strong>을 확인합니다. 표시 이름이 아닌 GitHub 아이디를 위 문구에 입력합니다.</li>
+              <li>문구를 <strong>가입 신청 링크·승인된 문의 경로</strong>로 전달합니다.</li>
               <li>관리자의 <strong>승인·GitHub 초대</strong>를 기다립니다.</li>
               <li>초대를 받으면 <a href="#admin-invitation"><strong>A의 수락 절차</strong></a>를 완료합니다.</li>
             </ol>
           </article>
         </div>
+        <article class="screen-card" id="join-verify" style="margin-top:20px">
+          <div class="screen-header"><span class="stage-number">확인</span><h3>A / B 공통 · 내 사용자명과 가입한 조직 확인</h3></div>
+          <div class="screen-body">
+            <figure class="screen-figure">
+              <a href="assets/onboarding/github-account-menu.png" target="_blank" rel="noopener noreferrer" aria-label="실제 GitHub 사용자명과 Your organizations 메뉴 크게 보기"><img src="assets/onboarding/github-account-menu.png" width="638" height="780" loading="lazy" alt="공식 GitHub 계정 메뉴에서 사용자명 octocat에 1번, Your organizations에 2번을 표시"></a>
+              <figcaption><strong>GitHub 공식 계정 메뉴 화면.</strong> 번호·강조만 추가했습니다. “octocat / The Octocat”은 문서의 예시이며 초대 수락 화면은 아닙니다. <a href="https://docs.github.com/en/account-and-profile/how-tos/organization-membership/accessing-an-organization" target="_blank" rel="noopener noreferrer">공식 조직 접근 절차 ↗</a></figcaption>
+            </figure>
+            <div class="screen-instructions">
+              <ol class="field-steps">
+                <li>GitHub 오른쪽 위 프로필을 엽니다. <strong>1번의 사용자명</strong>이 본인 계정인지 확인합니다. 사진에서는 <strong>octocat</strong>이 아이디이고 “The Octocat”은 표시 이름입니다.</li>
+                <li><strong>Your organizations / Organizations</strong>를 선택합니다. 또는 <a href="https://github.com/settings/organizations" target="_blank" rel="noopener noreferrer">조직 목록 직접 열기</a>.</li>
+                <li>운영자가 안내한 조직의 <strong>멤버십이 실제로 등록</strong>되어 있는지 확인합니다. 메뉴가 보이거나 신청·초대가 대기 중인 것만으로 가입 완료가 아닙니다.</li>
+              </ol>
+              <p class="screen-check"><strong>완료 상태:</strong> 정확한 개인 계정의 대상 조직 멤버십 확인 → 운영자에게 수락 완료 알림 → <a href="#copilot-access">Copilot 좌석 별도 확인</a>.</p>
+            </div>
+          </div>
+        </article>
         <div class="notice success"><strong>A / B 공통 완료 확인:</strong> <a href="https://github.com/settings/organizations" target="_blank" rel="noopener noreferrer">내 Organizations</a>에서 대상 조직의 멤버십 확인 → 운영자에게 완료 알림 → <a href="#copilot-access">Copilot 좌석 확인</a>.</div>
         <div class="notice"><strong>B는 자동 가입이 아닙니다.</strong> 신청 후에도 관리자 승인·초대 수락이 필요합니다. 이 페이지는 신청을 제출하거나 가입·Copilot 권한을 부여하지 않습니다. 암호·2FA 코드·토큰은 전달하지 않습니다.</div>
         <details>
           <summary>초대 만료·이메일 인증·GitHub 2FA / SSO 확인</summary>
           <div class="details-body"><p>초대는 <strong>7일 후 만료</strong>됩니다. 이메일 초대는 본인 GitHub 계정의 인증된 이메일과 일치해야 합니다. 조직이 2FA를 요구하면 본인이 먼저 등록하며, <strong>GitHub 2FA와 Entra MFA는 별개</strong>입니다. SSO 안내가 나오면 운영자가 승인한 인증 절차를 따릅니다.</p></div>
         </details>
-        <p class="screen-note">사용자 초대 수락은 문서 기반 설명용 예시, 관리자 화면은 아래의 공식 원본입니다. <a href="assets/onboarding/ATTRIBUTION.txt">화면 출처·재사용 조건</a></p>
+        <p class="screen-note">임의 초대 수락 그림은 제거하고 실제 공식 계정 메뉴와 정확한 수락·완료 기준을 제공합니다. 관리자 공식 화면은 아래에서 확인하세요. <a href="assets/onboarding/ATTRIBUTION.txt">화면 출처·재사용 조건</a></p>
       </section>
 
       <section class="panel observed-section" id="copilot-access">

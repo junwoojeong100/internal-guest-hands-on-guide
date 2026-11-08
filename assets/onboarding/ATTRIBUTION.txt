@@ -3,8 +3,22 @@ Reviewed: 2026-11-08
 
 These are documentation references, not captures of workshop participants.
 No real workshop UPN, password, enrollment QR or authentication code is included.
-The four SVG illustrations are original, document-based explanatory examples,
-not official screenshots or interactive sign-in/invitation pages.
+All four reconstructed authentication/invitation SVGs have been removed.
+There are nine official documentation images and one anonymous sign-in capture.
+The QR payload is removed from the derived PNG, not merely hidden with CSS.
+
+ANONYMOUS MICROSOFT SIGN-IN CAPTURE
+entra-sign-in.png
+Product/service: Microsoft Entra ID sign-in, opened from Microsoft My Account.
+Source: https://myaccount.microsoft.com/
+Authentication origin: https://login.microsoftonline.com/
+Captured: 2026-11-08, in a new browser context with no stored accounts.
+No account/password was entered and no sign-in was submitted.
+Change: None. The full capture is only resized proportionally for display.
+Numbered guide tags are outside the screenshot, not painted over its pixels.
+No third-party content or identifiable individual appears in the capture.
+Used with permission from Microsoft.
+Usage guidelines: https://www.microsoft.com/en-us/legal/intellectualproperty/copyright/permissions
 
 MICROSOFT DOCUMENTATION SCREENSHOTS
 Publisher: Microsoft Corporation and MicrosoftDocs contributors.
@@ -26,6 +40,44 @@ Article: https://learn.microsoft.com/entra/identity/authentication/howto-registr
 Original: https://raw.githubusercontent.com/MicrosoftDocs/entra-docs/main/docs/identity/authentication/media/howto-registration-mfa-sspr-combined/combined-security-info-more-required.png
 Change: None.
 
+ADDITIONAL LICENSED MICROSOFT USER-HELP IMAGES
+Publisher: Microsoft Corporation and MicrosoftDocs contributors.
+License: Creative Commons Attribution 4.0 International.
+Historical source snapshot: 39931b491d4452716688b0f1f3d88a8fe48e31ec
+License: https://github.com/MicrosoftDocs/azure-docs/blob/39931b491d4452716688b0f1f3d88a8fe48e31ec/LICENSE
+Current registration instructions:
+https://support.microsoft.com/en-us/accounts-billing/work-school/set-up-security-info-from-a-sign-in-page
+The QR, test-pending and test-approved source images were checked byte-for-byte
+against the current Microsoft Support article's images and are identical.
+
+password-change-fields.png
+Title: Official Change password input fields.
+Current instructions: https://support.microsoft.com/en-us/accounts-billing/work-school/change-your-work-or-school-account-password
+Original: https://raw.githubusercontent.com/MicrosoftDocs/azure-docs/39931b491d4452716688b0f1f3d88a8fe48e31ec/articles/active-directory/user-help/media/my-account-portal/my-account-portal-change-password-page.png
+Change: Cropped the input area (20,500)-(610,975) from the historical 1299x982
+image; account identifiers and unrelated policy text are excluded. Added a
+30-pixel left legend gutter, four numbered markers and input/button outlines.
+The historical screenshot is a field reference, not proof of a participant's
+first-login change or a claim that its UI/password policy is current.
+
+mfa-qr-masked.png
+Title: Scan the QR code.
+Original: https://raw.githubusercontent.com/MicrosoftDocs/azure-docs/39931b491d4452716688b0f1f3d88a8fe48e31ec/articles/active-directory/user-help/media/security-info/securityinfo-prompt-auth-app-qrcode.png
+Change: Replaced the entire QR and quiet-zone region (58,408)-(168,514) with
+an opaque fill before saving a new RGB PNG. Added a left legend gutter and
+numbered QR/Next highlights. No source QR pixels or payload are embedded.
+
+mfa-test-pending.png
+Title: Let's try it out - approve the notification.
+Original: https://raw.githubusercontent.com/MicrosoftDocs/azure-docs/39931b491d4452716688b0f1f3d88a8fe48e31ec/articles/active-directory/user-help/media/security-info/securityinfo-prompt-test-app.png
+Change: None.
+
+mfa-test-approved.png
+Title: Notification approved.
+Original: https://raw.githubusercontent.com/MicrosoftDocs/azure-docs/39931b491d4452716688b0f1f3d88a8fe48e31ec/articles/active-directory/user-help/media/security-info/securityinfo-prompt-auth-app-success.png
+Change: None. This is only the app test-success state; additional required
+methods and the final Done action still depend on the organization policy.
+
 GITHUB DOCUMENTATION SCREENSHOTS
 Publisher: GitHub, Inc. and github/docs contributors.
 License: Creative Commons Attribution 4.0 International.
@@ -44,18 +96,18 @@ Article: https://docs.github.com/en/copilot/how-tos/administer-copilot/manage-fo
 Original: https://raw.githubusercontent.com/github/docs/main/assets/images/help/copilot/enable-access-for-selected-members.png
 Change: None.
 
-ORIGINAL EXPLANATORY ILLUSTRATIONS
-entra-sign-in.svg
-Basis: https://learn.microsoft.com/entra/fundamentals/how-to-create-delete-users
-entra-password-change.svg
-Basis: https://support.microsoft.com/en-us/accounts-billing/work-school/change-your-work-or-school-account-password
-entra-mfa-scan.svg
-Basis: https://support.microsoft.com/en-us/accounts-billing/work-school/set-up-security-info-from-a-sign-in-page
-github-invitation.svg
-Basis: https://docs.github.com/en/organizations/managing-membership-in-your-organization/inviting-users-to-join-your-organization
+github-account-menu.png
+Title: Personal account username and Your organizations menu.
+Article: https://docs.github.com/en/account-and-profile/how-tos/organization-membership/accessing-an-organization
+Original: https://raw.githubusercontent.com/github/docs/main/assets/images/help/profile/your-organizations-global-nav-update.png
+Change: Added a username outline and two numbered guide markers.
+The octocat identity is GitHub's official documentation example, not a
+workshop participant. This image is not an invitation-acceptance screen.
 
 The GitHub user-initiated request example is an organizer-provided application
 message, not a native open-join feature or a functioning application form.
+The recipient's invitation acceptance screen requires that recipient's personal
+sign-in. The guide does not fabricate a screenshot or sign in on their behalf.
 
 ADDITIONAL MICROSOFT REPOSITORY NOTICE
 The source repository also contains the following MIT notice in LICENSE.
