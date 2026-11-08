@@ -83,7 +83,7 @@
         <ol class="flow" aria-label="운영자 준비 순서">
           <li>역할 확인<small>받는 주체·Scope</small></li><li>A 또는 B<small>하나만 선택</small></li><li>공통 점검<small>교육망·첫 MFA·격리</small></li><li>고객 인계<small>본인 값만 전달</small></li>
         </ol>
-        <div class="runbook-grid" aria-label="환경 준비 방법 선택">
+        <div class="runbook-grid" role="group" aria-label="환경 준비 방법 선택">
           <article class="runbook-card recommended">
             <p class="section-label">METHOD A · 50명 운영 권장</p>
             <h3>스크립트로 일괄 준비</h3>
@@ -169,13 +169,13 @@
         </div>
         <h3 class="role-title">1. SE가 실행 환경과 설정을 준비합니다.</h3>
         <p class="intro"><strong>Azure Cloud Shell Bash의 영구 저장소, Linux/macOS 또는 WSL · Python 3.11+ · Azure CLI</strong>를 사용합니다. 네이티브 Windows PowerShell은 지원하지 않습니다. 실행 주체는 <a href="#operator-roles">사용자 생성·Entra 권한 조회·Azure RG 생성·RBAC 할당 권한</a>을 가져야 합니다. 이 스크립트가 SE에게 관리 역할이나 Graph 앱 동의를 부여하지는 않습니다.</p>
-        <pre aria-label="스크립트 설치와 설정">git clone https://github.com/junwoojeong100/internal-guest-hands-on-guide.git
+        <pre role="group" aria-label="스크립트 설치와 설정">git clone https://github.com/junwoojeong100/internal-guest-hands-on-guide.git
 cd internal-guest-hands-on-guide
 cp config/workshop.example.json config/workshop.local.json
 # local.json을 편집하고 아래 값을 실제 tenantId로 바꾼 뒤 SE 계정으로 로그인
 az login --tenant "REPLACE_WITH_TENANT_ID"</pre>
         <p class="intro">예제의 대상 테넌트·구독을 확인하고 <strong>행사별 고유 <code>workshopId</code>·허용 지역·인원</strong>을 설정합니다. <code>participantCount</code>는 기본 50명이며 1~999의 정수입니다. 아래 값은 예시이고 자동 실행되지 않습니다.</p>
-        <pre aria-label="워크샵 JSON 설정 예시">{
+        <pre role="group" aria-label="워크샵 JSON 설정 예시">{
   "tenantId": "bef96070-a122-48bc-bf5c-03149f4ac286",
   "subscriptionId": "e7455306-2702-49fc-b465-d341d758858d",
   "workshopId": "foundry-ws-202612",
@@ -184,7 +184,7 @@ az login --tenant "REPLACE_WITH_TENANT_ID"</pre>
 }</pre>
         <p class="intro">계정은 대상 테넌트의 검증된 초기 <code>*.onmicrosoft.com</code> 도메인에 <code>&lt;workshopId&gt;-001</code>부터 만듭니다. RG 이름은 <code>rg-&lt;workshopId&gt;-001</code>부터입니다. 한 계정에 본인 RG의 Contributor·Foundry User, 구독의 Cognitive Services Usages Reader를 직접 할당합니다. <strong>50명 = 계정 50개 + RG 50개 + 역할 할당 150개</strong>입니다.</p>
         <h3 class="role-title">2. 읽기 전용 계획을 확인한 뒤 명시적으로 적용합니다.</h3>
-        <pre aria-label="일괄 계획 적용 검증 명령"># Azure/암호·실행 기록 생성 없음: 대상·누락 개수·RP 등록 계획 확인
+        <pre role="group" aria-label="일괄 계획 적용 검증 명령"># Azure/암호·실행 기록 생성 없음: 대상·누락 개수·RP 등록 계획 확인
 python3 scripts/provision_workshop.py --config config/workshop.local.json
 
 # 검토한 설정으로 실제 생성: --apply를 명시한 경우에만 쓰기
@@ -286,7 +286,7 @@ python3 scripts/verify_workshop.py --config config/workshop.local.json</pre>
           </table>
         </div>
         <div class="notice warning"><strong>계정 생성 ≠ 최초 로그인·MFA 등록 성공.</strong> 운영자 계정·Owner·공용 키의 성공이나 <code>verify_workshop.py</code>의 PASS는 <a href="#network-mfa-rehearsal">실제 교육망에서의 신규 Guest 인증 리허설</a>을 대신하지 않습니다. 이미 MFA를 등록한 계정의 재로그인만으로 최초 등록을 검증했다고 판단하지 않습니다.</div>
-        <div class="runbook-grid" aria-label="인계 전 여섯 가지 필수 점검">
+        <div class="runbook-grid" role="group" aria-label="인계 전 여섯 가지 필수 점검">
           <article class="runbook-card"><h3>01 · 계정·첫 로그인·MFA</h3><p><strong>운영자가 실제 교육망에서 새 테스트 Guest로</strong> 초기 암호 로그인(변경 강제 없음)·본인 MFA 등록·재로그인을 확인합니다. 테넌트·구독·본인 RG 접근도 대조합니다. <a href="#network-mfa-rehearsal">필수 인증 리허설 →</a></p></article>
           <article class="runbook-card"><h3>02 · 역할·고객 간 격리</h3><p>개인 Object ID와 세 역할의 Scope를 대조합니다. 상위·다른 RG·그룹 경유 접근도 확인하고, 두 테스트 참가자의 <strong>상호 RG·프로젝트 접근 거부</strong>를 확인합니다.</p></article>
           <article class="runbook-card"><h3>03 · RP·정책·지역</h3><p>필요한 RP Registered, 허용 지역·SKU·네트워크를 확인합니다. 구독 오퍼의 외부 고객 교육 사용 허용 여부·조직 정책·데이터 처리 요건도 승인되어야 합니다.</p></article>
@@ -328,7 +328,7 @@ python3 scripts/verify_workshop.py --config config/workshop.local.json</pre>
               </table>
             </div>
             <p>기존 기본 Agent E2E는 <code>tools=[]</code>이며 사용자 역할 3개를 확인했습니다. 공개 검증 JSON은 <strong>MI의 완전한 권한 감사 자료가 아닙니다.</strong> 도구·SDK·Hosted Agent·게시로 확장할 때 다시 검증합니다. <a href="https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry" target="_blank" rel="noopener noreferrer">공식 사용자·MI·Scope 기준</a></p>
-            <p><strong>로그 접근은 별도 리소스 권한입니다.</strong> 로그 조회가 거부되면 연결된 Application Insights의 Log Analytics Reader와 워크스페이스 컨텍스트 권한·접근 모드를 점검합니다. 보호된 테이블은 정책에 따라 Privileged Monitoring Data Reader 등 별도 권한이 필요할 수 있습니다. 필요 없는 권한은 일괄 추가하지 않습니다.</p>
+            <p><strong>로그 접근은 별도 리소스 권한입니다.</strong> 로그 조회가 거부되면 연결된 Application Insights의 Log Analytics Reader와 워크스페이스 컨텍스트 권한·접근 모드를 점검합니다. 보호된 테이블은 정책에 따라 Privileged Monitoring Data Reader(보호 테이블 미리 보기 문서의 내장 역할) 등 별도 권한이 필요할 수 있습니다. 필요 없는 권한은 일괄 추가하지 않습니다.</p>
             <p><a href="https://learn.microsoft.com/azure/foundry/observability/how-to/trace-agent-setup" target="_blank" rel="noopener noreferrer">공식 트레이싱 연결·조회 권한</a>. 기존 실행 성공이 모든 워크스페이스 접근 모드·보호 테이블·고객 로그 격리를 보장하지 않습니다.</p>
           </div>
         </details>
@@ -407,7 +407,7 @@ python3 scripts/verify_workshop.py --config config/workshop.local.json</pre>
         <h2>고객에게 환경 값과 해야 할 일만 명확히 전달합니다.</h2>
         <p class="intro">다른 고객 실습을 만들 때도 <strong>배정 RG 안에서 실습자가 직접 리소스를 생성</strong>하는 틀을 유지하고 모델·데이터·본문 URL을 바꿉니다. 초기 암호는 이 인계표와 분리하고, 고객 명단·Object ID 전체 대장은 공개 사이트에 올리지 않습니다.</p>
         <div class="notice"><strong>GitHub Copilot도 제공한다면:</strong> <a href="github-copilot.html#operator-setup">별도 GitHub 조직·Copilot 관리자 준비</a>에 따라 개인 GitHub 계정 초대·수락과 Copilot 좌석·브라우저 정책을 확인합니다. 참가자에게는 <a href="github-copilot.html">A 관리자 초대 / B 사용자 가입 신청 가이드</a>를 전달합니다. 조직 가입만으로 Copilot 권한이 생기지 않으며 Entra 계정·Azure RBAC와 별도입니다.</div>
-        <pre aria-label="참가자 환경 인계 템플릿">실습명: &lt;workshop-name&gt;
+        <pre role="group" aria-label="참가자 환경 인계 템플릿">실습명: &lt;workshop-name&gt;
 로그인 계정: &lt;participant-upn&gt;
 초기 암호: 승인된 별도 경로로 본인에게만 전달
 암호 정책: 초기 암호 유지·첫 변경 강제 없음 (변경은 선택)
@@ -490,7 +490,7 @@ GitHub 가입·Copilot 준비: https://junwoojeong100.github.io/internal-guest-h
         <p class="intro"><a href="index.html">고객용 실습자 가이드</a> · <a href="assets/verification.json">기존 읽기 전용 E2E 근거</a> · <a href="https://github.com/junwoojeong100/internal-guest-hands-on-guide">가이드 저장소</a></p>
       </section>
       <footer class="footnotes">
-        <p>운영 참고 문서 기준일 2026.11.06 · 실제 기본 Agent 검증일 2026.11.05. 역할 이름·UI·가용성·한도는 변경될 수 있으므로 다음 개최 전에 공식 문서와 참가자 권한으로 확인합니다.</p>
+        <p>운영 참고 문서 기준일 2026.11.08 · 실제 기본 Agent 검증일 2026.11.05. 역할 이름·UI·가용성·한도는 변경될 수 있으므로 다음 개최 전에 공식 문서와 참가자 권한으로 확인합니다.</p>
         <p><a href="https://learn.microsoft.com/entra/fundamentals/how-to-create-delete-users" target="_blank" rel="noopener noreferrer">Entra 계정 유형</a><a href="https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry" target="_blank" rel="noopener noreferrer">Foundry RBAC</a><a href="https://learn.microsoft.com/azure/foundry/openai/how-to/quota" target="_blank" rel="noopener noreferrer">쿼터</a><a href="https://learn.microsoft.com/azure/foundry/observability/how-to/trace-agent-setup" target="_blank" rel="noopener noreferrer">트레이싱</a></p>
       </footer>
     </main>

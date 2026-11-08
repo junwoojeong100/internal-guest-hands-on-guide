@@ -67,7 +67,7 @@
         <p class="section-label">STEP 01 · CHOOSE ONE JOIN PATH</p>
         <h2>조직에 가입하세요. A 또는 B를 선택합니다.</h2>
         <p class="intro"><a href="https://github.com/login" target="_blank" rel="noopener noreferrer">본인 개인 GitHub 계정으로 로그인</a> → 프로필의 <strong>사용자명(username)</strong> 확인. <strong>초대를 받았다면 A, 먼저 신청하려면 B</strong>입니다. 계정이 없다면 <a href="https://github.com/signup" target="_blank" rel="noopener noreferrer">개인 계정 생성·이메일 인증</a>부터 완료합니다.</p>
-        <div class="runbook-grid" aria-label="관리자 초대와 사용자 가입 신청">
+        <div class="runbook-grid" role="group" aria-label="관리자 초대와 사용자 가입 신청">
           <article class="runbook-card recommended" id="admin-invitation">
             <p class="section-label">A · 관리자가 먼저 초대한 경우</p>
             <h3>받은 초대를 직접 수락합니다.</h3>
@@ -83,7 +83,7 @@
           <article class="runbook-card" id="join-request">
             <p class="section-label">B · 사용자가 먼저 가입을 신청하는 경우</p>
             <h3>사용자명 전달 → 승인 후 초대 수락</h3>
-            <div class="request-preview" aria-label="운영자에게 보낼 가입 신청 메시지 예시">
+            <div class="request-preview" role="group" aria-label="운영자에게 보낼 가입 신청 메시지 예시">
               <p>가입 신청 메시지 · GitHub 자체 신청 화면 아님</p>
               <pre>대상 조직: &lt;운영자가 안내한 조직명&gt;
 GitHub 사용자명: &lt;본인 username&gt;
@@ -102,12 +102,12 @@ GitHub 사용자명: &lt;본인 username&gt;
           <div class="screen-body">
             <figure class="screen-figure">
               <a href="assets/onboarding/github-account-menu.png" target="_blank" rel="noopener noreferrer" aria-label="실제 GitHub 사용자명과 Your organizations 메뉴 크게 보기"><img src="assets/onboarding/github-account-menu.png" width="638" height="780" loading="lazy" alt="공식 GitHub 계정 메뉴에서 사용자명 octocat에 1번, Your organizations에 2번을 표시"></a>
-              <figcaption><strong>GitHub 공식 계정 메뉴 화면.</strong> 번호·강조만 추가했습니다. “octocat / The Octocat”은 문서의 예시이며 초대 수락 화면은 아닙니다. <a href="https://docs.github.com/en/account-and-profile/how-tos/organization-membership/accessing-an-organization" target="_blank" rel="noopener noreferrer">공식 조직 접근 절차 ↗</a></figcaption>
+              <figcaption><strong>GitHub 공식 계정 메뉴 화면.</strong> 번호·강조만 추가했습니다. “octocat / The Octocat”은 문서의 예시이며 초대 수락 화면은 아닙니다. 이 그림의 “Your organizations”는 이전 표기이고 현재 공식 문서는 “Organizations”로 안내합니다. <a href="https://docs.github.com/en/account-and-profile/how-tos/organization-membership/accessing-an-organization" target="_blank" rel="noopener noreferrer">공식 조직 접근 절차 ↗</a></figcaption>
             </figure>
             <div class="screen-instructions">
               <ol class="field-steps">
                 <li>GitHub 오른쪽 위 프로필을 엽니다. <strong>1번의 사용자명</strong>이 본인 계정인지 확인합니다. 사진에서는 <strong>octocat</strong>이 아이디이고 “The Octocat”은 표시 이름입니다.</li>
-                <li><strong>Your organizations / Organizations</strong>를 선택합니다. 또는 <a href="https://github.com/settings/organizations" target="_blank" rel="noopener noreferrer">조직 목록 직접 열기</a>.</li>
+                <li><strong>Organizations</strong>(사진의 이전 표기: Your organizations)를 선택합니다. 또는 <a href="https://github.com/settings/organizations" target="_blank" rel="noopener noreferrer">조직 목록 직접 열기</a>.</li>
                 <li>운영자가 안내한 조직의 <strong>멤버십이 실제로 등록</strong>되어 있는지 확인합니다. 메뉴가 보이거나 신청·초대가 대기 중인 것만으로 가입 완료가 아닙니다.</li>
               </ol>
               <p class="screen-check"><strong>완료 상태:</strong> 정확한 개인 계정의 대상 조직 멤버십 확인 → 운영자에게 수락 완료 알림 → <a href="#copilot-access">Copilot 좌석 별도 확인</a>.</p>
@@ -139,7 +139,7 @@ GitHub 사용자명: &lt;본인 username&gt;
               <figcaption><strong>GitHub 공식 문서 자산의 권한 신청 예시.</strong> 조직 행만 확대했습니다. 실제 계정·플랜에 따라 이 버튼이나 조직 목록이 없을 수 있습니다. <a href="https://docs.github.com/en/copilot/how-tos/administer-copilot/manage-for-organization/manage-access/manage-requests-for-access" target="_blank" rel="noopener noreferrer">현재 신청 승인 기준 ↗</a></figcaption>
             </figure>
             <div class="screen-instructions">
-              <ol class="field-steps"><li>이미 가입한 <strong>정확한 조직</strong>과 본인 사용자명을 확인합니다.</li><li>실제 Copilot 설정에 <strong>Ask admin for access / Request access</strong>가 표시되면 신청합니다. 표시되지 않으면 승인된 문의 경로로 운영자에게 요청합니다.</li><li>관리자가 요청을 승인하고 실제 좌석을 배정한 뒤 새로고침·재로그인합니다.</li></ol>
+              <ol class="field-steps"><li>이미 가입한 <strong>정확한 조직</strong>과 본인 사용자명을 확인합니다.</li><li>실제 Copilot 설정에 <strong>Ask admin for access</strong> 버튼이 표시되면 신청합니다. 표시되지 않으면 승인된 문의 경로로 운영자에게 요청합니다.</li><li>관리자가 요청을 승인하고 실제 좌석을 배정한 뒤 새로고침·재로그인합니다.</li></ol>
               <p class="screen-check"><strong>구분:</strong> 이 요청은 <strong>Copilot 사용 권한</strong> 신청입니다. 앞의 B <strong>조직 가입</strong> 신청과 다르며, 요청 제출만으로 Copilot이 활성화되지 않습니다.</p>
             </div>
           </div>
@@ -156,14 +156,14 @@ GitHub 사용자명: &lt;본인 username&gt;
           <li>아래 질문을 입력하고 <strong>Enter</strong>를 누릅니다. 답변이 오면 실습 중 질문·오류 이해·지시문 작성에 사용할 준비가 된 것입니다.</li>
           <li>답변은 공식 문서와 실습 배정표로 확인합니다. Copilot의 제안만 보고 권한·모델·TPM을 임의로 바꾸지 않습니다.</li>
         </ol>
-        <pre aria-label="Copilot 준비 확인 질문">Microsoft Foundry 실습에서 모델 배포 TPM과 RPM의 차이,
+        <pre role="group" aria-label="Copilot 준비 확인 질문">Microsoft Foundry 실습에서 모델 배포 TPM과 RPM의 차이,
 429 오류가 났을 때 먼저 확인할 사항을 초보자에게 3줄로 설명해줘.</pre>
         <div class="screen-grid">
           <article class="screen-card">
             <h3>1. 질문 입력 → 전송</h3>
             <figure class="screen-figure">
               <a href="assets/onboarding/copilot-input-example.png" target="_blank" rel="noopener noreferrer" aria-label="공식 Copilot 질문 입력칸 예시 크게 보기"><img src="assets/onboarding/copilot-input-example.png" width="1692" height="96" loading="lazy" alt="GitHub 공식 문서 예시의 Ask Copilot 입력칸과 오른쪽 전송 아이콘"></a>
-              <figcaption><strong>공식 코드 문맥 채팅 예시에서 입력칸만 확대.</strong> 브라우저 홈의 배치는 다를 수 있으며 질문 입력·Enter 또는 전송 기능을 기준으로 찾습니다.</figcaption>
+              <figcaption><strong>공식 코드 문맥 채팅 예시에서 입력칸만 확대.</strong> 브라우저 홈의 배치는 다를 수 있으며 질문 입력·Enter 또는 전송 기능을 기준으로 찾습니다. 유료 플랜(조직 좌석 포함)에는 2026.10.28부터 새 “Copilot in the cloud” 화면이 제공되어 모양이 더 다를 수 있습니다.</figcaption>
             </figure>
             <p class="screen-action"><strong>본인 계정 확인 → 공개·합성 질문 입력 → Enter / 전송.</strong> 연결 문자열·암호·MFA 코드·고객 실데이터를 첨부하지 않습니다.</p>
           </article>
@@ -195,7 +195,7 @@ GitHub 사용자명: &lt;본인 username&gt;
               <tr><td>초대가 안 보임·만료됨</td><td>초대받은 계정·인증된 이메일·스팸함을 확인합니다. 7일 만료라면 운영자에게 재초대를 요청합니다.</td></tr>
               <tr><td>2FA·SSO 때문에 가입 안 됨</td><td>본인 GitHub 2FA와 승인된 조직 SSO 절차를 완료합니다. 인증 코드를 공유하거나 정책을 우회하지 않습니다.</td></tr>
               <tr><td>가입했는데 Copilot이 없음</td><td>같은 사용자명의 좌석 활성 상태를 운영자에게 확인한 뒤 새로고침·재로그인합니다. 개인 유료 구독으로 대신하지 않습니다.</td></tr>
-              <tr><td>브라우저 Copilot이 차단됨</td><td>운영자가 조직·상위 엔터프라이즈의 <strong>Copilot in GitHub.com</strong> 정책과 실습에 허용된 모델·사용 한도를 확인합니다.</td></tr>
+              <tr><td>브라우저 Copilot이 차단됨</td><td>운영자가 조직·상위 엔터프라이즈의 <strong>Copilot in the cloud</strong> 정책(이전 이름 Copilot in GitHub.com)과 실습에 허용된 모델·사용 한도를 확인합니다.</td></tr>
             </tbody>
           </table>
         </div>
@@ -212,7 +212,7 @@ GitHub 사용자명: &lt;본인 username&gt;
             <div class="screen-grid">
               <article class="screen-card">
                 <h3>1. 조직 멤버 초대</h3>
-                <p class="screen-action"><strong>People → Invite member</strong> → 참가자 사용자명 → Member → Send invitation.</p>
+                <p class="screen-action"><strong>People → Invite member</strong> → 참가자 사용자명 입력 후 <strong>Invite</strong> → Role in the organization: Member → Send invitation.</p>
                 <figure class="screen-figure">
                   <a href="assets/onboarding/github-org-people.png" target="_blank" rel="noopener noreferrer" aria-label="GitHub 공식 People 탭 화면 크게 보기"><img src="assets/onboarding/github-org-people.png" width="1592" height="240" loading="lazy" alt="GitHub 공식 octo-org 예시에서 People 탭이 강조된 조직 화면"></a>
                   <figcaption><strong>GitHub 공식 화면.</strong> 조직명·수치는 원본 문서의 예시입니다. <a href="https://docs.github.com/en/organizations/managing-membership-in-your-organization/inviting-users-to-join-your-organization" target="_blank" rel="noopener noreferrer">원본 문서 ↗</a></figcaption>
@@ -231,8 +231,8 @@ GitHub 사용자명: &lt;본인 username&gt;
               <li><strong>대상·접수:</strong> 일반 GitHub 조직 기준입니다. Enterprise Managed Users는 SCIM 절차를 사용합니다. A는 먼저 초대, B는 신청·참가 여부 확인 후 승인·초대합니다. 공개 이슈·사이트에 고객 명단을 모으지 않습니다.</li>
               <li><strong>권한·라이선스:</strong> 멤버 기본 저장소 접근·팀과 초대 한도·조직 멤버 라이선스를 확인합니다. 고객에게 Owner나 불필요한 접근을 주지 않고 본인 수락을 확인합니다.</li>
               <li><strong>좌석:</strong> 승인된 Copilot Business/Enterprise 환경에서 필요 시 Allow this organization to assign seats → Start adding seats → Purchase for selected members → 참가자 선택 → Continue to purchase → Purchase seats. 실제 할당 목록을 확인합니다.</li>
-              <li><strong>정책·리허설:</strong> Copilot → Policies의 <strong>Copilot in GitHub.com</strong>과 상위 엔터프라이즈 정책을 확인합니다. 테스트 참가자의 가입·좌석·브라우저 응답을 인계 전에 검증합니다.</li>
-              <li><strong>비용·종료:</strong> 좌석은 <strong>배정 시점부터 과금</strong>됩니다. 승인된 참가자만 배정하고 종료 후 승인된 정책대로 좌석·임시 멤버십을 회수합니다. 5시간 자동 종료가 아니며 개인 GitHub 계정은 삭제하지 않습니다.</li>
+              <li><strong>정책·리허설:</strong> Copilot → Policies의 <strong>Copilot in the cloud</strong>(이전 이름 Copilot in GitHub.com)와 상위 엔터프라이즈 정책을 확인합니다. 테스트 참가자의 가입·좌석·브라우저 응답을 인계 전에 검증합니다.</li>
+              <li><strong>비용·종료:</strong> 좌석은 <strong>배정 시점부터 과금</strong>되며 남은 청구 주기만큼 일할 계산됩니다. 좌석을 회수해도 <strong>현재 청구 주기 말까지 과금이 이어지고 사용자의 접근도 그때까지 유지</strong>될 수 있습니다(조직에서 제거·정지한 사용자는 접근만 즉시 중단되고 좌석 과금은 주기 말까지 이어짐). 승인된 참가자만 배정하고 종료 후 승인된 정책대로 좌석·임시 멤버십을 회수합니다. 개인 Copilot Pro·Pro+·Max 플랜 보유자는 조직 좌석을 받으면 개인 플랜이 자동 취소됩니다. 5시간 자동 종료가 아니며 개인 GitHub 계정은 삭제하지 않습니다.</li>
             </ol>
           </div>
         </details>
@@ -245,6 +245,7 @@ GitHub 사용자명: &lt;본인 username&gt;
           <a href="https://docs.github.com/en/copilot/how-tos/administer-copilot/manage-for-organization/manage-access/grant-access" target="_blank" rel="noopener noreferrer">Copilot 좌석 배정</a>
           <a href="https://docs.github.com/en/copilot/how-tos/administer-copilot/manage-for-organization/manage-access/manage-requests-for-access" target="_blank" rel="noopener noreferrer">조직 Copilot 권한 신청</a>
           <a href="https://docs.github.com/en/copilot/how-tos/administer-copilot/manage-for-organization/manage-policies" target="_blank" rel="noopener noreferrer">조직 정책</a>
+          <a href="https://docs.github.com/en/copilot/how-tos/administer-copilot/manage-for-organization/manage-copilot-in-the-cloud" target="_blank" rel="noopener noreferrer">Copilot in the cloud 정책</a>
           <a href="https://docs.github.com/en/copilot/how-tos/copilot-on-github/chat-with-copilot/chat-in-github" target="_blank" rel="noopener noreferrer">브라우저 Copilot</a>
         </p>
       </footer>
