@@ -16,7 +16,7 @@
       <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">SE</span> Microsoft Foundry <span class="top-meta">/ 운영자 가이드</span></a>
       <div class="topbar-tools">
         <button class="button small theme-toggle" id="theme-toggle" type="button" aria-pressed="false">다크 테마</button>
-        <span class="top-meta">SE팀 준비·운영 참고 · 2026.11.07</span>
+        <span class="top-meta">SE팀 준비·운영 참고 · 2026.11.08</span>
       </div>
       <span class="sr-only" id="theme-status" role="status"></span>
     </div>
@@ -288,7 +288,7 @@ python3 scripts/verify_workshop.py --config config/workshop.local.json</pre>
           <article class="runbook-card"><h3>01 · 계정·첫 로그인·MFA</h3><p><strong>운영자가 실제 교육망에서 새 테스트 Guest로</strong> 최초 로그인·필요한 암호 변경·본인 MFA 등록·재로그인을 확인합니다. 올바른 테넌트·구독·본인 RG 접근도 대조합니다. <a href="#network-mfa-rehearsal">필수 인증 리허설 →</a></p></article>
           <article class="runbook-card"><h3>02 · 역할·고객 간 격리</h3><p>개인 Object ID와 세 역할의 Scope를 대조합니다. 상위·다른 RG·그룹 경유 접근도 확인하고, 두 테스트 참가자의 <strong>상호 RG·프로젝트 접근 거부</strong>를 확인합니다.</p></article>
           <article class="runbook-card"><h3>03 · RP·정책·지역</h3><p>필요한 RP Registered, 허용 지역·SKU·네트워크를 확인합니다. 구독 오퍼의 외부 고객 교육 사용 허용 여부·조직 정책·데이터 처리 요건도 승인되어야 합니다.</p></article>
-          <article class="runbook-card"><h3>04 · 모델·TPM·목표 부하</h3><p>배정 모델별 잔여 쿼터·Quota Scope·RPM·지역 공급·자원 수 한도를 확인합니다. 1인 1배포 기준과 TPM을 전달하고 <strong>목표 동시 인원 부하</strong>를 검증합니다. <a href="#capacity">용량 계산 참고 →</a></p></article>
+          <article class="runbook-card"><h3>04 · 모델·TPM·목표 부하</h3><p>일반 실습은 <strong>gpt-6.1-terra의 TPM을 개인별로 배분</strong>하고 Optimizer 등 모델 고정 설정은 지정 모델을 유지합니다. 각 풀의 잔여 쿼터·Scope·RPM·지역 공급·자원 수 한도를 확인하고 <strong>목표 동시 인원 부하</strong>를 검증합니다. <a href="#capacity">용량 계산 참고 →</a></p></article>
           <article class="runbook-card"><h3>05 · 참가자 E2E·MI·Traces</h3><p>테스트 참가자가 배정 RG 안에 리소스를 직접 생성합니다. 배정할 각 모델·버전·SKU로 Playground → Agent 응답 → App Insights 연결 후 새 실행 → Monitor·Traces를 확인합니다. MI·도구 신원도 따로 점검합니다.</p></article>
           <article class="runbook-card"><h3>06 · 비용·인계·종료</h3><p>예산 알림·사용량 점검, 종료/보존 정책·지원 담당·대체 담당을 정합니다. 개인별 배정값과 암호 전달 경로를 분리합니다. <strong>5시간·TPM·예산 알림은 자동 비용 상한이나 종료 장치가 아닙니다.</strong></p></article>
         </div>
@@ -334,7 +334,7 @@ python3 scripts/verify_workshop.py --config config/workshop.local.json</pre>
       <section class="panel observed-section" id="capacity">
         <p class="section-label">CAPACITY IS SHARED · BUDGET IS NOT A STOP SWITCH</p>
         <h2>50개 RG를 만들기 전에 모델 쿼터와 비용을 계산합니다.</h2>
-        <p class="intro">그룹별 모델·버전·지역·배포 유형을 정한 뒤 현재 할당량·잔여 쿼터·리소스 수 한도·실제 공급 가용성을 확인합니다. 문서의 기본값만으로 50명 개최 가능을 확정하지 않습니다.</p>
+        <p class="intro">일반 실습은 현재 가장 많은 TPM을 확보한 <strong>gpt-6.1-terra를 기본 모델</strong>로 사용합니다. 해당 모델·버전·지역·배포 유형의 현재 할당량·잔여 쿼터·리소스 수 한도·실제 공급을 확인하고 개인별 TPM을 배분합니다. Optimizer 등 모델 고정 설정은 지정 모델의 쿼터를 따로 확인하며, 문서의 예시값만으로 50명 개최 가능을 확정하지 않습니다.</p>
         <div class="table-wrap">
           <table aria-label="워크샵 용량 계획 점검">
             <thead><tr><th>확인 항목</th><th>운영 기준</th></tr></thead>
@@ -348,41 +348,44 @@ python3 scripts/verify_workshop.py --config config/workshop.local.json</pre>
             </tbody>
           </table>
         </div>
-        <h3 class="role-title" id="model-groups">경량 모델을 그룹별로 하나씩 배정해 쿼터를 분산합니다.</h3>
-        <p class="intro">2026.11.06 확인한 후보와 <a href="https://learn.microsoft.com/azure/foundry/openai/quotas-limits#quota-tier-reference" target="_blank" rel="noopener noreferrer">공식 Tier 1 Global Standard 참고 한도</a>입니다. 아래 수치는 모든 구독의 잔여량이 아닙니다. SE는 개최 전에 실제 구독의 승인 한도·현재 할당·Scope·지역 공급을 다시 확인합니다.</p>
+        <h3 class="role-title" id="model-groups">gpt-6.1-terra의 공유 TPM을 참가자에게 배분합니다.</h3>
+        <p class="intro"><strong>여러 경량 모델로 참가자를 나누던 배정 대신, 선택 가능한 모델 설정은 gpt-6.1-terra로 통일</strong>합니다. 현재 가장 많은 TPM을 확보한 모델이라는 운영 기준이지 모든 구독의 공식 한도·잔여량을 보장하는 수치가 아닙니다. SE는 개최 전에 실제 구독의 Quota 화면에서 승인 한도·기존 배포 할당·잔여량·Scope·지역 공급을 확인합니다.</p>
         <div class="table-wrap">
-          <table aria-label="경량 실습 모델 후보와 참고 쿼터">
-            <thead><tr><th>모델 · 확인 버전</th><th>Global Standard · Tier 1 참고 TPM</th><th>운영 판단</th></tr></thead>
+          <table aria-label="기본 모델과 모델 고정 예외 운영 기준">
+            <thead><tr><th>설정·단계</th><th>모델 배정</th><th>SE 확인</th></tr></thead>
             <tbody>
-              <tr><td><code>gpt-5.4-mini</code><br><code>2026-03-17</code></td><td>1,000,000 TPM</td><td>기본 그룹 후보. 실제 잔여량이 500,000 TPM 이상이면 50명 × 10,000 TPM의 할당 계산을 충족합니다.</td></tr>
-              <tr><td><code>gpt-5.6-luna</code><br><code>2026-07-09</code></td><td>250,000 TPM</td><td>잔여량이 이 값이라면 10,000 TPM 배포는 최대 25개입니다. 50명에게 모두 배정하지 말고 여유를 남겨 소그룹에 배정합니다.</td></tr>
-              <tr><td><code>gpt-6-luna</code><br><code>2026-09-22</code></td><td>250,000 TPM</td><td>별도 경량 후보입니다. <strong>gpt-6.1-luna의 별칭이 아닙니다.</strong> 모델·버전별 Playground·Agent·Traces 리허설을 통과한 뒤 사용합니다.</td></tr>
-              <tr><td><code>gpt-6.1-luna</code></td><td>확인되지 않음</td><td>확인한 East US 2·West US 3 카탈로그와 East US 2 쿼터에 항목이 없었습니다. 0 TPM 또는 전 지역 미지원으로 단정하지 않지만, 현재 배정 모델에 포함하지 않습니다.</td></tr>
+              <tr><td>일반 모델 선택이 가능한 실습 설정</td><td><strong><code>gpt-6.1-terra</code></strong></td><td>실제 지원 버전·지역·배포 유형·잔여 TPM, capacity/TPM/RPM 단위와 실행 파라미터. 일반 실습용 개인 배포는 1개.</td></tr>
+              <tr><td>Optimizer 등 특정 모델을 요구하는 설정</td><td><strong>해당 기능·실습의 지정 모델·버전 유지</strong></td><td>지원 모델 제약과 각 모델 풀의 별도 잔여량·필요 배포 수·TPM. 같은 실습의 선택 가능한 설정만 terra를 사용하며 고정 설정은 일괄 치환하지 않음.</td></tr>
+              <tr><td>기본 모델의 공급·접근·쿼터 부족</td><td>SE가 리허설한 승인 대안만</td><td>먼저 개인별 TPM·동시 배포 수·실습 시간 분할을 조정. 대체 모델·지역·SKU는 비용·데이터 처리·실습 지원을 재검증하고 배정표 갱신.</td></tr>
             </tbody>
           </table>
         </div>
+        <ol class="task-list" aria-label="terra 개인별 TPM 배분 절차">
+          <li><strong>배분 가능한 양 확인:</strong> 기존 배포 할당을 제외한 <strong>현재 잔여 TPM − SE 리허설·추가 배포용 여유 = 실습 배정 가능 TPM</strong>으로 계산합니다. 구독·모델·Quota Scope·배포 유형이 같은 풀을 기준으로 합니다.</li>
+          <li><strong>개인별 배정:</strong> 배정 가능 TPM을 <strong>동시에 유지할 gpt-6.1-terra 개인 배포 수</strong>로 나눠 지원되는 최소·증분 단위에 맞춥니다. 전체 개인 배포 TPM 합계가 배정 가능량을 넘지 않도록 내림해 배정합니다. 최소 배포량에도 부족하면 시간대를 나누고, 승인된 정리 정책에 따라 앞 시간대 배포를 해제해야 쿼터가 돌아옵니다.</li>
+          <li><strong>고정 모델은 별도 계산:</strong> 해당 단계의 <strong>동시 배포 수 × 개인별 TPM</strong>과 SE 여유를 각 지정 모델 풀에서 따로 확보합니다. 일반 단계에서는 terra를 쓰고 고정 단계의 필요한 설정만 지정 모델을 유지합니다. terra의 남는 쿼터를 다른 모델로 이전할 수는 없습니다.</li>
+        </ol>
         <div class="table-wrap">
-          <table aria-label="50명 모델 분산 배정 예시">
-            <thead><tr><th>그룹</th><th>인원</th><th>배정 모델</th><th>개인 배포</th><th>해당 모델 풀의 필요 잔여량</th></tr></thead>
+          <table aria-label="50명 terra TPM 배분 계산 예시">
+            <thead><tr><th>실습 단계</th><th>동시 배포 인원</th><th>배정 모델</th><th>개인 배포</th><th>해당 모델 풀의 필요 잔여량</th></tr></thead>
             <tbody>
-              <tr><td>A</td><td>20명</td><td><code>gpt-5.4-mini</code></td><td>1개 · 10,000 TPM</td><td>200,000 TPM</td></tr>
-              <tr><td>B</td><td>15명</td><td><code>gpt-5.6-luna</code></td><td>1개 · 10,000 TPM</td><td>150,000 TPM</td></tr>
-              <tr><td>C</td><td>15명</td><td><code>gpt-6-luna</code></td><td>1개 · 10,000 TPM</td><td>150,000 TPM</td></tr>
+              <tr><td>일반 실습</td><td>50명</td><td><code>gpt-6.1-terra</code></td><td>1개 · 10,000 TPM 예시</td><td><strong>500,000 TPM + SE 여유</strong></td></tr>
+              <tr><td>Optimizer 등 모델 고정 단계</td><td>해당 단계의 동시 배포 인원</td><td>기능·실습의 지정 모델</td><td>별도 승인 개수·TPM</td><td>각 지정 모델에서 별도 계산 + SE 여유</td></tr>
             </tbody>
           </table>
         </div>
-        <p class="intro"><strong>East US 2 · Global Standard</strong> 기준의 예시입니다. <strong>20 + 15 + 15 = 50명</strong>이며 합계 배포 할당은 500,000 TPM입니다. 각 모델 풀에서 위 잔여량과 SE·재시도용 여유를 따로 확보합니다. 한 모델의 남는 쿼터를 다른 모델에 옮겨 쓸 수 있는 것이 아니며, 모든 참가자가 세 모델을 전부 배포하는 방식도 아닙니다. 두 모델만 쓰면 A 30명·B 20명으로 단순화할 수 있지만, 선택한 두 모델로 동일 실습을 다시 검증합니다.</p>
-        <div class="notice warning"><strong>Data Zone Standard로 바꾸면 이 인원표를 그대로 쓰지 않습니다.</strong> 공식 Tier 1에서 GPT-5.6 Luna·GPT-6 Luna의 Data Zone Standard 참고 한도는 각각 100,000 TPM이므로 15명 × 10,000 TPM에도 부족합니다. 데이터 처리·거주 요건에 맞는 배포 유형을 먼저 승인하고 그 풀의 실제 잔여량으로 인원·TPM을 다시 계산합니다.</div>
-        <div class="notice"><strong>모델 이름이 경량이라고 TPM·가격·기능이 같지는 않습니다.</strong> 확인한 위 세 모델의 Global Standard는 capacity 1당 1,000 TPM·1 RPM이므로 capacity 10은 10,000 TPM·10 RPM입니다. Batch의 enqueued tokens는 이 실시간 TPM과 다릅니다. 모델·버전·SKU가 바뀌면 단위와 비용을 다시 확인합니다.</div>
-        <div class="notice warning"><strong>GPT-5.4 mini·GPT-5.6 Luna·GPT-6 Luna에 녹화의 minimal을 복사하지 않습니다.</strong> 새 모델은 지원되는 <code>none</code>/<code>low</code> 등에서 SE가 검증한 Reasoning Effort·출력 한도를 배정합니다. 도구가 있는 실습은 API와 도구 지원도 확인합니다. 현재 공개 E2E 영상은 GPT-5 mini이며, 새 후보의 배포·Agent 실행 또는 50명 부하 성공을 증명하는 자료가 아닙니다.</div>
+        <p class="intro">운영자가 승인한 지역·배포 유형의 같은 terra 풀에서 <strong>50 × 10,000 = 500,000 TPM</strong>을 배분하는 계산 예시입니다. 실제 terra 잔여량·버전·SKU·개인별 배정값이 확정됐다는 뜻은 아닙니다. 모델 고정 단계는 별도 배포가 필요할 수 있으므로 일반 실습의 1인 1배포 규칙과 구분해 인계합니다.</p>
+        <div class="notice warning"><strong>지역·배포 유형을 바꾸면 다시 계산합니다.</strong> Global Standard·Data Zone Standard 등의 실제 Quota Scope·잔여량과 데이터 처리·거주 요건을 먼저 확인합니다. 다른 RG나 실습 시작 시간만 나눈다고 동시에 유지되는 배포의 할당량이 줄어들지는 않습니다.</div>
+        <div class="notice"><strong>가장 큰 TPM이 가장 낮은 비용·높은 RPM을 뜻하지는 않습니다.</strong> gpt-6.1-terra의 capacity/TPM/RPM 관계·가격·응답 한도를 확인합니다. 녹화 GPT-5 mini의 capacity 10 = 10,000 TPM을 terra에 복사하지 않습니다. Batch의 enqueued tokens는 실시간 TPM과 다릅니다.</div>
+        <div class="notice warning"><strong>gpt-6.1-terra에 녹화의 minimal을 복사하지 않습니다.</strong> 해당 버전에서 지원되는 Reasoning Effort·출력 한도를 SE가 검증해 배정합니다. 고정 모델도 각 모델의 지원 설정을 따릅니다. 도구가 있는 실습은 API와 도구 지원도 확인합니다. 현재 공개 E2E 영상은 GPT-5 mini이며, terra의 배포·Agent 실행 또는 50명 부하 성공을 증명하는 자료가 아닙니다.</div>
         <p class="intro"><a href="index.html#lightweight-models">고객이 따를 모델 배정 안내</a> · <a href="https://learn.microsoft.com/azure/foundry/foundry-models/quotas-limits#check-quota-management-scope" target="_blank" rel="noopener noreferrer">실제 Quota Scope 확인</a> · <a href="https://learn.microsoft.com/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure-region-availability" target="_blank" rel="noopener noreferrer">지역·배포 유형별 모델 가용성</a> · <a href="https://learn.microsoft.com/azure/foundry/openai/how-to/reasoning#reasoning-effort" target="_blank" rel="noopener noreferrer">Reasoning Effort 지원</a></p>
         <h3 class="role-title">TPM은 SE가 기준을 정하고, 실습자가 모델 생성 시 입력합니다.</h3>
         <div class="table-wrap">
           <table aria-label="TPM 설정과 점검 담당">
             <thead><tr><th>시점·담당</th><th>수행 작업</th></tr></thead>
             <tbody>
-              <tr><td>인계 전 · SE</td><td>모델·버전·지역·배포 유형, <strong>1명당 10,000 TPM · 배포 1개</strong> 같은 기준을 정하고 인계표에 명시합니다. 모델이 아직 없으므로 개인별 배포 TPM이 이미 설정된 상태는 아닙니다.</td></tr>
-              <tr><td>모델 배포 · 실습자</td><td>본인 RG의 Foundry·프로젝트를 만든 뒤 Custom settings에서 안내한 TPM을 입력합니다. 이 예시의 UI는 10000 TPM, API capacity는 10입니다. 모델별 capacity/TPM 단위를 다시 확인합니다.</td></tr>
+              <tr><td>인계 전 · SE</td><td>terra의 실제 잔여량에서 개인별 TPM·일반 실습용 배포 1개 기준을 정하고 모델·버전·지역·배포 유형·실행 한도와 함께 인계표에 명시합니다. 모델 고정 단계의 지정 모델·추가 배포·TPM도 별도 안내합니다. 개인별 배포 TPM이 이미 설정된 상태는 아닙니다.</td></tr>
+              <tr><td>모델 배포 · 실습자</td><td>본인 RG의 Foundry·프로젝트를 만든 뒤 Custom settings에서 안내한 TPM을 입력합니다. 10,000 TPM 배정이고 필드가 TPM 단위면 10000을 입력합니다. terra와 고정 모델의 capacity/TPM 단위를 각각 확인하며 녹화의 capacity=10을 복사하지 않습니다.</td></tr>
               <tr><td>배포 후 · SE</td><td>Foundry Quota/모델 배포 화면에서 참가자별 배포 개수·할당 TPM·잔여 쿼터를 대조합니다. 잘못된 할당은 참가자에게 수정 요청하고 필요 시 승인된 조치만 수행합니다.</td></tr>
             </tbody>
           </table>
@@ -400,24 +403,33 @@ python3 scripts/verify_workshop.py --config config/workshop.local.json</pre>
         <p class="section-label">HANDOFF WITHOUT SHARING SECRETS</p>
         <h2>고객에게 환경 값과 해야 할 일만 명확히 전달합니다.</h2>
         <p class="intro">다른 고객 실습을 만들 때도 <strong>배정 RG 안에서 실습자가 직접 리소스를 생성</strong>하는 틀을 유지하고 모델·데이터·본문 URL을 바꿉니다. 초기 암호는 이 인계표와 분리하고, 고객 명단·Object ID 전체 대장은 공개 사이트에 올리지 않습니다.</p>
+        <div class="notice"><strong>GitHub Copilot도 제공한다면:</strong> <a href="github-copilot.html#operator-setup">별도 GitHub 조직·Copilot 관리자 준비</a>에 따라 개인 GitHub 계정 초대·수락과 Copilot 좌석·브라우저 정책을 확인합니다. 참가자에게는 <a href="github-copilot.html">A 관리자 초대 / B 사용자 가입 신청 가이드</a>를 전달합니다. 조직 가입만으로 Copilot 권한이 생기지 않으며 Entra 계정·Azure RBAC와 별도입니다.</div>
         <pre aria-label="참가자 환경 인계 템플릿">실습명: &lt;workshop-name&gt;
 로그인 계정: &lt;participant-upn&gt;
+초기 암호: 승인된 별도 경로로 본인에게만 전달
+첫 로그인: 본인이 첫 암호 변경·MFA 등록·재로그인 완료
+첫 로그인 실습 안내: https://junwoojeong100.github.io/internal-guest-hands-on-guide/#first-sign-in
 계정 유형: &lt;Internal Guest / Internal Member / External Guest 등&gt;
 대상 Tenant ID / Subscription ID: &lt;tenant-id&gt; / &lt;subscription-id&gt;
 배정 RG / 지역: &lt;resource-group&gt; / &lt;approved-region&gt;
 실습 범위: 배정 RG 안에서 필요한 리소스 직접 생성
 생성할 리소스·고유 이름 규칙: &lt;lab-resources-and-naming&gt;
 Foundry 프로젝트 URL: 참가자가 생성한 이후 확인
-배정 모델 그룹 / 모델·버전·배포 유형: &lt;group&gt; / &lt;model-version-sku&gt;
+일반 실습 기본 모델: gpt-6.1-terra
+배정 모델·버전·지역·배포 유형: &lt;model-version-region-sku&gt;
+모델 고정 단계 / 지정 모델·별도 배포 개수·TPM: &lt;fixed-model-step-and-allocation / 해당 없음&gt;
 모델 배포 고유 이름 / 실행 한도: &lt;deployment-name&gt; / &lt;limits&gt;
 개인별 모델 배포 개수 / TPM: &lt;approved-deployment-count&gt; / &lt;approved-tpm&gt;
+GitHub 조직 / A 초대 링크 또는 B 가입 신청 경로: &lt;org&gt; / &lt;approved-invitation-or-request-channel&gt;
+조직 Copilot 제공 플랜·좌석 확인 / 사용 종료 정책: &lt;plan-and-seat-status&gt; / &lt;copilot-end-policy&gt;
+GitHub 가입·Copilot 준비: https://junwoojeong100.github.io/internal-guest-hands-on-guide/github-copilot.html
 사용할 실습 본문: &lt;customer-specific-lab-url&gt;
 계정·권한 공통 참고: https://junwoojeong100.github.io/internal-guest-hands-on-guide/#responsibilities
 문제 대응 공통 참고: https://junwoojeong100.github.io/internal-guest-hands-on-guide/#troubleshooting
 종료 시각·정리 정책 / 문의 경로: &lt;time-policy&gt; / &lt;approved-support-channel&gt;
 초기 암호·인증 코드: 이 표에 기록하지 않음</pre>
         <ol class="task-list">
-          <li>참가자는 계정·MFA를 완료하고 본인 테넌트·구독·RG·세 역할을 확인합니다. 본인 RG 밖의 자원 생성이나 역할 할당은 수행하지 않습니다.</li>
+          <li>참가자는 <a href="index.html#first-sign-in">첫 로그인 필수 실습</a>에 따라 본인 UPN·별도 전달된 초기 암호로 로그인하고 <strong>직접 첫 암호 변경·MFA 등록·재로그인</strong>을 완료합니다. 이후 본인 테넌트·구독·RG·세 역할을 확인하며 본인 RG 밖의 자원 생성이나 역할 할당은 수행하지 않습니다.</li>
           <li>고객별 실습 내용에 맞는 리소스 생성 순서·완료 기준을 전달합니다. 녹화 예시의 이름이나 기존 리소스를 그대로 재사용하지 않습니다.</li>
           <li>새 프로젝트 MI 등의 후속 권한 점검이 필요하면 참가자가 생성 완료를 알릴 경로와 SE 담당자를 미리 지정합니다.</li>
         </ol>

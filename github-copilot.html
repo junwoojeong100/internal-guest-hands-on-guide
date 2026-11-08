@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2040%2040'%3E%3Crect%20width='40'%20height='40'%20rx='10'%20fill='%2310263d'/%3E%3Ctext%20x='20'%20y='26'%20text-anchor='middle'%20fill='white'%20font-family='sans-serif'%20font-size='16'%20font-weight='700'%3EGH%3C/text%3E%3C/svg%3E">
+  <meta name="description" content="개인 GitHub 계정으로 워크샵 조직에 가입하고 Copilot을 사용하는 가이드. 관리자 초대와 사용자 가입 신청 두 경로, 조직 Copilot 좌석 확인과 브라우저 실습을 안내합니다.">
+  <title>GitHub 조직 가입 · Copilot 실습 준비</title>
+  <script src="assets/theme.js"></script>
+  <link rel="stylesheet" href="assets/guide.css">
+</head>
+<body>
+  <a class="skip" href="#main">가입·Copilot 안내로 이동</a>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">GH</span> GitHub <span class="top-meta">/ 조직 가입 · Copilot</span></a>
+      <div class="topbar-tools">
+        <button class="button small theme-toggle" id="theme-toggle" type="button" aria-pressed="false">다크 테마</button>
+        <span class="top-meta">워크샵 준비 · 2026.11.08</span>
+      </div>
+      <span class="sr-only" id="theme-status" role="status"></span>
+    </div>
+  </header>
+
+  <div class="hero" id="top">
+    <div class="hero-inner">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">PERSONAL GITHUB ACCOUNT · ORGANIZATION-PROVIDED COPILOT</div>
+          <h1>내 GitHub 계정으로 조직에 가입하고,<br>Copilot으로 실습하세요.</h1>
+          <p class="hero-lead"><strong>초대를 받았다면 A, 먼저 가입을 신청하려면 B.</strong><br>가입 후 운영자가 Copilot 좌석을 배정하면 브라우저에서 바로 사용합니다.<br>개인 GitHub 유료 구독이나 카드 등록은 필요하지 않습니다.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#join">A / B 가입 절차 보기 →</a>
+            <a class="button dark" href="index.html">Foundry 실습자 가이드 ↗</a>
+            <a class="button dark" href="#operator-setup">관리자 준비사항</a>
+          </div>
+        </div>
+        <div class="proof">
+          <p class="proof-label"><strong>준비 완료 기준</strong> · 아래 세 가지를 확인하세요.</p>
+          <div class="stats">
+            <div class="stat"><strong>가입</strong><span>조직 멤버십 확인</span></div>
+            <div class="stat"><strong>좌석</strong><span>조직 Copilot 권한</span></div>
+            <div class="stat"><strong>응답</strong><span>질문 1개 실행</span></div>
+          </div>
+          <p class="proof-note">조직 가입만으로 Copilot이 활성화되지는 않습니다.<br>운영자의 Copilot 좌석 배정까지 확인해야 합니다.</p>
+        </div>
+      </div>
+      <div class="hero-meta"><span>개인 GitHub 계정 사용</span><span>조직명·초대 링크·가입 신청 경로는 운영자 안내값</span><span>설치 없는 브라우저 Copilot 기준</span></div>
+    </div>
+  </div>
+
+  <div class="workspace">
+    <aside aria-label="GitHub 준비 목차">
+      <p class="nav-title">JOIN · ENABLE · PRACTICE</p>
+      <nav class="toc" id="toc" aria-label="페이지 목차">
+        <a href="#join"><span class="nav-number">01</span>A 초대 / B 가입 신청</a>
+        <a href="#copilot-access"><span class="nav-number">02</span>Copilot 권한 확인</a>
+        <a href="#practice"><span class="nav-number">03</span>Copilot 질문 실행</a>
+        <a href="#help"><span class="nav-number">지원</span>막히면 확인</a>
+        <a href="#operator-setup"><span class="nav-number">SE</span>관리자 준비사항</a>
+      </nav>
+      <p class="sidebar-note"><a href="index.html">Foundry 실습자 가이드 ↗</a><br><a href="operator.html#handoff">SE 인계 가이드 ↗</a><br><br>GitHub 개인 계정과 실습용 Entra UPN은 별개입니다. GitHub에는 본인 GitHub 계정으로 로그인하세요.</p>
+    </aside>
+
+    <main id="main">
+      <section class="panel observed-section" id="join">
+        <p class="section-label">STEP 01 · CHOOSE ONE JOIN PATH</p>
+        <h2>조직에 가입하세요. A 또는 B를 선택합니다.</h2>
+        <p class="intro">먼저 <a href="https://github.com/login" target="_blank" rel="noopener noreferrer">GitHub에 본인 개인 계정으로 로그인</a>하고 프로필의 <strong>사용자명(username)</strong>을 확인합니다. 계정이 없다면 <a href="https://github.com/signup" target="_blank" rel="noopener noreferrer">개인 계정 생성</a>과 이메일 인증을 본인이 완료합니다. 운영자에게 전달할 값은 GitHub 사용자명이며, 암호·2FA 코드·토큰은 전달하지 않습니다.</p>
+        <div class="runbook-grid" aria-label="관리자 초대와 사용자 가입 신청">
+          <article class="runbook-card recommended" id="admin-invitation">
+            <p class="section-label">A · 관리자가 먼저 초대한 경우</p>
+            <h3>받은 초대를 직접 수락합니다.</h3>
+            <ol class="task-list">
+              <li>운영자가 보낸 <strong>GitHub 초대 이메일 또는 초대 링크</strong>를 엽니다.</li>
+              <li><strong>대상 조직명과 로그인한 본인 사용자명</strong>을 확인하고 <strong>Join / Accept invitation</strong>을 선택합니다.</li>
+              <li><a href="https://github.com/settings/organizations" target="_blank" rel="noopener noreferrer">내 Organizations</a>에서 조직 멤버십을 확인하고 운영자에게 수락 완료를 알립니다.</li>
+            </ol>
+            <a class="button" href="#copilot-access">다음 · Copilot 권한 확인 →</a>
+          </article>
+          <article class="runbook-card" id="join-request">
+            <p class="section-label">B · 사용자가 먼저 가입을 신청하는 경우</p>
+            <h3>참여 신청 후, 승인된 초대를 수락합니다.</h3>
+            <ol class="task-list">
+              <li>운영자가 안내한 <strong>가입 신청 링크 또는 승인된 문의 경로</strong>로 대상 조직명과 본인 GitHub 사용자명을 제출합니다. 아래 문구를 사용할 수 있습니다.</li>
+              <li>관리자가 참가 여부·계정을 확인하고 <strong>승인 후 GitHub 조직 초대</strong>를 보낼 때까지 기다립니다.</li>
+              <li>초대를 받으면 <strong>A의 초대 수락 절차</strong>를 완료합니다. 신청 제출만으로 가입·Copilot 권한이 생기지는 않습니다.</li>
+            </ol>
+            <pre aria-label="사용자 가입 신청 문구">GitHub 조직 가입 신청
+대상 조직: &lt;운영자가 안내한 조직명&gt;
+GitHub 사용자명: &lt;본인 username&gt;
+신청 목적: 워크샵 참여 및 조직 제공 Copilot 사용</pre>
+          </article>
+        </div>
+        <div class="notice"><strong>일반 GitHub 조직은 초대 수락으로 가입합니다.</strong> B는 사용자가 신청을 먼저 시작하는 경로이며, 이 페이지가 신청을 자동 제출하거나 조직 가입을 승인하지는 않습니다. 공개 조직 화면을 열거나 저장소를 fork하는 것만으로 멤버가 되지 않습니다.</div>
+        <div class="notice warning"><strong>초대 수락 전 확인:</strong> 초대는 <strong>7일 후 만료</strong>됩니다. 이메일로 초대받았다면 그 주소가 본인 GitHub 계정의 인증된 이메일이어야 합니다. 조직이 2FA를 요구하면 본인이 먼저 등록합니다. <strong>GitHub 2FA는 실습용 Entra MFA와 별개</strong>입니다. 조직 SSO 안내가 표시되면 운영자가 승인한 인증 절차를 따릅니다.</div>
+      </section>
+
+      <section class="panel observed-section" id="copilot-access">
+        <p class="section-label">STEP 02 · MEMBERSHIP IS NOT A COPILOT LICENSE</p>
+        <h2>운영자가 배정한 Copilot 사용 권한을 확인합니다.</h2>
+        <ol class="task-list">
+          <li>조직 가입을 마친 <strong>같은 GitHub 사용자명</strong>에 Copilot Business/Enterprise 좌석이 배정되었는지 운영자에게 확인합니다. 좌석 배정은 <a href="#operator-setup">관리자 작업</a>입니다.</li>
+          <li>GitHub 프로필 → <a href="https://github.com/settings" target="_blank" rel="noopener noreferrer"><strong>Settings</strong></a> → <strong>Billing &amp; licensing → Licensing</strong>에서 현재 Copilot 플랜·권한을 확인합니다. 기존 화면에서는 <strong>Plans and usage</strong>로 표시될 수 있습니다. 조직 제공 권한이 불명확하면 운영자가 좌석 목록을 대조합니다.</li>
+          <li>배정 후 페이지를 새로고침하거나 재로그인합니다. Copilot Free만 보이거나 개인 결제를 요구하면 <strong>직접 유료 가입하지 말고</strong> 운영자에게 사용자명과 화면의 상태만 전달합니다.</li>
+        </ol>
+        <div class="notice warning"><strong>채팅이 된다는 것만으로 조직 좌석이 확인되지는 않습니다.</strong> 개인 Free/Pro로도 응답할 수 있으므로 조직 멤버십과 운영자의 좌석 배정을 따로 확인합니다.</div>
+      </section>
+
+      <section class="panel observed-section" id="practice">
+        <p class="section-label">STEP 03 · ASK ONE QUESTION IN YOUR BROWSER</p>
+        <h2>Copilot을 열고 질문 하나를 실행하세요.</h2>
+        <p class="intro"><a class="button" href="https://github.com/copilot" target="_blank" rel="noopener noreferrer">브라우저 GitHub Copilot 열기 ↗</a></p>
+        <ol class="task-list">
+          <li>조직에 가입한 <strong>동일한 개인 GitHub 계정</strong>인지 확인합니다.</li>
+          <li>아래 질문을 입력하고 <strong>Enter</strong>를 누릅니다. 답변이 오면 실습 중 질문·오류 이해·지시문 작성에 사용할 준비가 된 것입니다.</li>
+          <li>답변은 공식 문서와 실습 배정표로 확인합니다. Copilot의 제안만 보고 권한·모델·TPM을 임의로 바꾸지 않습니다.</li>
+        </ol>
+        <pre aria-label="Copilot 준비 확인 질문">Microsoft Foundry 실습에서 모델 배포 TPM과 RPM의 차이,
+429 오류가 났을 때 먼저 확인할 사항을 초보자에게 3줄로 설명해줘.</pre>
+        <div class="notice"><strong>Foundry와 Copilot의 한도는 별개입니다.</strong> Foundry의 gpt-6.1-terra TPM 배분은 모델 배포용이며 Copilot 좌석·사용 한도와 공유되지 않습니다. Copilot 모델은 조직이 허용한 목록과 실습 안내를 따릅니다.</div>
+        <div class="notice warning"><strong>공개·합성 데이터만 사용하세요.</strong> 고객 실데이터·비공개 코드·암호·MFA 코드·API 키·연결 문자열을 질문에 넣지 않습니다. 오류 화면은 민감 정보를 가린 뒤 승인된 지원 경로로만 전달합니다.</div>
+        <p class="check-row">본인 개인 계정으로 조직 멤버십 확인</p>
+        <p class="check-row">운영자의 조직 Copilot 좌석 배정 확인</p>
+        <p class="check-row">같은 계정에서 Copilot 질문 1개 응답 확인</p>
+        <p class="intro"><a class="button" href="index.html#prepare">Foundry 실습으로 돌아가기 →</a></p>
+      </section>
+
+      <section class="panel observed-section" id="help">
+        <p class="section-label">IF BLOCKED · DO NOT BUY A PERSONAL PLAN</p>
+        <h2>막히면 아래만 확인하세요.</h2>
+        <div class="table-wrap">
+          <table aria-label="GitHub 가입과 Copilot 문제 대응">
+            <thead><tr><th>증상</th><th>확인·다음 행동</th></tr></thead>
+            <tbody>
+              <tr><td>신청했지만 초대가 없음</td><td>B의 신청 접수·승인 상태와 제출한 사용자명을 운영자에게 확인합니다. 신청만으로 자동 가입되지 않습니다.</td></tr>
+              <tr><td>초대가 안 보임·만료됨</td><td>초대받은 계정·인증된 이메일·스팸함을 확인합니다. 7일 만료라면 운영자에게 재초대를 요청합니다.</td></tr>
+              <tr><td>2FA·SSO 때문에 가입 안 됨</td><td>본인 GitHub 2FA와 승인된 조직 SSO 절차를 완료합니다. 인증 코드를 공유하거나 정책을 우회하지 않습니다.</td></tr>
+              <tr><td>가입했는데 Copilot이 없음</td><td>같은 사용자명의 좌석 활성 상태를 운영자에게 확인한 뒤 새로고침·재로그인합니다. 개인 유료 구독으로 대신하지 않습니다.</td></tr>
+              <tr><td>브라우저 Copilot이 차단됨</td><td>운영자가 조직·상위 엔터프라이즈의 <strong>Copilot in GitHub.com</strong> 정책과 실습에 허용된 모델·사용 한도를 확인합니다.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="intro">문의에는 GitHub 사용자명·대상 조직·진행한 경로 A/B·발생 시각·민감 정보를 가린 오류만 포함합니다. 암호·2FA 코드·토큰은 보내지 않습니다.</p>
+      </section>
+
+      <section class="panel observed-section" id="operator-setup">
+        <p class="section-label">ADMIN ONLY · INVITE, ASSIGN AND VERIFY</p>
+        <h2>관리자 준비 · 초대와 Copilot 좌석은 별도입니다.</h2>
+        <p class="intro">개인 계정을 멤버로 초대하는 <strong>일반 GitHub 조직</strong> 기준입니다. Enterprise Managed Users는 SCIM으로 계정을 프로비저닝하므로 이 가입 절차를 적용하지 않습니다. 조직명·가입 신청 링크/문의 경로·지원 담당·사용 종료 정책을 참가자에게 먼저 전달합니다.</p>
+        <ol class="task-list">
+          <li><strong>A / B 접수:</strong> A는 참가자 사용자명으로 먼저 초대합니다. B는 승인된 신청 경로에서 사용자명을 받아 참가 여부를 확인한 뒤 승인·초대합니다. 공개 사이트·공개 이슈에 고객 명단을 모으지 않습니다.</li>
+          <li><strong>조직 초대:</strong> 조직 → <strong>People → Invite member</strong> → 정확한 사용자명 → <strong>Member</strong> → Send invitation. 본인 수락을 확인합니다. 기존 저장소의 기본 접근 권한·팀을 점검해 고객에게 불필요한 접근이나 Owner 권한을 주지 않습니다. 초대 발송 한도와 조직 멤버 라이선스도 확인합니다.</li>
+          <li><strong>Copilot 좌석:</strong> 승인된 Copilot Business/Enterprise 사용 환경에서 조직 → <strong>Settings → Copilot → Access</strong> → 필요 시 Allow this organization to assign seats → <strong>Start adding seats → Purchase for selected members</strong> → Users and teams에서 참가자 선택 → <strong>Continue to purchase → Purchase seats</strong>. 기존 화면에 따라 추가 버튼 이름은 달라질 수 있으므로 실제 할당 목록을 확인합니다.</li>
+          <li><strong>정책·실행:</strong> <strong>Settings → Copilot → Policies</strong>에서 <strong>Copilot in GitHub.com</strong>이 허용되는지 확인합니다. 상위 엔터프라이즈 정책은 조직에서 덮어쓸 수 없습니다. 테스트 참가자 계정으로 가입·좌석·브라우저 질문 응답을 인계 전에 확인합니다.</li>
+          <li><strong>비용·종료:</strong> 좌석은 사용 시작이 아니라 <strong>배정 시점부터 과금</strong>되므로 승인된 참가자만 선택합니다. 워크샵 종료 후 승인된 정책에 따라 Copilot 좌석과 임시 조직 멤버십을 회수하고 저장소·기록 보존을 처리합니다. 5시간 일정만으로 자동 종료되지 않으며 고객의 개인 GitHub 계정은 삭제하지 않습니다.</li>
+        </ol>
+        <div class="notice">이 HTML은 안내 문서입니다. 가입 신청 접수·조직 초대·Copilot 구매·권한 회수를 자동 실행하지 않습니다.</div>
+      </section>
+
+      <footer class="footnotes">
+        <p>공식 기준:
+          <a href="https://docs.github.com/en/organizations/managing-membership-in-your-organization/inviting-users-to-join-your-organization" target="_blank" rel="noopener noreferrer">조직 초대·수락</a>
+          <a href="https://docs.github.com/en/copilot/how-tos/administer-copilot/manage-for-organization/manage-access/grant-access" target="_blank" rel="noopener noreferrer">Copilot 좌석 배정</a>
+          <a href="https://docs.github.com/en/copilot/how-tos/manage-your-account/view-and-change-your-copilot-plan" target="_blank" rel="noopener noreferrer">현재 플랜 확인</a>
+          <a href="https://docs.github.com/en/copilot/how-tos/administer-copilot/manage-for-organization/manage-policies" target="_blank" rel="noopener noreferrer">조직 정책</a>
+          <a href="https://docs.github.com/en/copilot/how-tos/copilot-on-github/chat-with-copilot/chat-in-github" target="_blank" rel="noopener noreferrer">브라우저 Copilot</a>
+        </p>
+      </footer>
+    </main>
+  </div>
+  <script src="assets/navigation.js"></script>
+</body>
+</html>

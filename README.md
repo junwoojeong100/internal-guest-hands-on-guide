@@ -2,18 +2,23 @@
 
 **[고객용 실습자 가이드 바로 열기 →](https://junwoojeong100.github.io/internal-guest-hands-on-guide/)** · **[SE 운영자 가이드 바로 열기 →](https://junwoojeong100.github.io/internal-guest-hands-on-guide/operator.html)**
 
+**[GitHub 조직 가입 · Copilot 준비 가이드 →](https://junwoojeong100.github.io/internal-guest-hands-on-guide/github-copilot.html)** · A 관리자 초대 / B 사용자 가입 신청 → 초대 수락 → 조직 Copilot 권한 확인 → 브라우저 질문 실행
+
 약 **50명의 고객이 5시간 동안** Microsoft Foundry를 직접 실습하는 워크샵을 위한 가이드입니다. 운영자가 **Internal Guest 계정, 고객별 Azure 리소스 그룹(RG), 필요한 RBAC 역할·구독 사전 설정까지** 준비해 제공합니다. **Foundry·프로젝트·모델·관측성 등 필요한 리소스는 참가자가 본인 RG 안에 직접 생성**합니다.
 
 | 가이드 | 대상·내용 |
 |---|---|
 | [운영자 가이드](https://junwoojeong100.github.io/internal-guest-hands-on-guide/operator.html) | SE팀: **부여할 역할 → A 스크립트 / B 포털 수동 → 공통 필수 점검 → 인계·지원·종료** |
-| [실습자 가이드](https://junwoojeong100.github.io/internal-guest-hands-on-guide/) | 고객: **시작 전 배정값 확인 → 본인 RG 안에 직접 생성 → 실행·추적**, 공통 계정·권한·문제 대응 참고 |
+| [실습자 가이드](https://junwoojeong100.github.io/internal-guest-hands-on-guide/) | 고객: **배정값 확인 → 첫 로그인·암호 변경·MFA 등록 → 본인 RG 안에 직접 생성 → 실행·추적**, 공통 계정·권한·문제 대응 참고 |
+| [GitHub 조직·Copilot 가이드](https://junwoojeong100.github.io/internal-guest-hands-on-guide/github-copilot.html) | 고객: **A 초대 수락 / B 가입 신청 후 승인·초대 수락 → 조직 Copilot 좌석 확인 → 브라우저 사용**, 관리자 초대·좌석·정책 준비 포함 |
 
 | 담당 | 작업 |
 |---|---|
 | 운영자 · 사전 준비 | 계정·RG 생성, 역할 할당, 필수 리소스 공급자 등록, MFA·지역·모델 쿼터·접근 격리 점검 |
 | 참가자 · 실습 | Foundry 리소스·프로젝트 생성, 모델 배포, 에이전트 생성·실행, Application Insights 연결, Monitor·Traces 확인 |
 | 운영자 · 종료 후 | 로그 보존과 완료 기록 확인, 승인된 정책에 따른 권한 회수·계정 차단·리소스 정리 |
+
+**참가자 필수 첫 실습:** 로그인 계정은 **본인 UPN과 별도 경로로 받은 초기 암호**입니다. **첫 암호 변경·MFA 등록은 본인이 완료**하고, 변경한 암호·본인 MFA로 재로그인해 대상 테넌트·구독·배정 RG를 확인합니다. [단계별 첫 로그인 실습 안내](https://junwoojeong100.github.io/internal-guest-hands-on-guide/#first-sign-in)를 먼저 따르세요. 인증 화면은 보안상 녹화에 포함하지 않았습니다.
 
 ## SE 준비: A 스크립트 일괄 / B 포털 수동
 
@@ -59,9 +64,9 @@ python3 scripts/verify_workshop.py --config config/workshop.local.json
 python3 -m unittest discover -s tests -v
 ```
 
-실습자 가이드에는 **63장 실제 화면, 3분 요약 영상, 51분 전체 영상**이 포함되며 두 가이드 모두 **라이트/다크 테마**를 지원합니다. 다른 고객 실습을 만들 때는 [계정·권한 공통 기준](https://junwoojeong100.github.io/internal-guest-hands-on-guide/#responsibilities)과 [문제 대응표](https://junwoojeong100.github.io/internal-guest-hands-on-guide/#troubleshooting)를 계속 참조하고, 실습 본문·모델·생성 자원만 별도로 구성하세요.
+실습자 가이드에는 **63장 실제 화면, 3분 요약 영상, 51분 전체 영상**이 포함되며 모든 가이드가 **라이트/다크 테마**를 지원합니다. 다른 고객 실습을 만들 때는 [계정·권한 공통 기준](https://junwoojeong100.github.io/internal-guest-hands-on-guide/#responsibilities)과 [문제 대응표](https://junwoojeong100.github.io/internal-guest-hands-on-guide/#troubleshooting)를 계속 참조하고, 실습 본문·모델·생성 자원만 별도로 구성하세요.
 
-모델 배포 단계에는 [경량 모델 그룹 배정·TPM 입력 안내](https://junwoojeong100.github.io/internal-guest-hands-on-guide/#lightweight-models)를 포함합니다. SE는 [모델별 쿼터·50명 분산 예시](https://junwoojeong100.github.io/internal-guest-hands-on-guide/operator.html#model-groups)를 참고해 실제 잔여량을 확인하고, 참가자는 배정된 모델 **하나만** 직접 배포합니다. 기존 화면·영상은 GPT-5 mini 검증 예시로 유지합니다.
+**일반 실습은 현재 가장 많은 TPM을 확보한 `gpt-6.1-terra`를 기본 모델로 사용하고 공유 쿼터를 개인별로 배분합니다.** 참가자는 [배정 TPM 입력 안내](https://junwoojeong100.github.io/internal-guest-hands-on-guide/#lightweight-models)에 따라 일반 실습용 모델 **하나만** 직접 배포합니다. SE는 [terra TPM 배분·50명 계산 예시](https://junwoojeong100.github.io/internal-guest-hands-on-guide/operator.html#model-groups)를 참고해 실제 잔여량에서 운영 여유를 뺀 뒤 개인별 TPM을 확정합니다. **Optimizer 등 특정 모델을 요구하는 설정은 지정 모델·버전을 유지**하고 해당 모델 풀의 배포 개수·TPM을 별도 배정합니다. 기존 화면·영상은 GPT-5 mini 검증 기록으로 유지하며 terra 검증 자료로 바꾸지 않습니다.
 
 > 현재 자료는 **Internal Guest 1명의 E2E 검증**을 바탕으로 합니다. 50명 환경이 이미 준비되었거나 동시 부하 검증이 완료되었다는 의미는 아닙니다. 실제 워크샵 전에는 쿼터·동시 부하·비용·MFA 정책·구독 오퍼의 고객 교육 사용 허용 여부를 별도로 확인해야 합니다.
 
