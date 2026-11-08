@@ -49,6 +49,7 @@ def verify(client: AzureClient, config: Config) -> dict:
             "Snapshot of the target subscription, descendants and inherited assignments only.",
             "Other subscriptions/tenants, eligible PIM roles and future membership changes not audited.",
             "Does not test participant sign-in, MFA, Conditional Access, policy/deny effects or portal UI.",
+            "Password-change behavior is not verified by this snapshot; existing accounts are not reset or repatched.",
             "Does not provision/test Foundry, models, TPM, project MI, cost or 50-user load.",
         ],
     }

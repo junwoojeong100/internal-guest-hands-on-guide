@@ -9,7 +9,7 @@
 | 가이드 | 대상·내용 |
 |---|---|
 | [운영자 가이드](https://junwoojeong100.github.io/internal-guest-hands-on-guide/operator.html) | SE팀: **부여할 역할 → A 스크립트 / B 포털 수동 → 공통 필수 점검 → 인계·지원·종료** |
-| [실습자 가이드](https://junwoojeong100.github.io/internal-guest-hands-on-guide/) | 고객: **배정값 확인 → 첫 로그인·암호 변경·MFA 등록 → 본인 RG 안에 직접 생성 → 실행·추적**, 공통 계정·권한·문제 대응 참고 |
+| [실습자 가이드](https://junwoojeong100.github.io/internal-guest-hands-on-guide/) | 고객: **배정값 확인 → 초기 암호 로그인·MFA 등록 → 본인 RG 안에 직접 생성 → 실행·추적**, 암호 변경은 선택 |
 | [GitHub 조직·Copilot 가이드](https://junwoojeong100.github.io/internal-guest-hands-on-guide/github-copilot.html) | 고객: **A 초대 수락 / B 가입 신청 후 승인·초대 수락 → 조직 Copilot 좌석 확인 → 브라우저 사용**, 관리자 초대·좌석·정책 준비 포함 |
 
 | 담당 | 작업 |
@@ -18,9 +18,11 @@
 | 참가자 · 실습 | Foundry 리소스·프로젝트 생성, 모델 배포, 에이전트 생성·실행, Application Insights 연결, Monitor·Traces 확인 |
 | 운영자 · 종료 후 | 로그 보존과 완료 기록 확인, 승인된 정책에 따른 권한 회수·계정 차단·리소스 정리 |
 
-**참가자 필수 첫 실습:** 로그인 계정은 **본인 UPN과 별도 경로로 받은 초기 암호**입니다. **첫 암호 변경·MFA 등록은 본인이 완료**하고, 변경한 암호·본인 MFA로 재로그인해 대상 테넌트·구독·배정 RG를 확인합니다. [단계별 첫 로그인 실습 안내](https://junwoojeong100.github.io/internal-guest-hands-on-guide/#first-sign-in)를 먼저 따르세요. 인증 화면은 보안상 녹화에 포함하지 않았습니다.
+**참가자 필수 첫 실습:** 로그인 계정은 **본인 UPN(User Principal Name)과 별도 경로로 받은 초기 암호**입니다. 몇 시간 사용하는 이 워크샵은 **첫 로그인 암호 변경을 강제하지 않습니다**(`forceChangePasswordNextSignIn=false`). 초기 암호 그대로 로그인하고 **MFA 등록·인증은 본인이 완료**합니다. 암호 변경은 선택이며 변경했다면 이후 본인 새 암호를 사용합니다. [첫 로그인 실습 안내](https://junwoojeong100.github.io/internal-guest-hands-on-guide/#first-sign-in)를 따르세요. 이 기준은 MFA·조건부 액세스·암호 위험 정책을 해제하지 않습니다.
 
-첫 로그인·MFA는 **실제 화면 → 번호별 입력·버튼 → 다음 상태**의 7단계입니다. 익명 Microsoft 로그인 캡처 1장과 공식 문서 화면 9장을 사용하며 재구성 인증·초대 그림은 제거했습니다. QR 데이터와 개인 식별 정보는 제외하고, GitHub는 실제 계정 메뉴에서 사용자명·조직 멤버십을 확인하도록 안내합니다. [출처·확대/가림·재사용 조건](assets/onboarding/ATTRIBUTION.txt)을 제공하며 기존 63장 녹화·검증 기록은 유지합니다.
+첫 로그인·MFA는 **실제 화면 → 번호별 입력·버튼 → 다음 상태**의 6단계이며 선택 암호 변경은 별도로 접어 두었습니다. GitHub는 조직 가입·좌석 배정·사용 권한 신청을 구분하고, 실제 계정 메뉴와 공식 Copilot 입력·답변 예시를 제공합니다. [화면 출처·재사용 조건](assets/onboarding/ATTRIBUTION.txt)을 표시하며 실제 암호·QR·인증 코드는 포함하지 않습니다. 기존 63장 녹화·검증 기록은 유지합니다.
+
+**2026.11.08 새 계정 로그인 실측:** 별도 비고객용 Internal Guest **1개를 추가 생성**해 초기 암호를 변경하지 않은 새 브라우저 로그인과 정책이 제공한 **Software OATH(TOTP) 등록·MFA 인증**을 확인했습니다. ARM·Graph가 같은 Guest의 토큰을 수락했고 두 토큰의 진단 정보에 **`pwd`, `mfa`**가 확인됐습니다. [비밀 값 없는 검증 JSON](assets/guest-auth-verification.json)을 제공합니다. 이 로그인 전용 테스트에는 Azure 역할·RG·자원을 추가하지 않았으므로 구독이 0개 보이는 것은 예상 결과입니다. 교육장 네트워크, Microsoft Authenticator 푸시, Foundry E2E·50명 부하·GitHub 좌석 사용을 새로 검증한 것은 아닙니다.
 
 ## SE 준비: A 스크립트 일괄 / B 포털 수동
 
@@ -30,7 +32,7 @@
 
 **신규 Internal Guest 생성 운영자:** 대상 테넌트의 활성 **User Administrator가 최소 권한**이며, 기존 **Global Administrator도 가능**합니다. Azure Owner나 외부 초대용 Guest Inviter만으로는 Internal Guest 신규 생성 권한을 대신할 수 없습니다.
 
-**인계 전 운영자 필수 리허설:** 계정 생성·스크립트 검증 PASS와 별개로, **실제 고객이 사용할 교육망과 같은 기기 조건에서 MFA 미등록 테스트 전용 Guest 2개의 최초 로그인·암호 변경·본인 MFA 등록·재로그인**을 확인합니다. 직원용 망·강사 전용 VPN이나 이미 MFA가 등록된 계정으로 대체하지 않습니다. 미확인·차단 상태에서는 인계를 보류합니다. [실제 교육망 인증 리허설 기준](https://junwoojeong100.github.io/internal-guest-hands-on-guide/operator.html#network-mfa-rehearsal)을 따르고 테스트 계정은 고객에게 배정하지 않습니다.
+**인계 전 운영자 필수 리허설:** 계정 생성·스크립트 검증 PASS와 별개로, **실제 고객 교육망·기기에서 MFA 미등록 테스트 전용 Guest 2개의 초기 암호 로그인(변경 강제 없음)·본인 MFA 등록·재로그인**을 확인합니다. 11월 8일 운영자 환경의 1개 계정 실측으로 대체하지 않습니다. 미확인·차단 상태에서는 인계를 보류합니다. [실제 교육망 인증 리허설](https://junwoojeong100.github.io/internal-guest-hands-on-guide/operator.html#network-mfa-rehearsal)을 따르고 테스트 계정은 고객에게 배정하지 않습니다.
 
 아래는 **A의 실행 예시**입니다. Azure Cloud Shell **Bash의 영구 저장소**, Linux/macOS 또는 WSL에서 **Python 3.11+·Azure CLI**를 사용합니다. 추가 Python 패키지는 없습니다.
 
@@ -55,6 +57,8 @@ python3 scripts/verify_workshop.py --config config/workshop.local.json
 50명 설정이면 **Internal Guest 50개 + RG 50개 + 직접 RBAC 150개**가 대상입니다. UPN은 `<workshopId>-001@<테넌트 초기 도메인>`, RG는 `rg-<workshopId>-001`부터입니다. 역할은 **본인 RG의 Contributor·Foundry User + 구독의 Cognitive Services Usages Reader**뿐이며 필요한 RP도 등록합니다. Foundry·프로젝트·모델·로그 자원은 **생성하지 않습니다**.
 
 같은 설정·실행 폴더로 다시 실행하면 누락분만 보완하고 **암호를 재설정하지 않습니다**. 다른 계정/RG를 채택하거나 추가 권한을 자동 삭제하지 않으며 충돌 시 중단합니다. 새 행사에는 새 `workshopId`를 사용하고, 적용 후 인원·지역 등 설정을 바꾸거나 실행 기록을 지우지 마세요. 다른 기기에서 같은 워크샵을 동시에 실행하지 않습니다.
+
+**암호 정책 적용 범위:** 이 스크립트가 새로 생성하는 계정은 변경 강제 `false`입니다. 기존에 발급된 계정의 암호·변경 요구를 재실행으로 자동 수정하지 않습니다. 이전 `true` 기준의 계정이 있다면 SE가 승인된 절차로 변경 요구만 점검·수정하며, 현재 암호를 조회·수집하거나 모두에게 같은 암호를 배정하지 않습니다. 몇 시간 일정만으로 계정이 만료되지는 않으므로 종료 후 승인된 차단·권한 회수를 수행합니다.
 
 **비공개 결과:** `.workshop-runs/<workshopId>/credentials.private.csv`는 초기 암호가 포함된 민감 파일입니다. `state.private.json`도 암호를 포함하는 복구 기록이며, `verification.private.json`은 검증 결과입니다. 폴더 0700·파일 0600, Git 제외·Pages 배포 제외로 보호합니다. 승인된 비공개 저장소에 백업하고, 전체 CSV를 고객에게 보내지 마세요. 참가자별 초기 암호는 승인된 별도 경로로만 전달합니다. Cloud Shell 임시 저장소에서는 복구 기록이 사라질 수 있습니다.
 

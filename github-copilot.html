@@ -118,7 +118,7 @@ GitHub 사용자명: &lt;본인 username&gt;
         <div class="notice"><strong>B는 자동 가입이 아닙니다.</strong> 신청 후에도 관리자 승인·초대 수락이 필요합니다. 이 페이지는 신청을 제출하거나 가입·Copilot 권한을 부여하지 않습니다. 암호·2FA 코드·토큰은 전달하지 않습니다.</div>
         <details>
           <summary>초대 만료·이메일 인증·GitHub 2FA / SSO 확인</summary>
-          <div class="details-body"><p>초대는 <strong>7일 후 만료</strong>됩니다. 이메일 초대는 본인 GitHub 계정의 인증된 이메일과 일치해야 합니다. 조직이 2FA를 요구하면 본인이 먼저 등록하며, <strong>GitHub 2FA와 Entra MFA는 별개</strong>입니다. SSO 안내가 나오면 운영자가 승인한 인증 절차를 따릅니다.</p></div>
+          <div class="details-body"><p>초대는 <strong>7일 후 만료</strong>됩니다. 이메일 초대는 본인 GitHub 계정의 인증된 이메일과 일치해야 합니다. 조직이 2FA를 요구하면 <a href="https://docs.github.com/en/authentication/securing-your-account-with-two-factor-authentication-2fa/configuring-two-factor-authentication" target="_blank" rel="noopener noreferrer">공식 GitHub 2FA 설정</a>에 따라 본인이 먼저 등록합니다. <strong>GitHub 2FA와 Entra MFA는 별개</strong>이며 복구 코드는 본인만 보관하고 제출하지 않습니다. SSO 안내가 나오면 운영자가 승인한 인증 절차를 따릅니다.</p></div>
         </details>
         <p class="screen-note">임의 초대 수락 그림은 제거하고 실제 공식 계정 메뉴와 정확한 수락·완료 기준을 제공합니다. 관리자 공식 화면은 아래에서 확인하세요. <a href="assets/onboarding/ATTRIBUTION.txt">화면 출처·재사용 조건</a></p>
       </section>
@@ -128,9 +128,22 @@ GitHub 사용자명: &lt;본인 username&gt;
         <h2>운영자가 배정한 Copilot 사용 권한을 확인합니다.</h2>
         <ol class="task-list">
           <li>조직 가입을 마친 <strong>같은 GitHub 사용자명</strong>에 Copilot Business/Enterprise 좌석이 배정되었는지 운영자에게 확인합니다. 좌석 배정은 <a href="#operator-setup">관리자 작업</a>입니다.</li>
-          <li>GitHub 프로필 → <a href="https://github.com/settings" target="_blank" rel="noopener noreferrer"><strong>Settings</strong></a> → <strong>Billing &amp; licensing → Licensing</strong>에서 현재 Copilot 플랜·권한을 확인합니다. 기존 화면에서는 <strong>Plans and usage</strong>로 표시될 수 있습니다. 조직 제공 권한이 불명확하면 운영자가 좌석 목록을 대조합니다.</li>
+          <li>같은 계정에서 <a href="https://github.com/settings/copilot" target="_blank" rel="noopener noreferrer"><strong>Settings → Copilot</strong></a>을 엽니다. 조직 제공 권한이 불명확하면 운영자가 <strong>Copilot → Access의 실제 좌석 목록</strong>에서 같은 사용자명을 대조합니다. 개인 Billing &amp; licensing의 Free/Pro 표시만으로 조직 좌석 배정을 판단하지 않습니다.</li>
           <li>배정 후 페이지를 새로고침하거나 재로그인합니다. Copilot Free만 보이거나 개인 결제를 요구하면 <strong>직접 유료 가입하지 말고</strong> 운영자에게 사용자명과 화면의 상태만 전달합니다.</li>
         </ol>
+        <article class="screen-card" style="margin-top:20px">
+          <div class="screen-header"><span class="stage-number">좌석</span><h3>조직에 가입했지만 Copilot 좌석이 없을 때</h3></div>
+          <div class="screen-body">
+            <figure class="screen-figure">
+              <a href="assets/onboarding/copilot-request-access.png" target="_blank" rel="noopener noreferrer" aria-label="공식 Copilot 사용 권한 신청 예시 크게 보기"><img src="assets/onboarding/copilot-request-access.png" width="1578" height="194" loading="lazy" alt="공식 Get Copilot from an organization 예시의 조직 행과 Ask admin for access 버튼"></a>
+              <figcaption><strong>GitHub 공식 문서 자산의 권한 신청 예시.</strong> 조직 행만 확대했습니다. 실제 계정·플랜에 따라 이 버튼이나 조직 목록이 없을 수 있습니다. <a href="https://docs.github.com/en/copilot/how-tos/administer-copilot/manage-for-organization/manage-access/manage-requests-for-access" target="_blank" rel="noopener noreferrer">현재 신청 승인 기준 ↗</a></figcaption>
+            </figure>
+            <div class="screen-instructions">
+              <ol class="field-steps"><li>이미 가입한 <strong>정확한 조직</strong>과 본인 사용자명을 확인합니다.</li><li>실제 Copilot 설정에 <strong>Ask admin for access / Request access</strong>가 표시되면 신청합니다. 표시되지 않으면 승인된 문의 경로로 운영자에게 요청합니다.</li><li>관리자가 요청을 승인하고 실제 좌석을 배정한 뒤 새로고침·재로그인합니다.</li></ol>
+              <p class="screen-check"><strong>구분:</strong> 이 요청은 <strong>Copilot 사용 권한</strong> 신청입니다. 앞의 B <strong>조직 가입</strong> 신청과 다르며, 요청 제출만으로 Copilot이 활성화되지 않습니다.</p>
+            </div>
+          </div>
+        </article>
         <div class="notice warning"><strong>채팅이 된다는 것만으로 조직 좌석이 확인되지는 않습니다.</strong> 개인 Free/Pro로도 응답할 수 있으므로 조직 멤버십과 운영자의 좌석 배정을 따로 확인합니다.</div>
       </section>
 
@@ -145,6 +158,24 @@ GitHub 사용자명: &lt;본인 username&gt;
         </ol>
         <pre aria-label="Copilot 준비 확인 질문">Microsoft Foundry 실습에서 모델 배포 TPM과 RPM의 차이,
 429 오류가 났을 때 먼저 확인할 사항을 초보자에게 3줄로 설명해줘.</pre>
+        <div class="screen-grid">
+          <article class="screen-card">
+            <h3>1. 질문 입력 → 전송</h3>
+            <figure class="screen-figure">
+              <a href="assets/onboarding/copilot-input-example.png" target="_blank" rel="noopener noreferrer" aria-label="공식 Copilot 질문 입력칸 예시 크게 보기"><img src="assets/onboarding/copilot-input-example.png" width="1692" height="96" loading="lazy" alt="GitHub 공식 문서 예시의 Ask Copilot 입력칸과 오른쪽 전송 아이콘"></a>
+              <figcaption><strong>공식 코드 문맥 채팅 예시에서 입력칸만 확대.</strong> 브라우저 홈의 배치는 다를 수 있으며 질문 입력·Enter 또는 전송 기능을 기준으로 찾습니다.</figcaption>
+            </figure>
+            <p class="screen-action"><strong>본인 계정 확인 → 공개·합성 질문 입력 → Enter / 전송.</strong> 연결 문자열·암호·MFA 코드·고객 실데이터를 첨부하지 않습니다.</p>
+          </article>
+          <article class="screen-card">
+            <h3>2. Copilot 답변 표시 확인</h3>
+            <figure class="screen-figure">
+              <a href="assets/onboarding/copilot-response-example.png" target="_blank" rel="noopener noreferrer" aria-label="공식 Copilot 질문과 답변 예시 크게 보기"><img src="assets/onboarding/copilot-response-example.png" width="1700" height="500" loading="lazy" alt="GitHub 공식 예시에서 octocat의 코드 질문 아래 Copilot 답변이 표시된 대화"></a>
+              <figcaption><strong>GitHub 공식 문서 자산의 코드 분석 답변 예시.</strong> 실제 워크샵의 TPM 질문·응답이나 이 조직의 사용 기록은 아닙니다.</figcaption>
+            </figure>
+            <p class="screen-action"><strong>질문과 답변이 같은 대화에 표시</strong>되면 사용 테스트는 완료입니다. 답변 정확성과 조직 좌석 배정은 별도로 확인합니다.</p>
+          </article>
+        </div>
         <div class="notice"><strong>Foundry와 Copilot의 한도는 별개입니다.</strong> Foundry의 gpt-6.1-terra TPM 배분은 모델 배포용이며 Copilot 좌석·사용 한도와 공유되지 않습니다. Copilot 모델은 조직이 허용한 목록과 실습 안내를 따릅니다.</div>
         <div class="notice warning"><strong>공개·합성 데이터만 사용하세요.</strong> 고객 실데이터·비공개 코드·암호·MFA 코드·API 키·연결 문자열을 질문에 넣지 않습니다. 오류 화면은 민감 정보를 가린 뒤 승인된 지원 경로로만 전달합니다.</div>
         <p class="check-row">본인 개인 계정으로 조직 멤버십 확인</p>
@@ -212,7 +243,7 @@ GitHub 사용자명: &lt;본인 username&gt;
         <p>공식 기준:
           <a href="https://docs.github.com/en/organizations/managing-membership-in-your-organization/inviting-users-to-join-your-organization" target="_blank" rel="noopener noreferrer">조직 초대·수락</a>
           <a href="https://docs.github.com/en/copilot/how-tos/administer-copilot/manage-for-organization/manage-access/grant-access" target="_blank" rel="noopener noreferrer">Copilot 좌석 배정</a>
-          <a href="https://docs.github.com/en/copilot/how-tos/manage-your-account/view-and-change-your-copilot-plan" target="_blank" rel="noopener noreferrer">현재 플랜 확인</a>
+          <a href="https://docs.github.com/en/copilot/how-tos/administer-copilot/manage-for-organization/manage-access/manage-requests-for-access" target="_blank" rel="noopener noreferrer">조직 Copilot 권한 신청</a>
           <a href="https://docs.github.com/en/copilot/how-tos/administer-copilot/manage-for-organization/manage-policies" target="_blank" rel="noopener noreferrer">조직 정책</a>
           <a href="https://docs.github.com/en/copilot/how-tos/copilot-on-github/chat-with-copilot/chat-in-github" target="_blank" rel="noopener noreferrer">브라우저 Copilot</a>
         </p>

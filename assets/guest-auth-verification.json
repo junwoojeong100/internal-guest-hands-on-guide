@@ -1,0 +1,37 @@
+{
+  "status": "passed",
+  "checkedAt": "2026-11-08T11:44:04.585955+00:00",
+  "testScope": "One newly created non-customer Internal Guest; password/MFA sign-in only",
+  "userType": "Guest",
+  "expectedTenantMatched": true,
+  "expectedObjectIdMatched": true,
+  "objectIdSha256": "5c2a59b8ffdbdf98383faddc8fc70da67fa6cb6a2b48aecdef630e1683010740",
+  "forceChangePasswordNextSignIn": false,
+  "passwordFlagSource": "creation request; Graph passwordProfile readback not available",
+  "initialPasswordUsed": true,
+  "forcedPasswordChangeScreenObserved": false,
+  "mfaMethodVerified": "Software OATH TOTP via policy-offered other authentication app self-enrollment",
+  "freshBrowserPasswordAndMfaVerified": true,
+  "authenticationAudiences": {
+    "ARM": {
+      "methods": ["pwd", "mfa"],
+      "acceptedByApi": true
+    },
+    "Microsoft Graph": {
+      "methods": ["pwd", "mfa"],
+      "acceptedByApi": true
+    }
+  },
+  "resourcesCreated": 0,
+  "rolesAssigned": 0,
+  "visibleSubscriptions": 0,
+  "identityRetainedEnabled": true,
+  "automaticAccountExpiryConfigured": false,
+  "authenticationPoliciesModified": false,
+  "credentialsIncluded": false,
+  "limitations": [
+    "Current operator environment, not proof of customer education-network readiness",
+    "No Foundry resource/agent E2E or 50-person load test",
+    "Software OATH tested; Microsoft Authenticator push and GitHub membership/license use not tested in this sign-in"
+  ]
+}

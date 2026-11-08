@@ -94,7 +94,7 @@ def provision(client: AzureClient, config: Config, apply: bool = False) -> dict:
                     "displayName": f"Foundry workshop {participant.alias}",
                     "mailNickname": participant.alias, "userPrincipalName": participant.upn,
                     "passwordProfile": {
-                        "forceChangePasswordNextSignIn": True,
+                        "forceChangePasswordNextSignIn": False,
                         "password": saved["initialPassword"],
                     },
                     "onPremisesExtensionAttributes": {

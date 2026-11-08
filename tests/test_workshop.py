@@ -173,7 +173,7 @@ class WorkshopTests(unittest.TestCase):
             self.assertIn(method, {"POST", "PUT"})
             if method == "POST":
                 self.assertEqual(url, GRAPH + "/users")
-                self.assertTrue(body["passwordProfile"]["forceChangePasswordNextSignIn"])
+                self.assertFalse(body["passwordProfile"]["forceChangePasswordNextSignIn"])
             elif "/roleAssignments/" not in url:
                 self.assertIn("/resourceGroups/", url)
         passwords = list(cloud.passwords.values())

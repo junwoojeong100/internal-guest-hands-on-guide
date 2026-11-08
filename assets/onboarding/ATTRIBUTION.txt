@@ -4,7 +4,8 @@ Reviewed: 2026-11-08
 These are documentation references, not captures of workshop participants.
 No real workshop UPN, password, enrollment QR or authentication code is included.
 All four reconstructed authentication/invitation SVGs have been removed.
-There are nine official documentation images and one anonymous sign-in capture.
+There are twelve official documentation reference images and one anonymous
+sign-in capture, including the additional Copilot access/input/response examples.
 The QR payload is removed from the derived PNG, not merely hidden with CSS.
 
 ANONYMOUS MICROSOFT SIGN-IN CAPTURE
@@ -106,6 +107,29 @@ workshop participant. This image is not an invitation-acceptance screen.
 
 The GitHub user-initiated request example is an organizer-provided application
 message, not a native open-join feature or a functioning application form.
+copilot-request-access.png
+Title: Ask admin for access to GitHub Copilot.
+Article: https://docs.github.com/en/copilot/how-tos/administer-copilot/manage-for-organization/manage-access/manage-requests-for-access
+Original: https://raw.githubusercontent.com/github/docs/main/assets/images/help/copilot/request-cfb-access-settings.png
+Change: Cropped (20,250)-(1598,444) from the 1618x456 official asset to show
+only the organization request row. The legacy header about enterprise-list
+availability is omitted; current button/list availability is not guaranteed.
+This is a license request, not a request to join the organization.
+
+copilot-input-example.png
+Title: Ask Copilot input and send action.
+Article: https://docs.github.com/en/copilot/how-tos/copilot-on-github/chat-with-copilot/chat-in-github
+Original: https://raw.githubusercontent.com/github/docs/main/assets/images/help/copilot/copilot-sample-chat-response.png
+Change: Cropped (14,1040)-(1706,1136) from the 1720x1246 official asset.
+The image is a code-context composer example, not a promise of current home UI.
+
+copilot-response-example.png
+Title: GitHub Copilot question and response example.
+Article: https://docs.github.com/en/copilot/how-tos/copilot-on-github/chat-with-copilot/chat-in-github
+Original: https://raw.githubusercontent.com/github/docs/main/assets/images/help/copilot/copilot-sample-chat-response.png
+Change: Cropped (10,0)-(1710,500) to show a question and the start of a response.
+The example analyzes sample code and is not a workshop execution record.
+
 The recipient's invitation acceptance screen requires that recipient's personal
 sign-in. The guide does not fabricate a screenshot or sign in on their behalf.
 
