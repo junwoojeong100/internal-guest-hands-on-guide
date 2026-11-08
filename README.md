@@ -20,6 +20,8 @@
 
 **참가자 필수 첫 실습:** 로그인 계정은 **본인 UPN과 별도 경로로 받은 초기 암호**입니다. **첫 암호 변경·MFA 등록은 본인이 완료**하고, 변경한 암호·본인 MFA로 재로그인해 대상 테넌트·구독·배정 RG를 확인합니다. [단계별 첫 로그인 실습 안내](https://junwoojeong100.github.io/internal-guest-hands-on-guide/#first-sign-in)를 먼저 따르세요. 인증 화면은 보안상 녹화에 포함하지 않았습니다.
 
+첫 로그인·MFA와 GitHub 가입 안내는 **화면 → 입력·버튼 → 완료 확인** 순서입니다. 공식 문서 원본 4장과 문서 기반 설명용 그림 4개를 구분해 표시하며, 실제 참가자 암호·QR·인증 코드는 포함하지 않습니다. [화면 출처·변경 사항·재사용 조건](assets/onboarding/ATTRIBUTION.txt)은 별도로 제공합니다. 기존 63장 녹화 화면과 검증 기록은 그대로 유지합니다.
+
 ## SE 준비: A 스크립트 일괄 / B 포털 수동
 
 **50명 반복 운영은 [A · 스크립트 일괄 준비](https://junwoojeong100.github.io/internal-guest-hands-on-guide/operator.html#automation)를 권장합니다.** 소규모 수동 준비는 [B · 포털 절차](https://junwoojeong100.github.io/internal-guest-hands-on-guide/operator.html#portal)를 따릅니다. 같은 참가자 환경에 A/B를 중복 실행하지 않습니다. HTML은 실행 절차·권한·장애 대응의 참조 문서입니다.

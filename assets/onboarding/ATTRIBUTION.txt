@@ -1,0 +1,85 @@
+Onboarding reference images
+Reviewed: 2026-11-08
+
+These are documentation references, not captures of workshop participants.
+No real workshop UPN, password, enrollment QR or authentication code is included.
+The four SVG illustrations are original, document-based explanatory examples,
+not official screenshots or interactive sign-in/invitation pages.
+
+MICROSOFT DOCUMENTATION SCREENSHOTS
+Publisher: Microsoft Corporation and MicrosoftDocs contributors.
+Documentation license: Creative Commons Attribution 4.0 International,
+as granted in the MicrosoftDocs/entra-docs repository README.
+License: https://creativecommons.org/licenses/by/4.0/
+Reuse terms: https://github.com/MicrosoftDocs/entra-docs#legal-notices
+
+mfa-get-app.png
+Title: Start by getting the Microsoft Authenticator app.
+Article: https://learn.microsoft.com/entra/identity/authentication/concept-registration-mfa-sspr-combined
+Original: https://raw.githubusercontent.com/MicrosoftDocs/entra-docs/main/docs/identity/authentication/media/concept-registration-mfa-sspr-combined/choose.png
+Change: Cropped from 894x538 to 894x450 to focus on app installation and Next;
+the optional-method/Skip setup footer is omitted. No other modification.
+
+mfa-add-account.png
+Title: Set up your account - Work or school account.
+Article: https://learn.microsoft.com/entra/identity/authentication/howto-registration-mfa-sspr-combined
+Original: https://raw.githubusercontent.com/MicrosoftDocs/entra-docs/main/docs/identity/authentication/media/howto-registration-mfa-sspr-combined/combined-security-info-more-required.png
+Change: None.
+
+GITHUB DOCUMENTATION SCREENSHOTS
+Publisher: GitHub, Inc. and github/docs contributors.
+License: Creative Commons Attribution 4.0 International.
+License: https://creativecommons.org/licenses/by/4.0/
+Repository license: https://github.com/github/docs/blob/main/LICENSE
+
+github-org-people.png
+Title: Organization People tab.
+Article: https://docs.github.com/en/organizations/managing-membership-in-your-organization/inviting-users-to-join-your-organization
+Original: https://raw.githubusercontent.com/github/docs/main/assets/images/help/organizations/organization-people-tab.png
+Change: None. The organization name and counts are official sample values.
+
+github-copilot-seats.png
+Title: Enable Copilot access for users and teams.
+Article: https://docs.github.com/en/copilot/how-tos/administer-copilot/manage-for-organization/manage-access/grant-access
+Original: https://raw.githubusercontent.com/github/docs/main/assets/images/help/copilot/enable-access-for-selected-members.png
+Change: None.
+
+ORIGINAL EXPLANATORY ILLUSTRATIONS
+entra-sign-in.svg
+Basis: https://learn.microsoft.com/entra/fundamentals/how-to-create-delete-users
+entra-password-change.svg
+Basis: https://support.microsoft.com/en-us/accounts-billing/work-school/change-your-work-or-school-account-password
+entra-mfa-scan.svg
+Basis: https://support.microsoft.com/en-us/accounts-billing/work-school/set-up-security-info-from-a-sign-in-page
+github-invitation.svg
+Basis: https://docs.github.com/en/organizations/managing-membership-in-your-organization/inviting-users-to-join-your-organization
+
+The GitHub user-initiated request example is an organizer-provided application
+message, not a native open-join feature or a functioning application form.
+
+ADDITIONAL MICROSOFT REPOSITORY NOTICE
+The source repository also contains the following MIT notice in LICENSE.
+It is reproduced here in addition to the documentation attribution above.
+Source: https://github.com/MicrosoftDocs/entra-docs/blob/main/LICENSE
+
+MIT License
+
+Copyright (c) Microsoft Corporation.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE

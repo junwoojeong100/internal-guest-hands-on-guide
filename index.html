@@ -125,16 +125,60 @@
       <section class="panel observed-section" id="first-sign-in">
         <p class="section-label">REQUIRED FIRST LAB · SIGN IN AND SECURE YOUR ACCOUNT</p>
         <h2>필수 실습 · 첫 로그인, 암호 변경, MFA 등록</h2>
-        <p class="intro"><strong>로그인 계정: 본인 UPN과 별도 경로로 받은 초기 암호. 첫 암호 변경·MFA 등록은 본인이 완료합니다.</strong> 아래 절차를 마친 뒤 리소스 생성 실습으로 넘어갑니다. 화면 표시 순서·허용 인증 방법은 조직 정책에 따라 다를 수 있습니다.</p>
-        <ol class="task-list" aria-label="실습자 최초 로그인과 보안 설정 절차">
-          <li><strong>본인 발급 계정으로 로그인:</strong> 운영자가 승인한 교육망·기기에서 별도 브라우저 프로필이나 InPrivate 창으로 <a href="https://portal.azure.com/" target="_blank" rel="noopener noreferrer">Azure Portal</a>을 엽니다. 운영자에게 받은 <strong>본인 UPN 전체</strong>와 <strong>별도 경로로 받은 초기 암호</strong>를 입력합니다. 평소 쓰는 회사·개인 계정으로 대신 로그인하지 않습니다.</li>
-          <li><strong>첫 암호 변경:</strong> 암호 업데이트 화면에서 현재 암호에는 초기 암호를, 새 암호·확인에는 조직의 암호 정책을 충족하는 본인 암호를 입력합니다. 이후 로그인에는 변경한 암호를 사용합니다. 변경 화면이 나오지 않거나 초기 암호가 거부되면 운영자에게 확인하고, 변경한 암호를 운영자에게 보내지 않습니다.</li>
-          <li><strong>본인 MFA 등록:</strong> “추가 정보 필요 / More information required” 등의 안내에서 <strong>다음 / Next</strong>을 선택하고 조직이 허용한 인증 방법을 등록합니다. Microsoft Authenticator를 안내받았다면 본인 휴대폰에 앱 설치 → 앱에서 <strong>계정 추가 → 회사 또는 학교 계정 → QR 코드 스캔</strong> → 본인 브라우저의 등록 QR 스캔 → 브라우저에서 다음 → 본인이 시작한 테스트 알림의 숫자 확인·승인 → 완료 순서로 진행합니다. 조직이 추가 인증 방법을 요구하면 화면 안내에 따라 함께 등록합니다. 필요하면 <a href="https://mysignins.microsoft.com/security-info" target="_blank" rel="noopener noreferrer">내 로그인 → 보안 정보</a>에서 본인 계정·대상 테넌트를 확인한 뒤 등록 상태를 확인합니다.</li>
-          <li><strong>재로그인·완료 확인:</strong> 로그아웃 후 새 브라우저 세션에서 <strong>변경한 암호와 본인 MFA</strong>로 다시 로그인합니다. Azure Portal 오른쪽 위의 UPN·디렉터리, 대상 구독과 본인 배정 RG를 확인합니다. 본인 RG가 보이고 접근할 수 있으면 <a href="#step-account">01단계 · 계정·테넌트·배정 RG 확인</a>으로 진행합니다.</li>
+        <p class="intro"><strong>로그인 계정: 본인 UPN과 별도 경로로 받은 초기 암호. 첫 암호 변경·MFA 등록은 본인이 완료합니다.</strong> 실제 작업은 아래 포털에서 진행하며, 그림을 누르면 참고 화면을 크게 볼 수 있습니다.</p>
+        <p class="intro"><a class="button" href="https://portal.azure.com/" target="_blank" rel="noopener noreferrer">Azure Portal 열기 ↗</a> · 승인된 교육망·기기의 InPrivate 또는 별도 프로필을 사용하세요.</p>
+        <ol class="screen-grid" aria-label="로그인과 MFA를 완료하는 화면별 순서">
+          <li class="screen-card">
+            <div class="screen-header"><span class="stage-number">01</span><h3>본인 UPN → 초기 암호</h3></div>
+            <p class="screen-action"><strong>입력:</strong> 발급 UPN 전체 → <strong>Next</strong> → 별도 전달된 초기 암호 → <strong>Sign in</strong>.</p>
+            <figure class="screen-figure">
+              <a href="assets/onboarding/entra-sign-in.svg" target="_blank" rel="noopener noreferrer" aria-label="UPN과 초기 암호 입력 예시 크게 보기"><img src="assets/onboarding/entra-sign-in.svg" width="800" height="430" loading="lazy" alt="UPN을 입력한 다음 암호 화면에서 개별 초기 암호로 로그인하는 설명용 예시"></a>
+              <figcaption><strong>문서 기반 입력 예시 · 공식 캡처 아님.</strong> 평소 회사·개인 계정 대신 발급 계정을 사용합니다. <a href="https://learn.microsoft.com/entra/fundamentals/how-to-create-delete-users" target="_blank" rel="noopener noreferrer">공식 계정·초기 암호 기준 ↗</a></figcaption>
+            </figure>
+          </li>
+          <li class="screen-card">
+            <div class="screen-header"><span class="stage-number">02</span><h3>초기 암호를 본인 암호로 변경</h3></div>
+            <p class="screen-action"><strong>현재 암호:</strong> 초기 암호. <strong>새 암호·확인:</strong> 본인이 정한 같은 새 암호. 입력 후 실제 화면 안내에 따라 완료합니다.</p>
+            <figure class="screen-figure">
+              <a href="assets/onboarding/entra-password-change.svg" target="_blank" rel="noopener noreferrer" aria-label="첫 암호 변경 입력 항목 크게 보기"><img src="assets/onboarding/entra-password-change.svg" width="800" height="490" loading="lazy" alt="현재 암호에는 초기 암호를, 새 암호와 확인에는 같은 본인 새 암호를 입력하는 예시"></a>
+              <figcaption><strong>문서 기반 입력 예시 · 공식 캡처 아님.</strong> 실제 버튼 이름은 다를 수 있습니다. 다음 로그인부터 새 암호를 사용합니다. <a href="https://support.microsoft.com/en-us/accounts-billing/work-school/change-your-work-or-school-account-password" target="_blank" rel="noopener noreferrer">공식 암호 변경 입력 기준 ↗</a></figcaption>
+            </figure>
+          </li>
+          <li class="screen-card">
+            <div class="screen-header"><span class="stage-number">03</span><h3>본인 휴대폰에 Authenticator 설치</h3></div>
+            <p class="screen-action"><strong>추가 정보 필요 → Next.</strong> Microsoft Authenticator를 안내받았다면 본인 휴대폰에 설치한 뒤 컴퓨터에서 <strong>Next</strong>를 누릅니다.</p>
+            <figure class="screen-figure">
+              <a href="assets/onboarding/mfa-get-app.png" target="_blank" rel="noopener noreferrer" aria-label="공식 Authenticator 설치 화면 크게 보기"><img src="assets/onboarding/mfa-get-app.png" width="894" height="450" loading="lazy" alt="Microsoft 공식 Start by getting the app 화면의 Download now와 Next 버튼"></a>
+              <figcaption><strong>Microsoft 공식 화면 · 하단 선택사항만 잘라낸 예시.</strong> 실제 조직이 허용한 인증 방법을 따릅니다. <a href="https://learn.microsoft.com/entra/identity/authentication/concept-registration-mfa-sspr-combined" target="_blank" rel="noopener noreferrer">원본 문서·등록 정책 ↗</a></figcaption>
+            </figure>
+          </li>
+          <li class="screen-card">
+            <div class="screen-header"><span class="stage-number">04</span><h3>앱에 회사 또는 학교 계정 추가</h3></div>
+            <p class="screen-action"><strong>휴대폰 앱:</strong> 계정 추가 → <strong>회사 또는 학교 계정</strong> → QR 코드 스캔. 컴퓨터에서는 <strong>Next</strong>를 누릅니다.</p>
+            <figure class="screen-figure">
+              <a href="assets/onboarding/mfa-add-account.png" target="_blank" rel="noopener noreferrer" aria-label="공식 Authenticator 계정 추가 안내 크게 보기"><img src="assets/onboarding/mfa-add-account.png" width="600" height="403" loading="lazy" alt="Microsoft 공식 Set up your account 화면에서 Work or school 계정 추가 후 Next를 선택하는 안내"></a>
+              <figcaption><strong>Microsoft 공식 화면.</strong> 그림의 App·Phone 구성은 예시이며 필요한 등록 방법·순서는 실제 정책 기준입니다. <a href="https://learn.microsoft.com/entra/identity/authentication/howto-registration-mfa-sspr-combined" target="_blank" rel="noopener noreferrer">원본 문서 ↗</a></figcaption>
+            </figure>
+          </li>
+          <li class="screen-card screen-wide">
+            <div class="screen-header"><span class="stage-number">05</span><h3>본인 QR 스캔 → 테스트 승인</h3></div>
+            <p class="screen-action"><strong>실제 본인 화면 QR</strong>을 본인 앱으로 스캔 → 컴퓨터 <strong>Next</strong> → 내가 시작한 테스트 알림의 숫자 확인·승인 → 완료.</p>
+            <figure class="screen-figure">
+              <a href="assets/onboarding/entra-mfa-scan.svg" target="_blank" rel="noopener noreferrer" aria-label="QR 스캔과 테스트 승인 절차 예시 크게 보기"><img src="assets/onboarding/entra-mfa-scan.svg" width="800" height="470" loading="lazy" alt="실제 QR과 인증 코드 없이 본인 브라우저 QR 스캔과 Authenticator 테스트 승인 순서를 설명하는 예시"></a>
+              <figcaption><strong>공식 절차 재구성 예시 · QR·인증 코드 없음.</strong> 이 그림을 스캔하지 않습니다. 조직이 추가 방법을 요구하면 이어서 등록합니다. <a href="https://support.microsoft.com/en-us/accounts-billing/work-school/set-up-security-info-from-a-sign-in-page" target="_blank" rel="noopener noreferrer">공식 사용자 등록 순서 ↗</a></figcaption>
+            </figure>
+          </li>
         </ol>
-        <div class="notice warning"><strong>인증은 본인이 직접 완료합니다.</strong> 운영자·다른 참가자의 휴대폰이나 인증수단을 등록하지 않습니다. 암호·MFA 코드·등록 QR을 공유하거나 캡처해 제출하지 않으며, 본인이 시작하지 않은 인증 요청은 승인하지 않습니다. 휴대폰이 없거나 등록·암호 변경이 차단되면 <a href="#troubleshooting">문제 대응표</a>와 승인된 문의 경로로 지원을 요청합니다. MFA·조건부 액세스를 해제하거나 우회하지 않습니다.</div>
-        <div class="notice"><strong>영상은 이 필수 실습을 대신하지 않습니다.</strong> 로그인·암호 변경·MFA 등록 화면은 보안상 녹화에 포함하지 않았습니다. 아래 01단계 화면은 인증을 마친 상태에서 시작합니다.</div>
-        <p class="intro"><a href="https://support.microsoft.com/en-us/accounts-billing/work-school/set-up-security-info-from-a-sign-in-page" target="_blank" rel="noopener noreferrer">공식 사용자용 보안 정보 등록 절차</a> · <a href="https://learn.microsoft.com/entra/identity/authentication/concept-registration-mfa-sspr-combined" target="_blank" rel="noopener noreferrer">조직 정책·인증 방법·대상 테넌트 확인</a></p>
+        <div class="notice success"><strong>완료 확인:</strong> 로그아웃 → 새 세션에서 변경한 암호·본인 MFA로 재로그인 → 본인 UPN·테넌트·구독·배정 RG 확인. 모두 확인한 뒤 <a href="#step-account">01단계 · 배정 RG 확인</a>으로 진행합니다.</div>
+        <div class="notice warning"><strong>암호·QR·인증 코드는 공유하지 않습니다.</strong> 본인 인증수단만 등록하고 내가 시작하지 않은 알림은 거부합니다. 실물 로그인·MFA는 기존 녹화에 포함되지 않았습니다.</div>
+        <details>
+          <summary>화면이 다르거나 암호 변경·MFA 등록이 막히면</summary>
+          <div class="details-body">
+            <p>정책에 따라 암호 변경·MFA 화면 순서가 달라질 수 있지만 두 절차 모두 완료합니다. 초기 암호가 거부되거나 변경 화면이 없으면 운영자에게 확인합니다. 휴대폰 부재·등록 차단은 <a href="#troubleshooting">문제 대응표</a>와 승인된 문의 경로로 지원을 요청하고 정책을 우회하지 않습니다.</p>
+            <p><a href="https://mysignins.microsoft.com/security-info" target="_blank" rel="noopener noreferrer">내 로그인 → 보안 정보</a>에서는 본인 계정·대상 테넌트를 확인한 뒤 등록 상태를 확인합니다. 운영자·다른 참가자의 인증수단으로 대신 등록하지 않습니다.</p>
+          </div>
+        </details>
+        <p class="screen-note">공식 원본과 설명용 예시는 캡션으로 구분했습니다. <a href="assets/onboarding/ATTRIBUTION.txt">이미지 출처·변경 사항·재사용 조건</a> · 실제 참가자 인증 정보를 촬영한 자료가 아닙니다.</p>
       </section>
       <section class="panel observed-section" id="responsibilities">
         <p class="section-label">REUSABLE ACCESS REFERENCE</p>
