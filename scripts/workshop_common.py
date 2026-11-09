@@ -64,6 +64,9 @@ class Config:
     workshopId: str
     location: str
     participantCount: int
+    seTestAccountCount: int = 0
+    namePrefix: str | None = None
+    nameFormat: str | None = None
 
     @classmethod
     def load(cls, path: str) -> "Config":
@@ -71,8 +74,17 @@ class Config:
             data = json.loads(Path(path).read_text(encoding="utf-8"))
         except (OSError, ValueError) as exc:
             raise WorkshopError("Cannot read the JSON config file.") from exc
-        if not isinstance(data, dict) or set(data) != set(cls.__annotations__):
-            raise WorkshopError("Config must contain exactly the five example keys.")
+        required = set(cls.__annotations__) - {"seTestAccountCount", "namePrefix", "nameFormat"}
+        if (
+            not isinstance(data, dict) or not required <= set(data)
+            or set(data) - set(cls.__annotations__)
+        ):
+            raise WorkshopError(
+                "Config needs the five required keys and optional seTestAccountCount/namePrefix/nameFormat."
+            )
+        data.setdefault("seTestAccountCount", 0)
+        data.setdefault("namePrefix", None)
+        data.setdefault("nameFormat", None)
         for key in ("tenantId", "subscriptionId"):
             try:
                 data[key] = str(uuid.UUID(data[key]))
@@ -90,6 +102,21 @@ class Config:
         count = data["participantCount"]
         if type(count) is not int or not 1 <= count <= 999:
             raise WorkshopError("participantCount must be an integer from 1 to 999.")
+        se_count = data["seTestAccountCount"]
+        if type(se_count) is not int or not 0 <= se_count <= count:
+            raise WorkshopError("seTestAccountCount must be an integer from 0 to participantCount.")
+        prefix = data["namePrefix"]
+        if prefix is not None and (
+            not isinstance(prefix, str) or not re.fullmatch(r"[a-z][a-z0-9]{0,31}", prefix)
+        ):
+            raise WorkshopError(
+                "namePrefix must be 1-32 lowercase letters/digits, starting with a letter."
+            )
+        name_format = data["nameFormat"]
+        if name_format is not None and name_format != "user-se":
+            raise WorkshopError("nameFormat must be 'user-se' or omitted.")
+        if name_format is not None and prefix is not None:
+            raise WorkshopError("Use nameFormat or the older namePrefix setting, not both.")
         return cls(**data)
 
     @property
@@ -114,7 +141,26 @@ class Participant:
     domain: str
 
     @property
+    def account_purpose(self) -> str:
+        return (
+            "se-test"
+            if int(self.number) > self.config.participantCount - self.config.seTestAccountCount
+            else "participant"
+        )
+
+    @property
     def alias(self) -> str:
+        if self.account_purpose == "se-test":
+            number = int(self.number) - self.config.participantCount + self.config.seTestAccountCount
+            if self.config.nameFormat == "user-se":
+                return f"se{number:02d}"
+            if self.config.namePrefix is not None:
+                return f"{self.config.namePrefix}s{number}"
+            return f"{self.config.workshopId}-se-test-{number:03d}"
+        if self.config.nameFormat == "user-se":
+            return f"user{int(self.number):02d}"
+        if self.config.namePrefix is not None:
+            return f"{self.config.namePrefix}{int(self.number)}"
         return f"{self.config.workshopId}-{self.number}"
 
     @property
@@ -123,6 +169,8 @@ class Participant:
 
     @property
     def rg(self) -> str:
+        if self.config.namePrefix is not None and self.config.nameFormat is None:
+            return self.alias
         return f"rg-{self.alias}"
 
     @property
@@ -131,11 +179,14 @@ class Participant:
 
     @property
     def tags(self) -> dict[str, str]:
-        return {
+        tags = {
             "managedBy": "foundry-workshop-script",
             "workshopId": self.config.workshopId,
             "participantId": self.number,
         }
+        if self.account_purpose == "se-test":
+            tags["accountPurpose"] = "se-test"
+        return tags
 
     @property
     def expected_roles(self) -> set[tuple[str, str]]:
@@ -498,8 +549,16 @@ def read_state(config: Config, domain: str) -> dict[str, Any]:
         if directory.exists() or directory.is_symlink():
             check_private(directory, directory=True)
     path = folder / "state.private.json"
+    binding_config = asdict(config)
+    # Omitted optional settings must retain existing configuration bindings.
+    if not config.seTestAccountCount:
+        del binding_config["seTestAccountCount"]
+    if config.namePrefix is None:
+        del binding_config["namePrefix"]
+    if config.nameFormat is None:
+        del binding_config["nameFormat"]
     binding = hashlib.sha256(
-        json.dumps({"config": asdict(config), "domain": domain}, sort_keys=True).encode()
+        json.dumps({"config": binding_config, "domain": domain}, sort_keys=True).encode()
     ).hexdigest()
     if not path.exists() and not path.is_symlink():
         return {"binding": binding, "participants": {}}
@@ -519,6 +578,7 @@ def read_state(config: Config, domain: str) -> dict[str, Any]:
 
 class RunStore:
     def __init__(self, config: Config):
+        self.config = config
         self.folder = run_path(config)
         self.lock = None
 
@@ -561,16 +621,22 @@ class RunStore:
         self.write("state.private.json", json.dumps(state, indent=2) + "\n")
         output = io.StringIO(newline="")
         writer = csv.writer(output)
-        writer.writerow([
+        header = [
             "participantId", "userPrincipalName", "objectId",
             "resourceGroup", "initialPassword", "status",
-        ])
+        ]
+        if self.config.seTestAccountCount:
+            header.insert(1, "accountPurpose")
+        writer.writerow(header)
         for number, item in sorted(state["participants"].items()):
-            writer.writerow([
+            row = [
                 number, item["upn"], item.get("objectId", ""),
                 item["resourceGroup"], item["initialPassword"],
                 "created" if item.get("objectId") else "pending",
-            ])
+            ]
+            if self.config.seTestAccountCount:
+                row.insert(1, item["accountPurpose"])
+            writer.writerow(row)
         self.write("credentials.private.csv", output.getvalue())
 
 
@@ -581,5 +647,8 @@ def report_header(config: Config) -> dict[str, Any]:
         "subscriptionId": config.subscriptionId,
         "location": config.location,
         "expectedParticipants": config.participantCount,
+        "expectedSeTestAccounts": config.seTestAccountCount,
+        "namePrefix": config.namePrefix,
+        "nameFormat": config.nameFormat,
         "checkedAtUtc": utc_now(),
     }

@@ -36,7 +36,8 @@ def verify(client: AzureClient, config: Config) -> dict:
         else:
             issues.extend(rg_issues(group, participant))
         checks.append({
-            "participantId": participant.number, "upn": participant.upn,
+            "participantId": participant.number, "accountPurpose": participant.account_purpose,
+            "upn": participant.upn,
             "resourceGroup": participant.rg, "objectId": user.get("id") if user else None,
             "issues": issues,
         })
@@ -50,7 +51,7 @@ def verify(client: AzureClient, config: Config) -> dict:
             "Other subscriptions/tenants, eligible PIM roles and future membership changes not audited.",
             "Does not test participant sign-in, MFA, Conditional Access, policy/deny effects or portal UI.",
             "Password-change behavior is not verified by this snapshot; existing accounts are not reset or repatched.",
-            "Does not provision/test Foundry, models, TPM, project MI, cost or 50-user load.",
+            f"Does not provision/test Foundry, models, TPM, project MI, cost or {config.participantCount}-account load.",
         ],
     }
 
@@ -77,7 +78,9 @@ def main(argv: list[str] | None = None) -> int:
         failed = [row for row in result["participants"] if row["issues"]]
         print(
             f"{'PASS' if result['passed'] else 'FAIL'}: "
-            f"{len(result['participants']) - len(failed)}/{config.participantCount} participants; "
+            f"{len(result['participants']) - len(failed)}/{config.participantCount} accounts "
+            f"({config.participantCount - config.seTestAccountCount} participant, "
+            f"{config.seTestAccountCount} SE test); "
             f"{len(result['missingProviders'])} unregistered providers."
         )
         for row in failed:

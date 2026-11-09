@@ -31,7 +31,7 @@
   "credentialsIncluded": false,
   "limitations": [
     "Current operator environment, not proof of customer education-network readiness",
-    "No Foundry resource/agent E2E or 50-person load test",
+    "No Foundry resource/agent E2E or target-concurrency load test",
     "Software OATH tested; Microsoft Authenticator push and GitHub membership/license use not tested in this sign-in"
   ]
 }

@@ -3,5 +3,7 @@
   "subscriptionId": "e7455306-2702-49fc-b465-d341d758858d",
   "workshopId": "foundry-ws-202612",
   "location": "eastus2",
-  "participantCount": 50
+  "participantCount": 75,
+  "seTestAccountCount": 5,
+  "nameFormat": "user-se"
 }

@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2040%2040'%3E%3Crect%20width='40'%20height='40'%20rx='10'%20fill='%2310263d'/%3E%3Ctext%20x='20'%20y='26'%20text-anchor='middle'%20fill='white'%20font-family='sans-serif'%20font-size='16'%20font-weight='700'%3EGH%3C/text%3E%3C/svg%3E">
+  <meta name="description" content="워크샵 GitHub 조직 가입·Copilot 좌석·Codespaces를 준비하고, 인계 전 리허설·당일 장애 대응·종료 정리까지 안내하는 운영자 가이드. 참가자용 안내와 분리했습니다.">
+  <title>GitHub Copilot · 운영자 가이드</title>
+  <script src="assets/theme.js"></script>
+  <link rel="stylesheet" href="assets/guide.css">
+</head>
+<body>
+  <a class="skip" href="#main">운영자 본문으로 이동</a>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">GH</span> GitHub Copilot <span class="top-meta">/ 운영자 가이드</span></a>
+      <nav class="guide-switch" aria-label="가이드 선택">
+        <span class="group-label">실습자</span><a href="index.html">Foundry</a><a href="github-copilot.html">GitHub</a>
+        <span class="sep" aria-hidden="true"></span>
+        <span class="group-label">운영자</span><a href="operator.html">Foundry</a><a href="github-copilot-operator.html" aria-current="page">GitHub</a>
+      </nav>
+      <div class="topbar-tools">
+        <button class="button small theme-toggle" id="theme-toggle" type="button" aria-pressed="false">다크 테마</button>
+        <span class="top-meta">기준일 2026.11.09</span>
+      </div>
+      <span class="sr-only" id="theme-status" role="status"></span>
+    </div>
+  </header>
+
+  <div class="hero" id="top">
+    <div class="hero-inner">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow">OPERATOR RUNBOOK · GITHUB ORGANIZATION + COPILOT</div>
+          <h1>가입·좌석·환경을 준비하고,<br>참가자에게 인계하세요.</h1>
+          <p class="hero-lead"><strong>조직 가입, Copilot 좌석, Codespaces는 각각 별도 승인·과금입니다.</strong><br>하나라도 빠지면 참가자는 중간에서 막힙니다.<br>인계 전에 새 개인 계정으로 전체 흐름을 한 번 리허설하세요.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#plan">준비 흐름 보기 <span aria-hidden="true">→</span></a>
+            <a class="button dark" href="#handoff">인계 템플릿</a>
+            <a class="button dark" href="#day-ops">당일 장애 대응</a>
+            <a class="button dark" href="github-copilot.html">참가자용 GitHub 가이드 ↗</a>
+          </div>
+        </div>
+        <div class="proof">
+          <p class="proof-label"><strong>준비 완료 기준</strong> · 세 가지가 모두 확인되어야 합니다.</p>
+          <div class="stats">
+            <div class="stat"><strong>가입</strong><span>조직 멤버십</span></div>
+            <div class="stat"><strong>좌석</strong><span>Copilot 사용 권한</span></div>
+            <div class="stat"><strong>환경</strong><span>저장소·Codespaces</span></div>
+          </div>
+          <p class="proof-note">Azure Guest 계정·RBAC 준비와는 별개입니다.<br>Azure 계정 스크립트는 GitHub 계정·초대·좌석을 만들지 않습니다.</p>
+        </div>
+      </div>
+      <div class="hero-meta"><span>개인 GitHub 계정 기준</span><span>초대 한도·좌석 비용·종료일을 사전 확인</span><span>실제 링크·QR·명단·토큰은 이 문서에 넣지 않음</span></div>
+    </div>
+  </div>
+
+  <div class="workspace">
+    <aside aria-label="운영자 목차">
+      <p class="nav-title">GITHUB OPERATIONS</p>
+      <nav class="toc" id="toc" aria-label="페이지 목차">
+        <a href="#plan"><span class="nav-number">01</span>한눈에 보기</a>
+        <a href="#accounts"><span class="nav-number">02</span>계정 구분</a>
+        <a href="#join"><span class="nav-number">03</span>가입 방식·초대 한도</a>
+        <a href="#copilot"><span class="nav-number">04</span>Copilot 좌석·정책</a>
+        <a href="#workspace"><span class="nav-number">05</span>저장소·Codespaces</a>
+        <a href="#schedule"><span class="nav-number">06</span>일정 맞추기</a>
+        <a href="#preflight"><span class="nav-number">07</span>인계 전 리허설</a>
+        <a href="#handoff"><span class="nav-number">08</span>인계 템플릿</a>
+        <a href="#day-ops"><span class="nav-number">09</span>당일 장애 대응</a>
+        <a href="#close"><span class="nav-number">10</span>종료·정리</a>
+      </nav>
+      <p class="sidebar-note">그림을 누르면 크게 볼 수 있습니다.<br><br>공개 문서에는 실제 링크·QR·명단·토큰을 넣지 않습니다. 운영 대장은 승인된 비공개 저장소에서 관리하세요.</p>
+    </aside>
+
+    <main id="main">
+      <section class="panel observed-section" id="plan">
+        <p class="section-label">START HERE · THREE SEPARATE APPROVALS</p>
+        <h2>가입·좌석·환경은 따로 준비하고, 한 번에 리허설합니다.</h2>
+        <div class="table-wrap">
+          <table aria-label="운영자와 참가자의 GitHub 작업 경계">
+            <thead><tr><th>운영자가 제공</th><th>참가자가 직접</th></tr></thead>
+            <tbody><tr>
+              <td><strong>조직·가입 경로·Copilot 좌석·정책·저장소·Codespaces 허용</strong><br>일정, 산출물 보존·종료 정책, 지원 경로.</td>
+              <td><strong>본인 개인 계정으로 가입 수락 → Copilot 권한 확인 → 질문 1개 실행</strong><br>산출물 보존과 Codespace 정지.</td>
+            </tr></tbody>
+          </table>
+        </div>
+        <ol class="flow" aria-label="운영자 준비 순서">
+          <li>계정 구분<small>개인 계정·EMU</small></li><li>가입 방식<small>초대 / 자가가입</small></li><li>좌석·정책<small>Copilot·모델·비용</small></li><li>저장소·환경<small>Codespaces·IDE</small></li><li>리허설<small>새 개인 계정</small></li><li>인계<small>링크는 개별 전달</small></li>
+        </ol>
+        <div class="notice warning"><strong>Azure Guest 75개를 만드는 스크립트는 GitHub 계정·초대·좌석을 만들지 않습니다.</strong> 필요한 수는 참가자의 실제 개인 GitHub 사용자명 명단으로 따로 계산합니다.</div>
+      </section>
+
+      <section class="panel observed-section" id="accounts">
+        <p class="section-label">DO NOT MIX THE ACCOUNTS</p>
+        <h2>계정 3종을 구분하고, EMU 여부부터 확인합니다.</h2>
+        <div class="table-wrap">
+          <table aria-label="Foundry와 GitHub 계정 구분">
+            <thead><tr><th>계정</th><th>용도</th><th>주의</th></tr></thead>
+            <tbody>
+              <tr><td>배정된 Entra Internal Guest UPN</td><td>Azure·Foundry 로그인, Entra MFA</td><td>GitHub 계정·Copilot 권한·이메일 수신함을 만들지 않습니다.</td></tr>
+              <tr><td>참가자의 개인 GitHub.com 계정</td><td>조직 가입, Copilot, Codespaces, IDE 로그인</td><td>초대는 이 계정의 <strong>사용자명</strong> 또는 <strong>인증된 이메일</strong>로 보냅니다.</td></tr>
+              <tr><td>운영자의 사내 SSO 운영 계정</td><td>내부 운영 문서·환경 신청</td><td>참가자 계정이 아닙니다. 참가자는 내부 신청을 하지 않습니다.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="notice warning"><strong>이 가이드는 개인 계정을 초대하는 조직 기준입니다.</strong> Enterprise Managed Users(EMU)는 초대가 아니라 IdP가 SCIM으로 계정을 프로비저닝하며 개인 계정으로 가입시킬 수 없습니다. EMU라면 관리형 계정 발급·SSO 절차를 따로 설계하세요. <a href="https://docs.github.com/en/enterprise-cloud@latest/admin/concepts/identity-and-access-management/enterprise-managed-users" target="_blank" rel="noopener noreferrer">공식 EMU 설명 ↗</a></div>
+      </section>
+
+      <section class="panel observed-section" id="join">
+        <p class="section-label">CHOOSE ONE JOIN METHOD</p>
+        <h2>가입 방식을 하나 정하고, 초대 한도를 확인합니다.</h2>
+        <div class="runbook-grid" role="group" aria-label="가입 방식 선택">
+          <article class="runbook-card recommended">
+            <p class="section-label">초대 · 사용자명 명단이 있을 때</p>
+            <h3>운영자가 People에서 직접 초대</h3>
+            <ol class="task-list">
+              <li>참가자의 <strong>GitHub 사용자명</strong>(표시 이름이 아님)을 승인된 경로로 받습니다. 공개 이슈·공유 시트에 명단을 모으지 않습니다.</li>
+              <li>조직 <strong>People → Invite member</strong> → 사용자명 입력 → <strong>Invite</strong> → Role in the organization=<strong>Member</strong> → <strong>Send invitation</strong>.</li>
+              <li>참가자가 이메일 또는 조직 URL에서 <strong>직접 수락</strong>합니다. 수락 전에는 멤버가 아닙니다.</li>
+            </ol>
+          </article>
+          <article class="runbook-card">
+            <p class="section-label">자가가입 · 명단이 없거나 인원이 많을 때</p>
+            <h3>서명된 링크·QR로 참가자가 초대를 요청</h3>
+            <ol class="task-list">
+              <li>승인된 운영 절차(예: Workshop Creator)로 자가가입 링크·QR을 받고 <strong>대상 조직·가입 가능 기간</strong>을 확인합니다.</li>
+              <li>링크·QR은 접근 권한을 담습니다. 참가자에게 <strong>비공개로 개별 전달</strong>하고 공개 이슈·저장소·화면 공유에 올리지 않습니다.</li>
+              <li>참가자는 본인 GitHub 계정으로 인증·동의한 뒤 초대를 요청하고, 발송된 초대를 <strong>직접 수락</strong>합니다.</li>
+            </ol>
+          </article>
+        </div>
+        <details>
+          <summary>링크를 쓸 수 없을 때 · 수동 접수</summary>
+          <div class="details-body">
+            <p>참가자가 승인된 문의 경로로 아래 문구를 보내면, 운영자가 사용자명을 확인한 뒤 위 <strong>초대</strong> 절차를 진행합니다. GitHub에는 사용자가 직접 가입을 신청하는 기본 양식이 없습니다.</p>
+            <pre role="group" aria-label="참가자의 수동 가입 요청 문구">대상 조직: &lt;운영자가 안내한 조직명&gt;
+GitHub 사용자명: &lt;본인 username&gt;
+신청 목적: 워크샵·조직 Copilot 사용</pre>
+          </div>
+        </details>
+        <div class="table-wrap">
+          <table aria-label="가입 전에 확인할 한도와 조건">
+            <thead><tr><th>항목</th><th>확인할 내용 (공식 문서 2026.11.09 기준)</th></tr></thead>
+            <tbody>
+              <tr><td>초대 한도</td><td>24시간당 <strong>50건</strong>. 조직이 1개월 넘었거나 유료 플랜이면 24시간당 <strong>500건</strong>입니다. 70명 이상이면 조직 나이·플랜을 먼저 확인하세요. 자가가입 링크도 GitHub 초대를 발송하므로 같은 한도를 받는지 환경 담당자에게 확인합니다.</td></tr>
+              <tr><td>초대 만료</td><td>수락하지 않은 초대는 <strong>7일 후</strong> 자동 만료되어 재초대가 필요합니다. 이메일 초대는 참가자 계정에 <strong>인증된 같은 이메일</strong>이 있어야 수락됩니다.</td></tr>
+              <tr><td>2FA</td><td>조직이 2FA를 요구하면 참가자는 <strong>수락 전에</strong> 2FA를 켜야 합니다. GitHub는 코드를 기여하는 사용자에게 2FA를 요구합니다(단계적 적용).</td></tr>
+              <tr><td>역할</td><td><strong>Member</strong>로 초대합니다. Owner나 불필요한 저장소 권한은 주지 않습니다.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <article class="screen-card" style="margin-top:20px">
+          <div class="screen-header"><span class="stage-number">화면</span><h3>People → Invite member (공식 화면)</h3></div>
+          <div class="screen-body">
+            <figure class="screen-figure">
+              <a href="assets/onboarding/github-org-people.png" target="_blank" rel="noopener noreferrer" aria-label="GitHub 공식 People 탭 화면 크게 보기"><img src="assets/onboarding/github-org-people.png" width="1592" height="240" loading="lazy" alt="GitHub 공식 octo-org 예시에서 People 탭이 강조된 조직 화면"></a>
+              <figcaption><strong>GitHub 공식 문서의 화면.</strong> 조직명·수치는 원본의 예시입니다. <a href="https://docs.github.com/en/organizations/managing-membership-in-your-organization/inviting-users-to-join-your-organization" target="_blank" rel="noopener noreferrer">원본 문서 ↗</a></figcaption>
+            </figure>
+            <div class="screen-instructions">
+              <ol class="field-steps">
+                <li>조직 페이지에서 <strong>People</strong> 탭을 엽니다.</li>
+                <li><strong>Invite member</strong> → 사용자명·이름·이메일 중 하나를 입력 → <strong>Invite</strong>.</li>
+                <li>Role in the organization을 <strong>Member</strong>로 두고 <strong>Send invitation</strong>.</li>
+              </ol>
+              <p class="screen-check"><strong>완료 상태:</strong> 대기 중 초대가 생기고, 참가자가 수락하면 멤버로 표시됩니다. 최근 3개월 안에 나간 멤버는 <strong>Invite and reinstate</strong> / <strong>Invite and start fresh</strong> 선택이 나옵니다.</p>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="panel observed-section" id="copilot">
+        <p class="section-label">MEMBERSHIP IS NOT A COPILOT SEAT</p>
+        <h2>좌석을 배정하고, 정책과 비용을 확인합니다.</h2>
+        <ol class="task-list">
+          <li><strong>제공 방식:</strong> 조직의 Copilot Business/Enterprise 또는 기업의 Copilot access 등 승인된 방식을 확인합니다. 조직 생성·가입만으로 Copilot이 켜지지 않습니다.</li>
+          <li><strong>좌석 배정:</strong> 조직 <strong>Settings → Copilot → Access</strong> → (표시되면) <strong>Allow this organization to assign seats</strong> → <strong>Start adding seats</strong> → <strong>Purchase for all members</strong> 또는 <strong>Purchase for selected members</strong>(Enable Copilot access for users and teams) → <strong>Purchase seats</strong>. 승인된 범위만 배정하고 목록에서 사용자명을 대조합니다.</li>
+          <li><strong>정책:</strong> <strong>Copilot → Policies</strong>의 <strong>Copilot in the cloud</strong>가 켜져 있어야 브라우저 Copilot(github.com/copilot)을 쓸 수 있습니다. 2026.10.28부터 Copilot Chat in GitHub 등 개별 정책을 이 정책이 대체했고, 상위 엔터프라이즈 정책이 우선합니다. 허용 모델도 함께 확인합니다.</li>
+          <li><strong>참가자 요청:</strong> 참가자가 Settings → Copilot의 <strong>Ask admin for access</strong>로 요청하면 조직 Settings → <strong>Access</strong> → <strong>Requests from members</strong>에서 승인합니다(공식 문서는 Copilot Business 기준). 기업이 조직에 Copilot을 켜 두지 않았다면 기업 Owner에게 요청합니다.</li>
+        </ol>
+        <article class="screen-card" style="margin-top:20px">
+          <div class="screen-header"><span class="stage-number">화면</span><h3>Copilot → Access → 선택 멤버 좌석 (공식 화면)</h3></div>
+          <div class="screen-body">
+            <figure class="screen-figure">
+              <a href="assets/onboarding/github-copilot-seats.png" target="_blank" rel="noopener noreferrer" aria-label="GitHub 공식 사용자별 Copilot 좌석 화면 크게 보기"><img src="assets/onboarding/github-copilot-seats.png" width="1448" height="436" loading="lazy" alt="GitHub 공식 Enable Copilot access for users and teams 화면의 사용자 검색과 Users and teams 탭"></a>
+              <figcaption><strong>GitHub 공식 문서의 화면.</strong> 선택 멤버 구매 흐름의 예시이며 모든 워크샵에 구매 단계가 필요한 것은 아닙니다. <a href="https://docs.github.com/en/copilot/how-tos/administer-copilot/manage-for-organization/manage-access/grant-access" target="_blank" rel="noopener noreferrer">원본 문서 ↗</a></figcaption>
+            </figure>
+            <div class="screen-instructions">
+              <ol class="field-steps">
+                <li><strong>Users and teams</strong> 탭에서 참가자 사용자명을 검색해 추가하거나 <strong>Upload CSV</strong>로 한 번에 추가합니다.</li>
+                <li><strong>Continue to purchase</strong> → <strong>Purchase seats</strong>로 확정합니다.</li>
+              </ol>
+              <p class="screen-check"><strong>완료 상태:</strong> 좌석 목록에 참가자 사용자명이 보입니다. 단순 가입 확인과 다릅니다.</p>
+            </div>
+          </div>
+        </article>
+        <div class="table-wrap">
+          <table aria-label="참가자에게 미리 알릴 비용과 영향">
+            <thead><tr><th>항목</th><th>내용</th></tr></thead>
+            <tbody>
+              <tr><td>개인 유료 플랜</td><td>Copilot Pro·Pro+·Max를 쓰는 참가자가 조직 좌석을 받으면 개인 플랜이 <strong>자동 취소</strong>되고 일할 환불됩니다. 사전에 안내하고, 유지가 필요하면 별도 개인 계정을 쓰게 합니다. <a href="https://docs.github.com/en/billing/concepts/product-billing/github-copilot-licenses" target="_blank" rel="noopener noreferrer">공식 라이선스 기준 ↗</a></td></tr>
+              <tr><td>좌석 과금</td><td>배정 시점부터 <strong>남은 청구 주기 기준 일할 과금</strong>됩니다. 회수해도 현재 청구 주기가 끝날 때까지 과금되며, 좌석을 해제한 사용자는 주기 끝까지 접근할 수 있습니다(계정 정지·제거 시 즉시 접근 종료). <a href="https://docs.github.com/en/copilot/concepts/billing-and-usage/organizations-and-enterprises/seats-and-billing-cycles" target="_blank" rel="noopener noreferrer">공식 청구 주기 설명 ↗</a></td></tr>
+              <tr><td>사용량 한도</td><td>Copilot 사용량은 <strong>GitHub AI Credits</strong>로 관리됩니다(2026.06.01부터 premium request 대체). 문서 기준 사용자당 월 Business 1,900 / Enterprise 3,900 크레딧이며 1크레딧=$0.01입니다. 값은 바뀔 수 있으니 허용 모델·예산을 확인하고 무제한으로 가정하지 않습니다. <a href="https://docs.github.com/en/copilot/reference/copilot-billing/license-changes" target="_blank" rel="noopener noreferrer">공식 요금 변경 안내 ↗</a></td></tr>
+              <tr><td>자동 종료</td><td>5시간 뒤 좌석·조직이 자동으로 사라지지 않습니다. 회수·삭제는 운영자가 <a href="#close">종료·정리</a>에서 직접 처리합니다.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel observed-section" id="workspace">
+        <p class="section-label">REPOSITORY AND DEVELOPMENT ENVIRONMENT</p>
+        <h2>질문만 할지, 코드를 다룰지 정하고 환경을 준비합니다.</h2>
+        <div class="table-wrap">
+          <table aria-label="실습 환경 선택지와 운영자 준비">
+            <thead><tr><th>환경</th><th>언제</th><th>운영자 준비</th></tr></thead>
+            <tbody>
+              <tr><td>브라우저 Copilot</td><td>설명·오류 이해 질문만 할 때</td><td>Copilot 좌석 + <strong>Copilot in the cloud</strong> 정책. 추가 설치는 없습니다.</td></tr>
+              <tr><td>Codespaces</td><td>코드 수정·실행, 설치를 최소화할 때</td><td>조직 <strong>Settings → Codespaces → General</strong>에서 <strong>Codespaces access</strong>(전체 / 선택 멤버·협업자)와 <strong>Codespace ownership</strong>(Organization / User 소유)을 정하고 예산을 확인합니다. 무료 플랜 조직은 결제할 수 없습니다.</td></tr>
+              <tr><td>로컬 VS Code</td><td>Codespaces를 쓰지 않을 때</td><td>참가자 PC의 VS Code 설치·Copilot 로그인 안내와 저장소 clone 권한. 개인 장비 준비가 필요합니다.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <ol class="task-list" aria-label="저장소 준비 점검">
+          <li><strong>접근:</strong> 팀·저장소 권한이 참가자에게 필요한 만큼만 부여되었는지 확인합니다.</li>
+          <li><strong>내용:</strong> 브랜치, README(설치·실행·종료), dev container와 실행 명령이 실제로 동작하는지 확인합니다.</li>
+          <li><strong>대체 경로:</strong> Codespaces를 쓰지 않는 과정이면 로컬 VS Code 또는 브라우저 질문만 하는 경로를 인계표에 명시합니다.</li>
+        </ol>
+        <div class="notice warning"><strong>Codespaces는 Copilot 좌석과 별도 과금입니다.</strong> 기본값은 30분 유휴 시 자동 정지, 정지 후 30일이 지나면 자동 삭제이며 정지 상태에서도 저장 공간 비용이 남습니다. 예산이 소진되면 새로 만들거나 재개할 수 없고 변경 사항을 브랜치로 내보내기만 할 수 있습니다. <a href="https://docs.github.com/en/codespaces/managing-codespaces-for-your-organization/choosing-who-owns-and-pays-for-codespaces-in-your-organization" target="_blank" rel="noopener noreferrer">공식 소유·비용 기준 ↗</a></div>
+      </section>
+
+      <section class="panel observed-section" id="schedule">
+        <p class="section-label">ALIGN THE DATES</p>
+        <h2>링크·초대·행사·삭제 일정을 같은 시간대로 맞춥니다.</h2>
+        <div class="table-wrap">
+          <table aria-label="가입 링크와 초대 및 임시 조직의 기간 구분">
+            <thead><tr><th>기간</th><th>뜻</th><th>주의</th></tr></thead>
+            <tbody>
+              <tr><td>자가가입 링크의 시작·만료</td><td>초대를 요청할 수 있는 시간</td><td>행사일·조직 삭제일과 같다고 가정하지 않습니다. 만료되면 새 안내를 발급합니다.</td></tr>
+              <tr><td>발송된 GitHub 초대</td><td>참가자가 수락할 수 있는 시간</td><td>미수락 초대는 7일 후 만료됩니다. 링크가 유효해도 별도 수락이 필요합니다.</td></tr>
+              <tr><td>행사 시각</td><td>실습이 진행되는 시간</td><td>시간대(예: KST)를 함께 안내합니다.</td></tr>
+              <tr><td>임시 조직 삭제 예정일</td><td>저장소·행사 콘텐츠가 정리되는 일정</td><td>링크 연장·재발급만으로 조직 수명이 늘지 않습니다. 새 링크가 이전 링크를 자동 폐기한다고 가정하지 않습니다.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="notice">특별 가입 기간의 변경은 승인된 운영 절차로 처리하고, 변경 후에는 참가자 안내의 모든 날짜를 다시 대조합니다.</div>
+      </section>
+
+      <section class="panel observed-section" id="preflight">
+        <p class="section-label">GO / NO-GO</p>
+        <h2>인계 전에, 새 개인 계정으로 전체 흐름을 리허설합니다.</h2>
+        <p class="intro">운영자 계정이 아닌 <strong>허용된 테스트용 개인 GitHub 계정</strong>으로 진행합니다. 생성 성공 메시지나 브라우저의 일반 답변만으로 통과시키지 않습니다.</p>
+        <div class="runbook-grid" role="group" aria-label="인계 전 여섯 가지 리허설">
+          <article class="runbook-card"><h3>01 · 가입</h3><p>초대(또는 자가가입) → 수락 → Organizations에서 멤버십 확인. 2FA·이메일 요구까지 확인합니다.</p></article>
+          <article class="runbook-card"><h3>02 · 좌석</h3><p>같은 사용자명이 Copilot Access 목록에 있고 Settings → Copilot에서 조직 권한이 보입니다. 개인 Free/Pro 표시로 판단하지 않습니다.</p></article>
+          <article class="runbook-card"><h3>03 · 브라우저</h3><p>github.com/copilot에서 질문 1개에 응답이 옵니다. 차단되면 Copilot in the cloud 정책을 확인합니다.</p></article>
+          <article class="runbook-card"><h3>04 · 환경</h3><p>실제 저장소·README를 Codespaces(또는 VS Code)에서 열고 같은 계정으로 Copilot Chat 질문 1개를 확인합니다.</p></article>
+          <article class="runbook-card"><h3>05 · 비용·한도</h3><p>Codespaces 소유·예산, 허용 모델·AI Credits, 개인 유료 플랜 영향 안내를 확인합니다.</p></article>
+          <article class="runbook-card"><h3>06 · 일정·인계</h3><p>링크 만료·초대 7일·행사·삭제 일정을 대조하고 <a href="#handoff">인계 템플릿</a>과 지원·대체 담당을 확정합니다.</p></article>
+        </div>
+        <p class="check-row">테스트 계정으로 가입 → 좌석 → 응답이 모두 성공</p>
+        <p class="check-row">미확인 항목이 없거나 승인된 대안이 정해짐</p>
+        <p class="check-row">리허설 계정은 참가자에게 배정하지 않고, 좌석 정리 방법을 정함</p>
+        <div class="notice warning"><strong>미확인 항목이 있으면 인계를 보류합니다.</strong> 이 문서는 가입·구매·권한 부여를 자동 실행하지 않았고, 특정 행사의 전체 동작을 검증한 기록도 아닙니다.</div>
+      </section>
+
+      <section class="panel observed-section" id="handoff">
+        <p class="section-label">HANDOFF WITHOUT SHARING SECRETS</p>
+        <h2>참가자에게 GitHub 값과 해야 할 일만 명확히 전달합니다.</h2>
+        <p class="intro">아래 템플릿을 채워 참가자에게 개별 전달합니다. Foundry 인계 값은 <a href="operator.html#handoff">Foundry 운영자 가이드의 인계 템플릿</a>과 함께 보낼 수 있습니다.</p>
+        <pre role="group" aria-label="GitHub 인계 템플릿">행사명: &lt;workshop-name&gt;
+GitHub 조직: https://github.com/&lt;org&gt;
+가입 방법: &lt;초대 이메일 | 자가가입 링크·QR (개별 전달)&gt;
+가입 가능 기간 / 초대 만료: &lt;start–end, 시간대&gt; / 발송 후 7일
+Copilot 제공 방식: &lt;Copilot Business | Enterprise | Copilot access&gt;
+허용 모델 / 사용량 한도: &lt;allowed-models&gt; / &lt;ai-credits-policy&gt;
+개인 Copilot 유료 플랜: 조직 좌석을 받으면 자동 취소·일할 환불될 수 있음 (사전 안내 완료)
+실습 저장소 / 브랜치: &lt;org&gt;/&lt;repo&gt; / &lt;branch&gt;
+환경: &lt;브라우저만 | Codespaces | 로컬 VS Code&gt;
+Codespaces 비용 부담 / 한도: &lt;organization-or-user&gt; / &lt;budget&gt;
+실습 시각 / 조직 삭제 예정일: &lt;time-and-timezone&gt; / &lt;deletion-date&gt;
+산출물 보존 위치: &lt;approved-private-location&gt;
+문의 경로: &lt;approved-support-channel&gt;
+참가자 안내: https://junwoojeong100.github.io/internal-guest-hands-on-guide/github-copilot.html
+가입 링크·QR·암호·인증 코드: 이 표에 기록하지 않음 (개별 전달)</pre>
+        <ol class="task-list">
+          <li>가입 링크·QR은 참가자별로 비공개 전달하고, 사용자명 대장은 승인된 비공개 저장소에서만 관리합니다.</li>
+          <li>참가자는 <a href="github-copilot.html">참가자용 GitHub 가이드</a>의 순서(가입 → Copilot 권한 → 환경 → 질문 1개)를 따릅니다.</li>
+          <li>참가자가 완료를 알릴 경로와 담당 운영자·대체 담당을 미리 지정합니다.</li>
+        </ol>
+      </section>
+
+      <section class="panel observed-section" id="day-ops">
+        <p class="section-label">DIAGNOSE BEFORE WORKING AROUND</p>
+        <h2>가입 → 좌석 → 정책 → 환경 순서로 원인을 가립니다.</h2>
+        <p class="intro">참가자의 GitHub 사용자명·대상 조직·진행 경로·선택 환경·발생 시각과 민감 정보를 가린 오류만 받습니다. 암호·2FA 코드·토큰·서명된 링크는 받지 않습니다. 참가자용 대응표는 <a href="github-copilot.html#help">참가자 가이드</a>에 있습니다.</p>
+        <div class="table-wrap">
+          <table aria-label="GitHub 운영자 장애 대응 기준">
+            <thead><tr><th>증상</th><th>운영자 확인·조치</th><th>피해야 할 해결책</th></tr></thead>
+            <tbody>
+              <tr><td>신청했는데 초대가 오지 않음</td><td>자가가입은 사이트의 인증·동의·초대 요청 상태를, 수동 접수는 사용자명·승인 상태를 확인합니다. People의 대기 중 초대에서 실제 발송·실패를 대조합니다.</td><td>공개 채널에 링크나 사용자명 목록 게시.</td></tr>
+              <tr><td>자가가입 링크 오류·기간 만료</td><td>최신 링크·조직·시작/만료 시각·시간대를 확인하고 승인된 절차로 새 안내를 발급합니다.</td><td>URL의 서명·날짜 수정, 원문 링크 공개.</td></tr>
+              <tr><td>자가가입은 성공했는데 조직이 안 보임</td><td>요청 성공과 멤버십은 다릅니다. 참가자가 같은 계정으로 이메일·조직 URL에서 초대를 수락했는지 확인합니다.</td><td>운영 SSO/EMU 계정으로 대신 수락.</td></tr>
+              <tr><td>초대가 안 보임·만료됨·이메일 불일치</td><td>스팸함과 초대받은 계정을 확인합니다. 7일 만료이거나 이메일이 계정의 인증된 이메일과 다르면 <strong>사용자명으로 재초대</strong>합니다.</td><td>다른 사람의 이메일 인증을 대신 처리.</td></tr>
+              <tr><td>2FA·SSO 때문에 가입 안 됨</td><td>참가자가 GitHub 2FA를 먼저 설정하고 승인된 SSO 절차를 따르도록 안내합니다.</td><td>인증 코드 공유, 정책 우회.</td></tr>
+              <tr><td>가입했는데 Copilot이 없음</td><td>Copilot → Access에서 같은 사용자명의 좌석 상태를 확인하고 요청 대기면 Requests from members에서 승인합니다. 참가자는 새로고침·재로그인합니다.</td><td>참가자에게 개인 유료 구독 권유.</td></tr>
+              <tr><td>브라우저 Copilot이 차단됨</td><td>조직·상위 엔터프라이즈의 <strong>Copilot in the cloud</strong> 정책과 허용 모델·사용 한도를 확인합니다.</td><td>정책 우회.</td></tr>
+              <tr><td>브라우저는 되는데 IDE에서 안 됨</td><td>VS Code/Codespaces의 로그인 사용자명, Accounts → Manage Extension Account Preferences → GitHub Copilot Chat의 계정, 조직 정책·네트워크를 확인합니다.</td><td>개인 Free 계정 로그인을 조직 권한으로 착각.</td></tr>
+              <tr><td>Codespaces 없음·저장소 접근 불가·결제 요구</td><td>Codespaces access 대상, 저장소 팀 권한, Codespace ownership·예산을 확인합니다.</td><td>개인 카드 등록, 공개 저장소 무단 복제.</td></tr>
+              <tr><td>개인 Copilot 구독이 바뀜</td><td>조직 좌석 배정 시 개인 Pro·Pro+·Max가 자동 취소·일할 환불됩니다. Settings → Copilot과 공식 라이선스 안내로 확인합니다.</td><td>좌석을 회수하면 개인 플랜이 복구된다고 약속.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel observed-section" id="close">
+        <p class="section-label">APPROVED CLEANUP · KEEP THE EVIDENCE YOU NEED</p>
+        <h2>산출물 보존을 확인한 뒤 좌석·환경·조직을 정리합니다.</h2>
+        <ol class="task-list">
+          <li><strong>완료 확인:</strong> 참가자의 완료 상태·실패 항목·지원 이슈를 운영 대장에 기록합니다.</li>
+          <li><strong>보존:</strong> 남길 변경이 허용된 브랜치에 push되었는지, 임시 조직 밖 보존이 필요하면 <strong>승인된 비공개 위치</strong>로 옮겼는지 확인합니다. 코드·고객 자료를 임의로 공개하지 않습니다.</li>
+          <li><strong>Codespaces:</strong> 참가자의 <strong>Stop</strong>을 안내하고 남은 Codespace를 확인합니다. 브라우저 탭을 닫아도 유휴 제한(기본 30분)까지 실행되며, 정지 후에도 저장 공간 비용이 남고 기본 30일 뒤 자동 삭제됩니다.</li>
+          <li><strong>좌석 회수:</strong> 승인된 시점에 회수합니다. 현재 청구 주기가 끝날 때까지 과금될 수 있고, 개인 유료 플랜은 자동 복구되지 않습니다.</li>
+          <li><strong>조직·저장소:</strong> 임시 조직 삭제 일정에 맞춰 삭제하거나 보존합니다. 임시 조직 삭제는 개인 GitHub 계정 삭제와 다릅니다.</li>
+          <li><strong>운영 요청 종료:</strong> 조직 삭제와 연동된 환경에서는 단순 상태 정리로 요청을 닫지 말고 보존·종료 승인을 먼저 확인합니다.</li>
+        </ol>
+        <div class="notice warning">이 문서는 초대·구매·권한 회수·삭제를 자동 실행하지 않습니다. 개인 GitHub 계정은 삭제하지 않습니다.</div>
+      </section>
+
+      <footer class="footnotes">
+        <p>기준일 2026.11.09 · 공식 문서의 메뉴 이름·한도·정책은 바뀔 수 있으므로 개최 전에 다시 확인합니다. 워크샵 준비 흐름은 <a href="https://github.com/msft-github-hackathons-organizer/bootstrap" target="_blank" rel="noopener noreferrer">Bootstrap 운영 가이드</a>(운영자 전용 접근·SSO가 필요할 수 있음)를 참고했으며, 원문 코드·이미지·내부 식별자·비밀 값은 복사하지 않았습니다. 이 페이지는 특정 행사의 전체 동작을 검증한 기록이 아닙니다.</p>
+        <p>공식 기준:
+          <a href="https://docs.github.com/en/organizations/managing-membership-in-your-organization/inviting-users-to-join-your-organization" target="_blank" rel="noopener noreferrer">조직 초대·수락</a>
+          <a href="https://docs.github.com/en/copilot/how-tos/administer-copilot/manage-for-organization/manage-access/grant-access" target="_blank" rel="noopener noreferrer">Copilot 좌석 배정</a>
+          <a href="https://docs.github.com/en/copilot/how-tos/administer-copilot/manage-for-organization/manage-access/manage-requests-for-access" target="_blank" rel="noopener noreferrer">Copilot 권한 신청 승인</a>
+          <a href="https://docs.github.com/en/copilot/how-tos/administer-copilot/manage-for-organization/manage-copilot-in-the-cloud" target="_blank" rel="noopener noreferrer">Copilot in the cloud 정책</a>
+          <a href="https://docs.github.com/en/copilot/concepts/billing-and-usage/organizations-and-enterprises/seats-and-billing-cycles" target="_blank" rel="noopener noreferrer">좌석·청구 주기</a>
+          <a href="https://docs.github.com/en/billing/concepts/product-billing/github-copilot-licenses" target="_blank" rel="noopener noreferrer">라이선스 영향</a>
+          <a href="https://docs.github.com/en/codespaces/managing-codespaces-for-your-organization/choosing-who-owns-and-pays-for-codespaces-in-your-organization" target="_blank" rel="noopener noreferrer">Codespaces 소유·비용</a>
+          <a href="https://docs.github.com/en/codespaces/developing-in-a-codespace/stopping-and-starting-a-codespace" target="_blank" rel="noopener noreferrer">Codespaces 정지</a>
+          <a href="https://code.visualstudio.com/docs/setup/copilot" target="_blank" rel="noopener noreferrer">VS Code Copilot</a>
+        </p>
+        <p><a href="assets/onboarding/ATTRIBUTION.txt">공식 이미지 출처·재사용 조건</a></p>
+      </footer>
+    </main>
+  </div>
+  <script src="assets/navigation.js"></script>
+  <script src="assets/copy.js"></script>
+</body>
+</html>

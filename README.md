@@ -1,79 +1,77 @@
-# Microsoft Foundry 고객 Hands-on Workshop
+# Microsoft Foundry · GitHub Copilot 고객 Hands-on Workshop 가이드
 
-**[고객용 실습자 가이드 바로 열기 →](https://junwoojeong100.github.io/internal-guest-hands-on-guide/)** · **[SE 운영자 가이드 바로 열기 →](https://junwoojeong100.github.io/internal-guest-hands-on-guide/operator.html)**
+고객 약 **70명이 5시간** 동안 Microsoft Foundry와 GitHub Copilot을 직접 실습하는 워크샵의 **실습자·운영자 가이드**입니다. **SE 테스트 5개를 포함해 Azure 계정·RG 75개**를 준비합니다.
 
-**[GitHub 조직 가입 · Copilot 준비 가이드 →](https://junwoojeong100.github.io/internal-guest-hands-on-guide/github-copilot.html)** · A 관리자 초대 / B 사용자 가입 신청 → 초대 수락 → 조직 Copilot 권한 확인 → 브라우저 질문 실행
+> 운영자가 **계정·리소스 그룹(RG)·권한**과 GitHub 조직·Copilot 좌석을 준비하고, 참가자는 **본인 RG 안에서 Foundry·프로젝트·모델·관측성을 직접 만듭니다.**
 
-약 **50명의 고객이 5시간 동안** Microsoft Foundry를 직접 실습하는 워크샵을 위한 가이드입니다. 운영자가 **Internal Guest 계정, 고객별 Azure 리소스 그룹(RG), 필요한 RBAC 역할·구독 사전 설정까지** 준비해 제공합니다. **Foundry·프로젝트·모델·관측성 등 필요한 리소스는 참가자가 본인 RG 안에 직접 생성**합니다.
+## 어떤 가이드를 보나요?
 
-| 가이드 | 대상·내용 |
-|---|---|
-| [운영자 가이드](https://junwoojeong100.github.io/internal-guest-hands-on-guide/operator.html) | SE팀: **부여할 역할 → A 스크립트 / B 포털 수동 → 공통 필수 점검 → 인계·지원·종료** |
-| [실습자 가이드](https://junwoojeong100.github.io/internal-guest-hands-on-guide/) | 고객: **배정값 확인 → 초기 암호 로그인·MFA 등록 → 본인 RG 안에 직접 생성 → 실행·추적**, 암호 변경은 선택 |
-| [GitHub 조직·Copilot 가이드](https://junwoojeong100.github.io/internal-guest-hands-on-guide/github-copilot.html) | 고객: **A 초대 수락 / B 가입 신청 후 승인·초대 수락 → 조직 Copilot 좌석 확인 → 브라우저 사용**, 관리자 초대·좌석·정책 준비 포함 |
+| 나는… | Foundry | GitHub · Copilot |
+|---|---|---|
+| **참가자(실습자)** | [Foundry 실습자 가이드](https://junwoojeong100.github.io/internal-guest-hands-on-guide/)<br>로그인·MFA → 리소스 생성 → 실행·추적 | [GitHub 실습자 가이드](https://junwoojeong100.github.io/internal-guest-hands-on-guide/github-copilot.html)<br>가입 → Copilot 권한 → 질문 1개 |
+| **운영자(SE)** | [Foundry 운영자 가이드](https://junwoojeong100.github.io/internal-guest-hands-on-guide/operator.html)<br>역할 → 스크립트/포털 → 필수 점검 → 인계·종료 | [GitHub 운영자 가이드](https://junwoojeong100.github.io/internal-guest-hands-on-guide/github-copilot-operator.html)<br>가입 방식 → 좌석·정책 → 리허설 → 인계·종료 |
 
-| 담당 | 작업 |
-|---|---|
-| 운영자 · 사전 준비 | 계정·RG 생성, 역할 할당, 필수 리소스 공급자 등록, MFA·지역·모델 쿼터·접근 격리 점검 |
-| 참가자 · 실습 | Foundry 리소스·프로젝트 생성, 모델 배포, 에이전트 생성·실행, Application Insights 연결, Monitor·Traces 확인 |
-| 운영자 · 종료 후 | 로그 보존과 완료 기록 확인, 승인된 정책에 따른 권한 회수·계정 차단·리소스 정리 |
+```mermaid
+flowchart LR
+  subgraph OP["운영자 · SE팀"]
+    O1["Foundry 운영자 가이드<br/>계정·RG·권한·모델 쿼터"]
+    O2["GitHub 운영자 가이드<br/>조직·Copilot 좌석·환경"]
+  end
+  subgraph PA["참가자 · 고객"]
+    P1["Foundry 실습자 가이드<br/>로그인·MFA → 생성 → 실행·추적"]
+    P2["GitHub 실습자 가이드<br/>가입 → Copilot 권한 → 질문 1개"]
+  end
+  O1 -->|"계정·RG·역할·배정값"| P1
+  O2 -->|"초대·좌석·저장소·환경"| P2
+```
 
-**참가자 필수 첫 실습:** 로그인 계정은 **본인 UPN(User Principal Name)과 별도 경로로 받은 초기 암호**입니다. 몇 시간 사용하는 이 워크샵은 **첫 로그인 암호 변경을 강제하지 않습니다**(`forceChangePasswordNextSignIn=false`). 초기 암호 그대로 로그인하고 **MFA 등록·인증은 본인이 완료**합니다. 암호 변경은 선택이며 변경했다면 이후 본인 새 암호를 사용합니다. [첫 로그인 실습 안내](https://junwoojeong100.github.io/internal-guest-hands-on-guide/#first-sign-in)를 따르세요. 이 기준은 MFA·조건부 액세스·암호 위험 정책을 해제하지 않습니다.
+모든 가이드는 라이트/다크 테마를 지원하고, 명령·JSON·질문·인계 템플릿에는 **복사 버튼**이 있습니다. Foundry 실습자 가이드에는 63장의 실제 화면, 3분 요약 영상, 51분 전체 영상이 포함됩니다.
 
-첫 로그인·MFA는 **실제 화면 → 번호별 입력·버튼 → 다음 상태**의 6단계이며 선택 암호 변경은 별도로 접어 두었습니다. GitHub는 조직 가입·좌석 배정·사용 권한 신청을 구분하고, 실제 계정 메뉴와 공식 Copilot 입력·답변 예시를 제공합니다. [화면 출처·재사용 조건](assets/onboarding/ATTRIBUTION.txt)을 표시하며 실제 암호·QR·인증 코드는 포함하지 않습니다. 기존 63장 녹화·검증 기록은 유지합니다.
+## 운영자 빠른 시작 · Azure 계정·RG·권한 일괄 준비
 
-**2026.11.08 새 계정 로그인 실측:** 별도 비고객용 Internal Guest **1개를 추가 생성**해 초기 암호를 변경하지 않은 새 브라우저 로그인과 정책이 제공한 **Software OATH(TOTP) 등록·MFA 인증**을 확인했습니다. ARM·Graph가 같은 Guest의 토큰을 수락했고 두 토큰의 진단 정보에 **`pwd`, `mfa`**가 확인됐습니다. [비밀 값 없는 검증 JSON](assets/guest-auth-verification.json)을 제공합니다. 이 로그인 전용 테스트에는 Azure 역할·RG·자원을 추가하지 않았으므로 구독이 0개 보이는 것은 예상 결과입니다. 교육장 네트워크, Microsoft Authenticator 푸시, Foundry E2E·50명 부하·GitHub 좌석 사용을 새로 검증한 것은 아닙니다.
-
-## SE 준비: A 스크립트 일괄 / B 포털 수동
-
-**50명 반복 운영은 [A · 스크립트 일괄 준비](https://junwoojeong100.github.io/internal-guest-hands-on-guide/operator.html#automation)를 권장합니다.** 소규모 수동 준비는 [B · 포털 절차](https://junwoojeong100.github.io/internal-guest-hands-on-guide/operator.html#portal)를 따릅니다. 같은 참가자 환경에 A/B를 중복 실행하지 않습니다. HTML은 실행 절차·권한·장애 대응의 참조 문서입니다.
-
-참가자에게 줄 역할은 **본인 RG의 Contributor·Foundry User + 구독의 Cognitive Services Usages Reader**, Entra 관리자 역할은 **없음**입니다. [정확한 역할·Scope](https://junwoojeong100.github.io/internal-guest-hands-on-guide/operator.html#participant-roles)와 [SE 자신의 권한](https://junwoojeong100.github.io/internal-guest-hands-on-guide/operator.html#operator-roles)을 구분하세요. 두 방법 모두 [인계 전 6가지 필수 점검](https://junwoojeong100.github.io/internal-guest-hands-on-guide/operator.html#preflight)을 수행합니다.
-
-**신규 Internal Guest 생성 운영자:** 대상 테넌트의 활성 **User Administrator가 최소 권한**이며, 기존 **Global Administrator도 가능**합니다. Azure Owner나 외부 초대용 Guest Inviter만으로는 Internal Guest 신규 생성 권한을 대신할 수 없습니다.
-
-**인계 전 운영자 필수 리허설:** 계정 생성·스크립트 검증 PASS와 별개로, **실제 고객 교육망·기기에서 MFA 미등록 테스트 전용 Guest 2개의 초기 암호 로그인(변경 강제 없음)·본인 MFA 등록·재로그인**을 확인합니다. 11월 8일 운영자 환경의 1개 계정 실측으로 대체하지 않습니다. 미확인·차단 상태에서는 인계를 보류합니다. [실제 교육망 인증 리허설](https://junwoojeong100.github.io/internal-guest-hands-on-guide/operator.html#network-mfa-rehearsal)을 따르고 테스트 계정은 고객에게 배정하지 않습니다.
-
-아래는 **A의 실행 예시**입니다. Azure Cloud Shell **Bash의 영구 저장소**, Linux/macOS 또는 WSL에서 **Python 3.11+·Azure CLI**를 사용합니다. 추가 Python 패키지는 없습니다.
+**Azure Cloud Shell Bash(영구 저장소), Linux/macOS 또는 WSL · Python 3.11+ · Azure CLI**가 필요하며 추가 Python 패키지는 없습니다. 소규모·수동 준비는 [B · 포털 절차](https://junwoojeong100.github.io/internal-guest-hands-on-guide/operator.html#portal)를 따르고, 같은 환경에 A/B를 중복 실행하지 않습니다.
 
 ```bash
 git clone https://github.com/junwoojeong100/internal-guest-hands-on-guide.git
 cd internal-guest-hands-on-guide
 cp config/workshop.example.json config/workshop.local.json
-# local.json의 테넌트·구독·고유 workshopId·지역·인원을 확인/수정합니다.
-# 아래 따옴표 안을 local.json의 실제 tenantId로 바꿉니다.
+# local.json의 tenantId·subscriptionId·고유 workshopId·지역·계정 수를 확인/수정한 뒤 로그인합니다.
 az login --tenant "REPLACE_WITH_TENANT_ID"
 
-# 기본값: 읽기 전용 계획. 계정·RG·역할·암호 파일을 생성하지 않습니다.
+# 1) 읽기 전용 계획 (기본값: 계정·RG·역할·암호 파일을 만들지 않습니다)
 python3 scripts/provision_workshop.py --config config/workshop.local.json
 
-# 검토한 계획을 실제 적용합니다.
+# 2) 검토한 계획을 실제 적용
 python3 scripts/provision_workshop.py --config config/workshop.local.json --apply
 
-# 생성 결과를 실제 Graph/ARM API에서 다시 읽어 검증합니다. 실패 시 종료 코드 1.
+# 3) 실제 Graph/ARM 상태를 다시 읽어 독립 검증 (실패 시 종료 코드 1)
 python3 scripts/verify_workshop.py --config config/workshop.local.json
 ```
 
-50명 설정이면 **Internal Guest 50개 + RG 50개 + 직접 RBAC 150개**가 대상입니다. UPN은 `<workshopId>-001@<테넌트 초기 도메인>`, RG는 `rg-<workshopId>-001`부터입니다. 역할은 **본인 RG의 Contributor·Foundry User + 구독의 Cognitive Services Usages Reader**뿐이며 필요한 RP도 등록합니다. Foundry·프로젝트·모델·로그 자원은 **생성하지 않습니다**.
+예제 설정(`participantCount=75`, `seTestAccountCount=5`, `nameFormat="user-se"`)은 **고객 `user01`~`user70` + SE 테스트 `se01`~`se05`** 계정, RG `rg-user01`~`rg-user70`·`rg-se01`~`rg-se05`, 직접 RBAC **225개**를 만듭니다. 이름 충돌·재실행·복구·비공개 파일 취급은 [운영자 가이드 A](https://junwoojeong100.github.io/internal-guest-hands-on-guide/operator.html#automation)를 따르세요.
 
-같은 설정·실행 폴더로 다시 실행하면 누락분만 보완하고 **암호를 재설정하지 않습니다**. 다른 계정/RG를 채택하거나 추가 권한을 자동 삭제하지 않으며 충돌 시 중단합니다. 새 행사에는 새 `workshopId`를 사용하고, 적용 후 인원·지역 등 설정을 바꾸거나 실행 기록을 지우지 마세요. 다른 기기에서 같은 워크샵을 동시에 실행하지 않습니다.
+## 꼭 지킬 기준
 
-**암호 정책 적용 범위:** 이 스크립트가 새로 생성하는 계정은 변경 강제 `false`입니다. 기존에 발급된 계정의 암호·변경 요구를 재실행으로 자동 수정하지 않습니다. 이전 `true` 기준의 계정이 있다면 SE가 승인된 절차로 변경 요구만 점검·수정하며, 현재 암호를 조회·수집하거나 모두에게 같은 암호를 배정하지 않습니다. 몇 시간 일정만으로 계정이 만료되지는 않으므로 종료 후 승인된 차단·권한 회수를 수행합니다.
+| 주제 | 기준 |
+|---|---|
+| 참가자 권한 | **본인 RG의 Contributor·Foundry User + 구독의 Cognitive Services Usages Reader**. Entra 관리자 역할은 없습니다. 운영자 Owner 권한은 참가자에게 전달되지 않습니다. |
+| 첫 로그인 | 초기 암호 그대로 로그인하며 변경을 강제하지 않습니다(`forceChangePasswordNextSignIn=false`). **MFA 등록·인증은 본인이 완료**하고 MFA·조건부 액세스는 해제하지 않습니다. |
+| 인계 전 필수 | **실제 교육망에서 MFA 미등록 테스트 Guest 2개의 첫 로그인·MFA 등록·재로그인**을 확인합니다. 스크립트 PASS나 운영자 계정 성공으로 대신하지 않습니다. |
+| 모델·TPM | 일반 실습은 **`gpt-6.1-terra`를 개인별 TPM으로 배분**합니다((70 + 5) × 10,000 = 750,000 TPM은 계산 예시). Optimizer 등 모델 고정 설정은 지정 모델을 유지합니다. |
+| 관측성 | 참가자가 Agent → Traces → **Connect → Create new resource**로 Application Insights를 본인 RG에 만들고 바로 연결합니다. |
+| 비공개 파일 | `.workshop-runs/<workshopId>/`(초기 암호 포함)는 Git·Pages에서 제외하고 승인된 비공개 저장소에 백업합니다. 참가자 암호는 별도 경로로 개별 전달합니다. |
+| GitHub | 조직 가입·Copilot 좌석·Codespaces는 **각각 별도 승인·과금**입니다. Azure 계정 스크립트는 GitHub 계정·초대·좌석을 만들지 않습니다. |
 
-**비공개 결과:** `.workshop-runs/<workshopId>/credentials.private.csv`는 초기 암호가 포함된 민감 파일입니다. `state.private.json`도 암호를 포함하는 복구 기록이며, `verification.private.json`은 검증 결과입니다. 폴더 0700·파일 0600, Git 제외·Pages 배포 제외로 보호합니다. 승인된 비공개 저장소에 백업하고, 전체 CSV를 고객에게 보내지 마세요. 참가자별 초기 암호는 승인된 별도 경로로만 전달합니다. Cloud Shell 임시 저장소에서는 복구 기록이 사라질 수 있습니다.
+## 검증 현황
 
-**A의 검증 범위:** 계정 유형·활성·소유권, RG·지역·태그, 정확한 역할·Scope, 대상 구독의 하위·상위 범위/그룹 경유 추가 Azure 권한, 활성 Entra 역할, RP를 검사합니다. Usages Reader의 실제 정의도 확인합니다. 소유권 마커·이름·태그가 다른 **B의 수동 환경에는 전용 검증 스크립트를 그대로 적용하지 않으며**, 운영 대장·Entra·IAM Check access로 대조합니다. 두 방법 모두 다른 구독·테넌트, PIM eligible·향후 그룹 변경, 로그인·MFA·정책·실제 포털 접근·Foundry E2E·TPM·50명 부하는 별도 점검 대상입니다. **검증 PASS가 개최 승인이나 로그인 성공을 대신하지 않습니다.**
-
-오프라인 자동화 테스트는 실제 Azure에 접속하지 않습니다.
+- **확인한 것:** Internal Guest 1명의 기본 Prompt Agent E2E(2026.11.05, GPT-5 mini)와 새 Guest 1개의 초기 암호 + Software OATH(TOTP) MFA 로그인(2026.11.08). [비밀 값 없는 검증 JSON](assets/guest-auth-verification.json)을 제공합니다.
+- **아직 확인하지 않은 것:** 75개 환경 생성·동시 부하, `gpt-6.1-terra` E2E, 고객 교육망, Microsoft Authenticator 푸시, GitHub 좌석 사용, Traces의 Create new resource 이후 화면(녹화에는 Azure Portal 사전 생성 방식만 있음). 개최 전 운영자 가이드의 필수 점검으로 확인하세요.
+- **오프라인 테스트:** Azure에 접속하지 않고 스크립트와 가이드 링크·앵커를 검사합니다.
 
 ```bash
 python3 -m unittest discover -s tests -v
 ```
 
-실습자 가이드에는 **63장 실제 화면, 3분 요약 영상, 51분 전체 영상**이 포함되며 모든 가이드가 **라이트/다크 테마**를 지원합니다. 다른 고객 실습을 만들 때는 [계정·권한 공통 기준](https://junwoojeong100.github.io/internal-guest-hands-on-guide/#responsibilities)과 [문제 대응표](https://junwoojeong100.github.io/internal-guest-hands-on-guide/#troubleshooting)를 계속 참조하고, 실습 본문·모델·생성 자원만 별도로 구성하세요.
+## 배포
 
-**일반 실습은 현재 가장 많은 TPM을 확보한 `gpt-6.1-terra`를 기본 모델로 사용하고 공유 쿼터를 개인별로 배분합니다.** 참가자는 [배정 TPM 입력 안내](https://junwoojeong100.github.io/internal-guest-hands-on-guide/#lightweight-models)에 따라 일반 실습용 모델 **하나만** 직접 배포합니다. SE는 [terra TPM 배분·50명 계산 예시](https://junwoojeong100.github.io/internal-guest-hands-on-guide/operator.html#model-groups)를 참고해 실제 잔여량에서 운영 여유를 뺀 뒤 개인별 TPM을 확정합니다. **Optimizer 등 특정 모델을 요구하는 설정은 지정 모델·버전을 유지**하고 해당 모델 풀의 배포 개수·TPM을 별도 배정합니다. 기존 화면·영상은 GPT-5 mini 검증 기록으로 유지하며 terra 검증 자료로 바꾸지 않습니다.
-
-> 현재 자료는 **Internal Guest 1명의 E2E 검증**을 바탕으로 합니다. 50명 환경이 이미 준비되었거나 동시 부하 검증이 완료되었다는 의미는 아닙니다. 실제 워크샵 전에는 쿼터·동시 부하·비용·MFA 정책·구독 오퍼의 고객 교육 사용 허용 여부를 별도로 확인해야 합니다.
-
-`main`에 푸시하면 GitHub Actions가 오프라인 자동화 테스트를 통과한 뒤 HTML·영상·공개 스크립트·예제 설정만 빌드하여 GitHub Pages에 자동 배포합니다. CI는 Azure 계정·RG·역할을 생성하지 않습니다.
+`main`에 푸시하면 GitHub Actions가 위 테스트를 통과한 뒤 HTML·영상·공개 스크립트·예제 설정만 빌드해 GitHub Pages에 배포합니다. CI는 Azure 계정·RG·역할을 만들지 않습니다. 화면 출처·재사용 조건은 [ATTRIBUTION](assets/onboarding/ATTRIBUTION.txt)에 있습니다.

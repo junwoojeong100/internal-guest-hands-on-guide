@@ -34,6 +34,10 @@ def provision(client: AzureClient, config: Config, apply: bool = False) -> dict:
                 or saved.get("resourceGroup") != participant.rg
                 or not isinstance(saved.get("initialPassword"), str)
                 or len(saved["initialPassword"]) < 24
+                or (
+                    config.seTestAccountCount
+                    and saved.get("accountPurpose") != participant.account_purpose
+                )
             ):
                 issues.append("Private participant state mismatch; restore its backup.")
             if user:
@@ -63,7 +67,10 @@ def provision(client: AzureClient, config: Config, apply: bool = False) -> dict:
             "createRoleAssignments": sum(len(missing) for _, _, _, missing in rows),
             "registerProviders": missing_providers,
             "participants": [
-                {"participantId": p.number, "upn": p.upn, "resourceGroup": p.rg}
+                {
+                    "participantId": p.number, "accountPurpose": p.account_purpose,
+                    "upn": p.upn, "resourceGroup": p.rg,
+                }
                 for p, _, _, _ in rows
             ],
         }
@@ -85,13 +92,18 @@ def provision(client: AzureClient, config: Config, apply: bool = False) -> dict:
                     state["participants"][participant.number] = {
                         "upn": participant.upn, "resourceGroup": participant.rg,
                         "initialPassword": "Aq9!" + secrets.token_urlsafe(24),
+                        "accountPurpose": participant.account_purpose,
                     }
                 # Persist the secret before POST so a lost response can be reconciled.
                 store.save_state(state)
                 saved = state["participants"][participant.number]
                 user = client.request("POST", f"{GRAPH}/users", {
                     "accountEnabled": True, "userType": "Guest",
-                    "displayName": f"Foundry workshop {participant.alias}",
+                    "displayName": (
+                        f"Foundry workshop "
+                        f"{'SE test ' if participant.account_purpose == 'se-test' else ''}"
+                        f"{participant.alias}"
+                    ),
                     "mailNickname": participant.alias, "userPrincipalName": participant.upn,
                     "passwordProfile": {
                         "forceChangePasswordNextSignIn": False,
@@ -125,7 +137,10 @@ def provision(client: AzureClient, config: Config, apply: bool = False) -> dict:
                         config.scope + "/providers/Microsoft.Authorization/roleDefinitions/" + role
                     ),
                 }})
-            print(f"Prepared {participant.number}/{config.participantCount:03d}", file=sys.stderr)
+            print(
+                f"Prepared {participant.number}/{config.participantCount:03d} "
+                f"({participant.account_purpose})", file=sys.stderr,
+            )
         store.write("provision.private.json", json.dumps(plan, indent=2) + "\n")
         plan["next"] = "Run verify_workshop.py independently; apply is not a verification result."
         return plan

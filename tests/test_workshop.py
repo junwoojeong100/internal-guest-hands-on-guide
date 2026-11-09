@@ -1,6 +1,8 @@
 import contextlib
 from copy import deepcopy
+import csv
 from dataclasses import asdict, replace
+import hashlib
 import io
 import json
 import os
@@ -180,6 +182,152 @@ class WorkshopTests(unittest.TestCase):
         self.assertEqual(len(set(passwords)), 50)
         self.assertTrue(all(len(password) >= 24 for password in passwords))
 
+    def test_example_provisions_seventy_five_accounts_with_five_isolated_se_tests(self):
+        config = Config.load(str(
+            Path(__file__).resolve().parents[1] / "config" / "workshop.example.json"
+        ))
+        cloud = FakeCloud(config)
+        plan = provision_workshop.provision(cloud, config)
+        self.assertEqual(
+            (plan["createUsers"], plan["createResourceGroups"], plan["createRoleAssignments"]),
+            (75, 75, 225),
+        )
+        self.assertEqual(cloud.writes, [])
+        self.assertEqual(list(Path.cwd().iterdir()), [])
+        participants = config.participants(DOMAIN)
+        se_tests = participants[70:]
+        self.assertEqual(
+            [row["upn"] for row in plan["participants"][:70]],
+            [f"user{i:02d}@{DOMAIN}" for i in range(1, 71)],
+        )
+        self.assertEqual(
+            [row["resourceGroup"] for row in plan["participants"][:70]],
+            [f"rg-user{i:02d}" for i in range(1, 71)],
+        )
+        self.assertEqual(
+            [p.alias for p in se_tests],
+            [f"se{i:02d}" for i in range(1, 6)],
+        )
+        self.assertEqual(
+            [row["resourceGroup"] for row in plan["participants"][70:]],
+            [f"rg-se{i:02d}" for i in range(1, 6)],
+        )
+        self.assertEqual(
+            sum(row["accountPurpose"] == "se-test" for row in plan["participants"]), 5,
+        )
+        result = self.apply(cloud, config)
+        self.assertEqual((len(cloud.users), len(cloud.groups), len(cloud.roles)), (75, 75, 225))
+        verification = verify_workshop.verify(cloud, config)
+        self.assertTrue(verification["passed"])
+        self.assertEqual(len(verification["participants"]), 75)
+        credential_path = run_path(config) / "credentials.private.csv"
+        credentials = credential_path.read_bytes()
+        with credential_path.open(newline="") as stream:
+            rows = list(csv.DictReader(stream))
+        self.assertEqual(len(rows), 75)
+        self.assertEqual(sum(row["accountPurpose"] == "participant" for row in rows), 70)
+        self.assertEqual(
+            {row["userPrincipalName"] for row in rows if row["accountPurpose"] == "se-test"},
+            {p.upn for p in se_tests},
+        )
+        public_output = json.dumps((plan, result, verification))
+        for password in cloud.passwords.values():
+            self.assertNotIn(password, public_output)
+        cloud.writes.clear()
+        self.apply(cloud, config)
+        self.assertEqual(cloud.writes, [])
+        self.assertEqual(credential_path.read_bytes(), credentials)
+        with self.assertRaises(WorkshopError):
+            self.apply(cloud, replace(config, workshopId="another-workshop"))
+        self.assertEqual(cloud.writes, [])
+        se_test = se_tests[-1]
+        tags = cloud.groups[se_test.scope.lower()]["tags"]
+        self.assertEqual(tags.pop("accountPurpose"), "se-test")
+        self.assertFalse(verify_workshop.verify(cloud, config)["passed"])
+        tags["accountPurpose"] = "se-test"
+        cloud.add_role(cloud.users[se_test.upn]["id"], ROLES["Contributor"], participants[0].scope)
+        self.assertFalse(verify_workshop.verify(cloud, config)["passed"])
+
+    def test_legacy_five_key_config_and_journal_rerun_without_changes(self):
+        legacy = asdict(CONFIG)
+        del legacy["seTestAccountCount"]
+        del legacy["namePrefix"]
+        del legacy["nameFormat"]
+        Path("config.json").write_text(json.dumps(legacy))
+        config = Config.load("config.json")
+        self.assertEqual(config, CONFIG)
+        self.apply(config=config)
+        state_path = run_path(config) / "state.private.json"
+        state = json.loads(state_path.read_text())
+        legacy_binding = hashlib.sha256(
+            json.dumps({"config": legacy, "domain": DOMAIN}, sort_keys=True).encode()
+        ).hexdigest()
+        self.assertEqual(state["binding"], legacy_binding)
+        for saved in state["participants"].values():
+            del saved["accountPurpose"]
+        state_path.write_text(json.dumps(state))
+        credentials = (run_path(config) / "credentials.private.csv").read_bytes()
+        self.cloud.writes.clear()
+        self.apply(config=config)
+        self.assertEqual(self.cloud.writes, [])
+        self.assertEqual((run_path(config) / "credentials.private.csv").read_bytes(), credentials)
+        self.assertTrue(verify_workshop.verify(self.cloud, config)["passed"])
+
+    def test_legacy_six_key_se_config_keeps_names_and_journal(self):
+        config = replace(CONFIG, seTestAccountCount=1)
+        cloud = FakeCloud(config)
+        legacy = asdict(config)
+        del legacy["namePrefix"]
+        del legacy["nameFormat"]
+        Path("config.json").write_text(json.dumps(legacy))
+        config = Config.load("config.json")
+        result = self.apply(cloud, config)
+        self.assertEqual(result["participants"][0]["upn"], f"test-workshop-001@{DOMAIN}")
+        self.assertEqual(result["participants"][-1]["upn"], f"test-workshop-se-test-001@{DOMAIN}")
+        self.assertEqual(result["participants"][-1]["resourceGroup"], "rg-test-workshop-se-test-001")
+        state = json.loads((run_path(config) / "state.private.json").read_text())
+        legacy_binding = hashlib.sha256(
+            json.dumps({"config": legacy, "domain": DOMAIN}, sort_keys=True).encode()
+        ).hexdigest()
+        self.assertEqual(state["binding"], legacy_binding)
+        credentials = (run_path(config) / "credentials.private.csv").read_bytes()
+        cloud.writes.clear()
+        self.apply(cloud, config)
+        self.assertEqual(cloud.writes, [])
+        self.assertEqual((run_path(config) / "credentials.private.csv").read_bytes(), credentials)
+        self.assertTrue(verify_workshop.verify(cloud, config)["passed"])
+
+    def test_legacy_seven_key_compact_config_keeps_names_and_journal(self):
+        config = replace(CONFIG, seTestAccountCount=1, namePrefix="w")
+        cloud = FakeCloud(config)
+        legacy = asdict(config)
+        del legacy["nameFormat"]
+        Path("config.json").write_text(json.dumps(legacy))
+        config = Config.load("config.json")
+        result = self.apply(cloud, config)
+        self.assertEqual(result["participants"][0]["upn"], f"w1@{DOMAIN}")
+        self.assertEqual(result["participants"][0]["resourceGroup"], "w1")
+        self.assertEqual(result["participants"][-1]["upn"], f"ws1@{DOMAIN}")
+        self.assertEqual(result["participants"][-1]["resourceGroup"], "ws1")
+        state = json.loads((run_path(config) / "state.private.json").read_text())
+        legacy_binding = hashlib.sha256(
+            json.dumps({"config": legacy, "domain": DOMAIN}, sort_keys=True).encode()
+        ).hexdigest()
+        self.assertEqual(state["binding"], legacy_binding)
+        credentials = (run_path(config) / "credentials.private.csv").read_bytes()
+        cloud.writes.clear()
+        self.apply(cloud, config)
+        self.assertEqual(cloud.writes, [])
+        self.assertEqual((run_path(config) / "credentials.private.csv").read_bytes(), credentials)
+        self.assertTrue(verify_workshop.verify(cloud, config)["passed"])
+        for prefix in ("w", "ws"):
+            with self.subTest(colliding_prefix=prefix):
+                with self.assertRaises(WorkshopError):
+                    self.apply(cloud, replace(
+                        config, workshopId="another-workshop", namePrefix=prefix,
+                    ))
+                self.assertEqual(cloud.writes, [])
+
     def test_rerun_does_not_create_reset_or_duplicate(self):
         self.apply()
         credentials = (run_path(CONFIG) / "credentials.private.csv").read_bytes()
@@ -214,7 +362,7 @@ class WorkshopTests(unittest.TestCase):
         self.assertTrue(verify_workshop.verify(self.cloud, CONFIG)["passed"])
 
     def test_collision_at_last_participant_prevents_all_remote_writes(self):
-        config = replace(CONFIG, participantCount=50)
+        config = replace(CONFIG, participantCount=75, seTestAccountCount=5, nameFormat="user-se")
         for collision in ("user", "group"):
             with self.subTest(collision=collision):
                 cloud = FakeCloud(config)
@@ -377,8 +525,16 @@ class WorkshopTests(unittest.TestCase):
 
     def test_config_change_and_world_readable_journal_are_not_adopted(self):
         self.apply()
-        with self.assertRaisesRegex(WorkshopError, "state/config mismatch"):
-            self.apply(config=replace(CONFIG, participantCount=4))
+        for changed in (
+            replace(CONFIG, participantCount=4),
+            replace(CONFIG, seTestAccountCount=1),
+            replace(CONFIG, namePrefix="w"),
+            replace(CONFIG, nameFormat="user-se"),
+        ):
+            self.cloud.writes.clear()
+            with self.assertRaisesRegex(WorkshopError, "state/config mismatch"):
+                self.apply(config=changed)
+            self.assertEqual(self.cloud.writes, [])
         state = run_path(CONFIG) / "state.private.json"
         state.chmod(0o644)
         self.cloud.writes.clear()
@@ -413,6 +569,12 @@ class WorkshopTests(unittest.TestCase):
             ("tenantId", "not-a-uuid"), ("workshopId", "../../outside"),
             ("workshopId", "UpperCase"), ("participantCount", True),
             ("participantCount", 0), ("participantCount", 1000),
+            ("seTestAccountCount", True), ("seTestAccountCount", -1),
+            ("seTestAccountCount", 4), ("seTestAccountCount", 1.5),
+            ("namePrefix", ""), ("namePrefix", "W"), ("namePrefix", "../w"),
+            ("namePrefix", "w-"), ("namePrefix", "1w"), ("namePrefix", True),
+            ("namePrefix", "w" * 33),
+            ("nameFormat", "unknown"), ("nameFormat", True),
             ("location", "East US 2"), ("unknown", "do-not-log-this"),
         ):
             with self.subTest(key=key, value=value):
@@ -420,6 +582,11 @@ class WorkshopTests(unittest.TestCase):
                 Path("config.json").write_text(json.dumps(invalid))
                 with self.assertRaises(WorkshopError):
                     Config.load("config.json")
+        Path("config.json").write_text(json.dumps({
+            **data, "namePrefix": "w", "nameFormat": "user-se",
+        }))
+        with self.assertRaisesRegex(WorkshopError, "not both"):
+            Config.load("config.json")
 
 
 class HttpTests(unittest.TestCase):
