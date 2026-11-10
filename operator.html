@@ -21,7 +21,7 @@
       </nav>
       <div class="topbar-tools">
         <button class="button small theme-toggle" id="theme-toggle" type="button" aria-pressed="false">다크 테마</button>
-        <span class="top-meta">기준일 2026.11.09</span>
+        <span class="top-meta">기준일 2026.11.10</span>
       </div>
       <span class="sr-only" id="theme-status" role="status"></span>
     </div>
@@ -397,7 +397,7 @@ python3 scripts/verify_workshop.py --config config/workshop.local.json</pre>
           </table>
         </div>
         <h3 class="role-title" id="model-groups">gpt-6.1-terra의 공유 TPM을 참가자에게 배분합니다.</h3>
-        <p class="intro"><strong>여러 경량 모델로 참가자를 나누던 배정 대신, 선택 가능한 모델 설정은 gpt-6.1-terra로 통일</strong>합니다. 현재 가장 많은 TPM을 확보한 모델이라는 운영 기준이지 모든 구독의 공식 한도·잔여량을 보장하는 수치가 아닙니다. 운영자는 개최 전에 실제 구독의 Quota 화면에서 승인 한도·기존 배포 할당·잔여량·Scope·지역 공급을 확인합니다.</p>
+        <p class="intro"><strong>선택 가능한 모델 설정은 gpt-6.1-terra로 통일</strong>합니다. ‘가장 많은 TPM을 확보한 모델’은 운영 기준일 뿐 모든 구독의 공식 한도·잔여량을 보장하지 않으므로, 개최 전에 실제 구독의 Quota 화면에서 승인 한도·기존 배포 할당·잔여량·Scope·지역 공급을 확인합니다. 공식 지역 가용성 표에는 gpt-6.1-terra 버전 <code>2026-10-26</code>이 등재되어 있습니다(2026.11.10 확인).</p>
         <div class="table-wrap">
           <table aria-label="기본 모델과 모델 고정 예외 운영 기준">
             <thead><tr><th>설정·단계</th><th>모델 배정</th><th>운영자 확인</th></tr></thead>
@@ -534,7 +534,7 @@ GitHub 가입·Copilot 준비 안내: https://junwoojeong100.github.io/internal-
         <p class="intro"><a href="index.html">Foundry 실습자 가이드</a> · <a href="github-copilot-operator.html">GitHub 운영자 가이드</a> · <a href="assets/verification.json">기존 읽기 전용 E2E 근거</a> · <a href="https://github.com/junwoojeong100/internal-guest-hands-on-guide">가이드 저장소</a></p>
       </section>
       <footer class="footnotes">
-        <p>기준일 2026.11.09 · 실제 기본 Agent 검증일 2026.11.05. 역할 이름·UI·가용성·한도는 변경될 수 있으므로 다음 개최 전에 공식 문서와 참가자 권한으로 확인합니다.</p>
+        <p>기준일 2026.11.10 · 실제 기본 Agent 검증일 2026.11.05. 역할 이름·UI·가용성·한도는 변경될 수 있으므로 다음 개최 전에 공식 문서와 참가자 권한으로 확인합니다.</p>
         <p><a href="https://learn.microsoft.com/entra/fundamentals/how-to-create-delete-users" target="_blank" rel="noopener noreferrer">Entra 계정 유형</a><a href="https://learn.microsoft.com/azure/foundry/concepts/rbac-foundry" target="_blank" rel="noopener noreferrer">Foundry RBAC</a><a href="https://learn.microsoft.com/azure/foundry/openai/how-to/quota" target="_blank" rel="noopener noreferrer">쿼터</a><a href="https://learn.microsoft.com/azure/foundry/observability/how-to/trace-agent-setup" target="_blank" rel="noopener noreferrer">트레이싱</a></p>
       </footer>
     </main>

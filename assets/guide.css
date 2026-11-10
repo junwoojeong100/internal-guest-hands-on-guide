@@ -137,6 +137,7 @@ kbd{display:inline-block;padding:0 6px;border:1px solid var(--line);border-botto
 table{width:100%;border-collapse:collapse;font-size:13px;line-height:1.7}
 th,td{padding:10px 13px;border-bottom:1px solid #e8eef4;text-align:left;vertical-align:top}
 th{background:#f4f7fb;font-size:12px;color:#4e657d}
+.group-row th{background:#e6eef7;color:var(--navy);font-weight:800}
 tr:last-child td{border-bottom:0}
 td:first-child{color:#567087;white-space:nowrap;width:158px}
 td code{user-select:all}
@@ -160,6 +161,7 @@ select{background:#fff;border:1px solid #c7d5e0;border-radius:6px;padding:4px 8p
 .chapter{display:flex;align-items:center;gap:9px;background:#f6f9fc;border:1px solid #e1e9f1;border-radius:8px;padding:10px 12px;text-align:left;font-size:11px;color:#3e586e}
 .chapter:hover{background:#eaf3ff;border-color:#abc7e3}
 .chapter time{color:var(--blue);font:700 10px ui-monospace,monospace;min-width:39px}
+.chapter-step{margin-left:auto;padding-left:8px;color:var(--muted);font-size:10px;font-weight:700;white-space:nowrap}
 .stage-header{display:flex;gap:14px;align-items:flex-start}
 .stage-number{flex:none;display:grid;place-items:center;width:39px;height:39px;background:#e8f2ff;color:var(--blue);border-radius:11px;font:750 15px ui-monospace,monospace}
 .stage-header h2{font-size:22px}
@@ -254,6 +256,7 @@ dialog::backdrop{background:#0a1d32bd;backdrop-filter:blur(5px)}
   :root[data-theme="dark"] th,
   :root[data-theme="dark"] td{border-color:var(--line)}
   :root[data-theme="dark"] th{background:#1b2c42;color:#c4d4e5}
+  :root[data-theme="dark"] .group-row th{background:#213f5e;color:#cce4ff}
   :root[data-theme="dark"] td:first-child{color:#b7c9dc}
   :root[data-theme="dark"] details{background:var(--paper)}
   :root[data-theme="dark"] summary{background:#1b2c42}

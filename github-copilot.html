@@ -33,7 +33,7 @@
         <div>
           <div class="eyebrow">NEW TO GITHUB COPILOT? START HERE · ORGANIZATION-PROVIDED COPILOT</div>
           <h1>처음이어도 괜찮습니다.<br>내 계정으로 Copilot을 시작하세요.</h1>
-          <p class="hero-lead"><strong>해야 할 일은 다섯 가지입니다. 계정 확인 → 조직 가입 → Copilot 권한 확인 → 사용할 곳 선택 → 질문 1개.</strong><br>설치가 싫다면 브라우저, 터미널이 편하면 Copilot CLI, 데스크톱에서 에이전트를 써 보고 싶다면 GitHub Copilot 앱을 고르세요.<br>용어가 낯설면 ‘01 Copilot 한눈에 보기’의 용어 모음부터 펼쳐 보세요.</p>
+          <p class="hero-lead"><strong>해야 할 일은 다섯 가지입니다. 계정 확인 → 조직 가입 → Copilot 권한 확인 → 환경 선택 → 질문 1개.</strong><br>설치가 싫다면 브라우저, 터미널이 편하면 Copilot CLI, 데스크톱에서 에이전트를 써 보고 싶다면 GitHub Copilot 앱을 고르세요.<br>용어가 낯설면 ‘01 Copilot 한눈에 보기’의 용어 모음부터 펼쳐 보세요.</p>
           <div class="hero-actions">
             <a class="button primary" href="#about">처음이라면 여기부터 <span aria-hidden="true">→</span></a>
             <a class="button dark" href="#join">가입 바로 시작</a>
@@ -589,27 +589,33 @@ Do you trust the files in this folder?
           <table aria-label="GitHub 가입과 Copilot 문제 대응">
             <thead><tr><th>증상</th><th>확인·다음 행동</th></tr></thead>
             <tbody>
+              <tr class="group-row"><th colspan="2" scope="colgroup">가입·계정</th></tr>
               <tr><td>가입 중 ‘This email can’t be used’</td><td>다른 브라우저(또는 쿠키 삭제·확장 프로그램 끄기)·다른 네트워크·다른 이메일로 다시 시도합니다. 그래도 안 되면 운영자에게 알립니다. GitHub 지원은 개별 인증 실패를 조사하지 않습니다.</td></tr>
               <tr><td>신청했지만 초대가 없음</td><td>이메일(스팸함 포함)과 조직 URL을 확인합니다. 자가가입은 사이트의 요청 상태도 확인하세요. 그래도 없으면 사용자명과 진행 경로를 운영자에게 전달합니다. 요청만으로는 멤버가 아닙니다.</td></tr>
               <tr><td>자가가입 링크가 열리지 않음·기간 오류</td><td>운영자가 준 최신 링크·시작/만료 시각·시간대를 확인합니다. URL을 고치거나 공개 채널에 올리지 않습니다.</td></tr>
               <tr><td>요청은 성공했는데 조직이 안 보임</td><td>요청과 멤버십은 다릅니다. 같은 GitHub 계정으로 이메일의 초대를 수락합니다.</td></tr>
               <tr><td>초대가 만료됨·수락이 안 됨</td><td>초대는 7일 후 만료됩니다. 초대받은 이메일이 내 계정의 인증된 이메일인지 확인하고, 안 되면 운영자에게 사용자명으로 재초대를 요청합니다.</td></tr>
               <tr><td>2FA·SSO 때문에 가입 안 됨</td><td>GitHub 2FA를 먼저 설정하고 운영자가 안내한 SSO 절차를 따릅니다. 인증 코드를 공유하거나 정책을 우회하지 않습니다.</td></tr>
+              <tr class="group-row"><th colspan="2" scope="colgroup">Copilot 권한·구독</th></tr>
               <tr><td>가입했는데 Copilot이 없음</td><td>새로고침·재로그인 후 Settings → Copilot을 봅니다. Free만 보이거나 결제를 요구하면 직접 가입하지 말고 사용자명과 화면 상태를 운영자에게 전달합니다.</td></tr>
+              <tr><td>개인 Copilot 구독이 바뀜</td><td>조직 좌석을 받으면 개인 Pro·Pro+·Max가 자동 취소·일할 환불될 수 있습니다. Settings → Copilot과 공식 안내로 확인하고 운영자와 상의합니다. 좌석을 제거하면 개인 플랜이 복구된다고 가정하지 않습니다.</td></tr>
+              <tr class="group-row"><th colspan="2" scope="colgroup">브라우저·VS Code·Codespaces</th></tr>
               <tr><td>브라우저 Copilot이 열리지 않음</td><td>운영자에게 조직 정책과 실습에 허용된 모델·사용 한도를 확인해 달라고 요청합니다.</td></tr>
               <tr><td>브라우저는 되는데 IDE에서 Copilot이 안 됨</td><td>VS Code/Codespaces의 로그인 사용자명과 <strong>Manage Extension Account Preferences → GitHub Copilot Chat</strong>의 계정이 조직 권한을 받은 계정인지 확인합니다. 개인 Free 계정 로그인을 조직 권한으로 착각하지 않습니다.</td></tr>
               <tr><td>Codespaces 없음·저장소 접근 불가·결제 요구</td><td>개인 카드 등록이나 공개 저장소 복제로 우회하지 않습니다. 사용자명·저장소·화면을 운영자에게 전달합니다.</td></tr>
+              <tr class="group-row"><th colspan="2" scope="colgroup">Copilot CLI</th></tr>
               <tr><td>copilot 명령을 찾을 수 없음</td><td>설치 직후라면 터미널을 닫고 새로 엽니다. <code>copilot --version</code>을 다시 실행해 보고, 안 되면 설치 명령을 다시 실행합니다. npm이라면 <code>node --version</code>이 22 이상인지, Windows라면 <strong>PowerShell 7</strong>에서 실행했는지 확인합니다.</td></tr>
               <tr><td>CLI <code>/login</code>이 끝나지 않음</td><td>터미널에 표시된 URL을 직접 열거나 <code>/login</code>에서 <strong>Sign in with a device code</strong>를 골라 <a href="https://github.com/login/device" target="_blank" rel="noopener noreferrer">github.com/login/device</a>에 코드를 입력합니다. 조직 SSO 안내가 보이면 조직 옆 <strong>Authorize</strong>를 누릅니다.</td></tr>
               <tr><td>CLI에서 정책 거부(403)</td><td><code>Access denied by policy settings</code> 같은 메시지는 조직의 Copilot CLI 정책이 꺼져 있거나 좌석이 없다는 뜻일 수 있습니다. 우회하지 말고 사용자명과 화면(민감 정보 가림)을 운영자에게 전달합니다.</td></tr>
               <tr><td>CLI가 다른 계정으로 로그인됨</td><td><code>/user</code>로 현재 계정을 확인하고, <code>/user switch</code> 또는 <code>/logout</code> 후 <code>/login</code>으로 조직 좌석을 받은 계정에 다시 로그인합니다. <code>GH_TOKEN</code>·<code>GITHUB_TOKEN</code> 같은 환경 변수가 있으면 로그인보다 우선하니, 토큰 값이 아닌 <strong>설정 여부</strong>만 확인합니다.</td></tr>
               <tr><td>CLI에서 모델이 안 보임</td><td><code>/model</code>로 내게 허용된 모델을 확인합니다. 목록이 비었거나 오류가 나면 모델 정책이나 좌석 문제일 수 있으니 운영자에게 확인합니다.</td></tr>
+              <tr class="group-row"><th colspan="2" scope="colgroup">GitHub Copilot 앱</th></tr>
               <tr><td>Copilot 앱이 설치·실행 안 됨</td><td>내 PC에 맞는 파일(macOS Apple Silicon/Intel, Windows x64/Arm)을 받았는지 확인합니다. 회사 PC의 설치 제한이나 보안 프로그램이면 우회하지 말고 운영자에게 알린 뒤 브라우저·Codespaces로 진행합니다.</td></tr>
               <tr><td>앱 로그인 후 플랜 가입 화면</td><td>Copilot 플랜이 없는 계정으로 로그인했다는 신호일 수 있습니다. <strong>가입하거나 API 키를 넣지 말고</strong> 로그인한 사용자명, 04의 좌석 배정, 조직의 GitHub Copilot app 정책을 운영자와 확인합니다.</td></tr>
               <tr><td>앱에서 저장소가 안 보임</td><td>Git 설치와 저장소 접근 권한(조직 가입·SSO 승인)을 확인합니다. 저장소 URL이 있다면 <strong>Clone repository</strong>로 받습니다. 계속 안 되면 운영자에게 알립니다.</td></tr>
+              <tr class="group-row"><th colspan="2" scope="colgroup">에이전트·사용량</th></tr>
               <tr><td>에이전트가 파일을 바꿈</td><td>먼저 변경 내용을 확인합니다(CLI <code>/diff</code>, 앱 <strong>Changes</strong>). commit하지 않았다면 실습 지시에 따라 되돌리거나 운영자에게 요청합니다. CLI는 <code>/rewind</code>로 대화와 Copilot이 바꾼 파일을 이전 시점으로 되돌릴 수 있습니다.</td></tr>
               <tr><td>한도·모델 제한 메시지</td><td>남은 한도와 허용 모델은 운영자 안내를 따릅니다. 같은 요청을 반복하지 말고 질문을 줄이거나 가벼운 모델로 바꿔 보고, 계속되면 운영자에게 확인합니다.</td></tr>
-              <tr><td>개인 Copilot 구독이 바뀜</td><td>조직 좌석을 받으면 개인 Pro·Pro+·Max가 자동 취소·일할 환불될 수 있습니다. Settings → Copilot과 공식 안내로 확인하고 운영자와 상의합니다. 좌석을 제거하면 개인 플랜이 복구된다고 가정하지 않습니다.</td></tr>
             </tbody>
           </table>
         </div>
