@@ -8,24 +8,24 @@
 
 | 나는… | Foundry | GitHub · Copilot |
 |---|---|---|
-| **참가자(실습자)** | [Foundry 실습자 가이드](https://junwoojeong100.github.io/internal-guest-hands-on-guide/)<br>로그인·MFA → 리소스 생성 → 실행·추적 | [GitHub 실습자 가이드](https://junwoojeong100.github.io/internal-guest-hands-on-guide/github-copilot.html)<br>가입 → Copilot 권한 → 질문 1개 |
-| **운영자(SE)** | [Foundry 운영자 가이드](https://junwoojeong100.github.io/internal-guest-hands-on-guide/operator.html)<br>역할 → 스크립트/포털 → 필수 점검 → 인계·종료 | [GitHub 운영자 가이드](https://junwoojeong100.github.io/internal-guest-hands-on-guide/github-copilot-operator.html)<br>가입 방식 → 좌석·정책 → 리허설 → 인계·종료 |
+| **참가자(실습자)** | [Foundry 실습자 가이드](https://junwoojeong100.github.io/internal-guest-hands-on-guide/)<br>로그인·MFA → 리소스 생성 → 실행·추적 | [GitHub 실습자 가이드](https://junwoojeong100.github.io/internal-guest-hands-on-guide/github-copilot.html)<br>처음이어도 OK: 계정 → 가입 → Copilot 권한 → 환경(브라우저·Codespaces·VS Code·CLI·앱) → 질문 1개 |
+| **운영자(SE)** | [Foundry 운영자 가이드](https://junwoojeong100.github.io/internal-guest-hands-on-guide/operator.html)<br>역할 → 스크립트/포털 → 필수 점검 → 인계·종료 | [GitHub 운영자 가이드](https://junwoojeong100.github.io/internal-guest-hands-on-guide/github-copilot-operator.html)<br>가입 방식 → 좌석·정책(CLI·앱 포함) → 리허설 → 인계·종료 |
 
 ```mermaid
 flowchart LR
   subgraph OP["운영자 · SE팀"]
     O1["Foundry 운영자 가이드<br/>계정·RG·권한·모델 쿼터"]
-    O2["GitHub 운영자 가이드<br/>조직·Copilot 좌석·환경"]
+    O2["GitHub 운영자 가이드<br/>조직·Copilot 좌석·CLI/앱 정책·환경"]
   end
   subgraph PA["참가자 · 고객"]
     P1["Foundry 실습자 가이드<br/>로그인·MFA → 생성 → 실행·추적"]
-    P2["GitHub 실습자 가이드<br/>가입 → Copilot 권한 → 질문 1개"]
+    P2["GitHub 실습자 가이드<br/>계정 → 가입 → 권한 → 환경 선택 → 질문 1개"]
   end
   O1 -->|"계정·RG·역할·배정값"| P1
   O2 -->|"초대·좌석·저장소·환경"| P2
 ```
 
-모든 가이드는 라이트/다크 테마를 지원하고, 명령·JSON·질문·인계 템플릿에는 **복사 버튼**이 있습니다. Foundry 실습자 가이드에는 63장의 실제 화면, 3분 요약 영상, 51분 전체 영상이 포함됩니다.
+모든 가이드는 라이트/다크 테마를 지원하고, 명령·JSON·질문·인계 템플릿에는 **복사 버튼**이 있습니다. Foundry 실습자 가이드에는 63장의 실제 화면, 3분 요약 영상, 51분 전체 영상이 포함됩니다. GitHub 실습자 가이드는 Copilot을 처음 쓰는 사람도 계정 만들기부터 **브라우저·Codespaces·VS Code·Copilot CLI·GitHub Copilot 앱** 중 한 곳에서 첫 질문까지 따라 할 수 있게 구성했습니다.
 
 ## 운영자 빠른 시작 · Azure 계정·RG·권한 일괄 준비
 
@@ -60,7 +60,7 @@ python3 scripts/verify_workshop.py --config config/workshop.local.json
 | 모델·TPM | 일반 실습은 **`gpt-6.1-terra`를 개인별 TPM으로 배분**합니다((70 + 5) × 10,000 = 750,000 TPM은 계산 예시). Optimizer 등 모델 고정 설정은 지정 모델을 유지합니다. |
 | 관측성 | 참가자가 Agent → Traces → **Connect → Create new resource**로 Application Insights를 본인 RG에 만들고 바로 연결합니다. |
 | 비공개 파일 | `.workshop-runs/<workshopId>/`(초기 암호 포함)는 Git·Pages에서 제외하고 승인된 비공개 저장소에 백업합니다. 참가자 암호는 별도 경로로 개별 전달합니다. |
-| GitHub | 조직 가입·Copilot 좌석·Codespaces는 **각각 별도 승인·과금**입니다. Azure 계정 스크립트는 GitHub 계정·초대·좌석을 만들지 않습니다. |
+| GitHub | 조직 가입·Copilot 좌석·Codespaces는 **각각 별도 승인·과금**이며, Copilot CLI·GitHub Copilot 앱은 **각각 별도 조직 정책**입니다. Azure 계정 스크립트는 GitHub 계정·초대·좌석을 만들지 않습니다. |
 
 ## 검증 현황
 

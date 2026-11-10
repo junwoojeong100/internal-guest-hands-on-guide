@@ -21,7 +21,7 @@
       </nav>
       <div class="topbar-tools">
         <button class="button small theme-toggle" id="theme-toggle" type="button" aria-pressed="false">다크 테마</button>
-        <span class="top-meta">기준일 2026.11.09</span>
+        <span class="top-meta">기준일 2026.11.10</span>
       </div>
       <span class="sr-only" id="theme-status" role="status"></span>
     </div>
@@ -33,7 +33,7 @@
         <div>
           <div class="eyebrow">OPERATOR RUNBOOK · GITHUB ORGANIZATION + COPILOT</div>
           <h1>가입·좌석·환경을 준비하고,<br>참가자에게 인계하세요.</h1>
-          <p class="hero-lead"><strong>조직 가입, Copilot 좌석, Codespaces는 각각 별도 승인·과금입니다.</strong><br>하나라도 빠지면 참가자는 중간에서 막힙니다.<br>인계 전에 새 개인 계정으로 전체 흐름을 한 번 리허설하세요.</p>
+          <p class="hero-lead"><strong>조직 가입, Copilot 좌석, 사용 환경(Codespaces·Copilot CLI·Copilot 앱)은 각각 별도 승인·정책입니다.</strong><br>하나라도 빠지면 참가자는 중간에서 막힙니다.<br>인계 전에 새 개인 계정으로 전체 흐름을 한 번 리허설하세요.</p>
           <div class="hero-actions">
             <a class="button primary" href="#plan">준비 흐름 보기 <span aria-hidden="true">→</span></a>
             <a class="button dark" href="#handoff">인계 템플릿</a>
@@ -46,7 +46,7 @@
           <div class="stats">
             <div class="stat"><strong>가입</strong><span>조직 멤버십</span></div>
             <div class="stat"><strong>좌석</strong><span>Copilot 사용 권한</span></div>
-            <div class="stat"><strong>환경</strong><span>저장소·Codespaces</span></div>
+            <div class="stat"><strong>환경</strong><span>저장소·사용 환경 정책</span></div>
           </div>
           <p class="proof-note">Azure Guest 계정·RBAC 준비와는 별개입니다.<br>Azure 계정 스크립트는 GitHub 계정·초대·좌석을 만들지 않습니다.</p>
         </div>
@@ -177,6 +177,7 @@ GitHub 사용자명: &lt;본인 username&gt;
           <li><strong>제공 방식:</strong> 조직의 Copilot Business/Enterprise 또는 기업의 Copilot access 등 승인된 방식을 확인합니다. 조직 생성·가입만으로 Copilot이 켜지지 않습니다.</li>
           <li><strong>좌석 배정:</strong> 조직 <strong>Settings → Copilot → Access</strong> → (표시되면) <strong>Allow this organization to assign seats</strong> → <strong>Start adding seats</strong> → <strong>Purchase for all members</strong> 또는 <strong>Purchase for selected members</strong>(Enable Copilot access for users and teams) → <strong>Purchase seats</strong>. 승인된 범위만 배정하고 목록에서 사용자명을 대조합니다.</li>
           <li><strong>정책:</strong> <strong>Copilot → Policies</strong>의 <strong>Copilot in the cloud</strong>가 켜져 있어야 브라우저 Copilot(github.com/copilot)을 쓸 수 있습니다. 2026.10.28부터 Copilot Chat in GitHub 등 개별 정책을 이 정책이 대체했고, 상위 엔터프라이즈 정책이 우선합니다. 허용 모델도 함께 확인합니다.</li>
+          <li><strong>CLI·앱 정책:</strong> 참가자가 Copilot CLI나 GitHub Copilot 앱을 쓴다면 <strong>Copilot → Policies</strong>에서 <strong>Copilot CLI</strong> 정책과 <strong>GitHub Copilot app</strong> 정책을 <strong>각각</strong> 확인합니다. 두 정책은 서로 독립이라 하나를 켜도 다른 하나가 켜지지 않으며, 앱 정책은 Business·Enterprise에서 기본값이 켜짐입니다. 엔터프라이즈가 “Enabled everywhere / Disabled everywhere”로 정했다면 조직에서 바꿀 수 없고, “Let organizations decide”라면 좌석을 주는 조직 중 한 곳 이상에서 CLI가 켜져 있어야 합니다. CLI는 좌석이 있어야 쓸 수 있습니다. <a href="https://docs.github.com/en/copilot/how-tos/copilot-cli/administer-copilot-cli-for-your-enterprise" target="_blank" rel="noopener noreferrer">공식 CLI 관리 ↗</a> · <a href="https://docs.github.com/en/copilot/tutorials/roll-out-at-scale/enable-developers/copilot-app-for-teams" target="_blank" rel="noopener noreferrer">공식 앱 롤아웃 ↗</a></li>
           <li><strong>참가자 요청:</strong> 참가자가 Settings → Copilot의 <strong>Ask admin for access</strong>로 요청하면 조직 Settings → <strong>Access</strong> → <strong>Requests from members</strong>에서 승인합니다(공식 문서는 Copilot Business 기준). 기업이 조직에 Copilot을 켜 두지 않았다면 기업 Owner에게 요청합니다.</li>
         </ol>
         <article class="screen-card" style="margin-top:20px">
@@ -210,7 +211,7 @@ GitHub 사용자명: &lt;본인 username&gt;
 
       <section class="panel observed-section" id="workspace">
         <p class="section-label">REPOSITORY AND DEVELOPMENT ENVIRONMENT</p>
-        <h2>질문만 할지, 코드를 다룰지 정하고 환경을 준비합니다.</h2>
+        <h2>질문만 할지, 코드를 다룰지, CLI·앱을 쓸지 정하고 환경을 준비합니다.</h2>
         <div class="table-wrap">
           <table aria-label="실습 환경 선택지와 운영자 준비">
             <thead><tr><th>환경</th><th>언제</th><th>운영자 준비</th></tr></thead>
@@ -218,13 +219,16 @@ GitHub 사용자명: &lt;본인 username&gt;
               <tr><td>브라우저 Copilot</td><td>설명·오류 이해 질문만 할 때</td><td>Copilot 좌석 + <strong>Copilot in the cloud</strong> 정책. 추가 설치는 없습니다.</td></tr>
               <tr><td>Codespaces</td><td>코드 수정·실행, 설치를 최소화할 때</td><td>조직 <strong>Settings → Codespaces → General</strong>에서 <strong>Codespaces access</strong>(전체 / 선택 멤버·협업자)와 <strong>Codespace ownership</strong>(Organization / User 소유)을 정하고 예산을 확인합니다. 무료 플랜 조직은 결제할 수 없습니다.</td></tr>
               <tr><td>로컬 VS Code</td><td>Codespaces를 쓰지 않을 때</td><td>참가자 PC의 VS Code 설치·Copilot 로그인 안내와 저장소 clone 권한. 개인 장비 준비가 필요합니다.</td></tr>
+              <tr><td>Copilot CLI</td><td>터미널에서 에이전트 동작을 체험시킬 때</td><td>좌석 + <strong>Copilot CLI</strong> 정책 허용. 참가자 PC에서 설치(Windows <code>winget</code> · macOS/Linux Homebrew · <code>npm</code>은 Node.js 22 이상)와 GitHub 로그인(브라우저 또는 device code)이 되는지 확인합니다. Windows는 PowerShell 6 이상(PowerShell 7)이 필요합니다.</td></tr>
+              <tr><td>GitHub Copilot 앱</td><td>데스크톱에서 여러 세션·PR 흐름을 체험시킬 때</td><td>좌석 + <strong>GitHub Copilot app</strong> 정책 허용(CLI 정책과 별개). 참가자 PC의 설치 권한·Git·지원 OS(macOS·Windows·Linux)를 확인합니다. 설치 파일은 <code>gh.io</code>·<code>github.com</code>에서 <code>release-assets.githubusercontent.com</code>으로 내려받아지므로 교육망에서 막히지 않는지 봅니다.</td></tr>
             </tbody>
           </table>
         </div>
         <ol class="task-list" aria-label="저장소 준비 점검">
           <li><strong>접근:</strong> 팀·저장소 권한이 참가자에게 필요한 만큼만 부여되었는지 확인합니다.</li>
           <li><strong>내용:</strong> 브랜치, README(설치·실행·종료), dev container와 실행 명령이 실제로 동작하는지 확인합니다.</li>
-          <li><strong>대체 경로:</strong> Codespaces를 쓰지 않는 과정이면 로컬 VS Code 또는 브라우저 질문만 하는 경로를 인계표에 명시합니다.</li>
+          <li><strong>대체 경로:</strong> Codespaces를 쓰지 않는 과정이면 로컬 VS Code, Copilot CLI·앱, 또는 브라우저 질문만 하는 경로를 인계표에 명시합니다. 참가자 PC에 설치가 막힐 때의 대안(브라우저·Codespaces)도 함께 정합니다.</li>
+          <li><strong>네트워크:</strong> 교육망이 github.com·Copilot 서비스(<code>*.githubcopilot.com</code>)와 설치 파일 경로를 막지 않는지 확인합니다. 허용 목록은 <a href="https://docs.github.com/en/copilot/reference/copilot-allowlist-reference" target="_blank" rel="noopener noreferrer">공식 Copilot allowlist reference ↗</a>를 따릅니다.</li>
         </ol>
         <div class="notice warning"><strong>Codespaces는 Copilot 좌석과 별도 과금입니다.</strong> 기본값은 30분 유휴 시 자동 정지, 정지 후 30일이 지나면 자동 삭제이며 정지 상태에서도 저장 공간 비용이 남습니다. 예산이 소진되면 새로 만들거나 재개할 수 없고 변경 사항을 브랜치로 내보내기만 할 수 있습니다. <a href="https://docs.github.com/en/codespaces/managing-codespaces-for-your-organization/choosing-who-owns-and-pays-for-codespaces-in-your-organization" target="_blank" rel="noopener noreferrer">공식 소유·비용 기준 ↗</a></div>
       </section>
@@ -254,11 +258,12 @@ GitHub 사용자명: &lt;본인 username&gt;
           <article class="runbook-card"><h3>01 · 가입</h3><p>초대(또는 자가가입) → 수락 → Organizations에서 멤버십 확인. 2FA·이메일 요구까지 확인합니다.</p></article>
           <article class="runbook-card"><h3>02 · 좌석</h3><p>같은 사용자명이 Copilot Access 목록에 있고 Settings → Copilot에서 조직 권한이 보입니다. 개인 Free/Pro 표시로 판단하지 않습니다.</p></article>
           <article class="runbook-card"><h3>03 · 브라우저</h3><p>github.com/copilot에서 질문 1개에 응답이 옵니다. 차단되면 Copilot in the cloud 정책을 확인합니다.</p></article>
-          <article class="runbook-card"><h3>04 · 환경</h3><p>실제 저장소·README를 Codespaces(또는 VS Code)에서 열고 같은 계정으로 Copilot Chat 질문 1개를 확인합니다.</p></article>
+          <article class="runbook-card"><h3>04 · 환경</h3><p>인계표에 적은 환경마다 같은 계정으로 질문 1개를 확인합니다. Codespaces·VS Code는 실제 저장소·README를 열고, <strong>Copilot CLI</strong>는 새 PC에서 설치 → <code>/login</code> → 질문까지, <strong>Copilot 앱</strong>은 설치 → 로그인 → Chats 질문까지 한 번씩 해 봅니다.</p></article>
           <article class="runbook-card"><h3>05 · 비용·한도</h3><p>Codespaces 소유·예산, 허용 모델·AI Credits, 개인 유료 플랜 영향 안내를 확인합니다.</p></article>
           <article class="runbook-card"><h3>06 · 일정·인계</h3><p>링크 만료·초대 7일·행사·삭제 일정을 대조하고 <a href="#handoff">인계 템플릿</a>과 지원·대체 담당을 확정합니다.</p></article>
         </div>
         <p class="check-row">테스트 계정으로 가입 → 좌석 → 응답이 모두 성공</p>
+        <p class="check-row">CLI·앱을 쓴다면 해당 정책 허용과 설치·로그인·질문까지 테스트 PC에서 성공</p>
         <p class="check-row">미확인 항목이 없거나 승인된 대안이 정해짐</p>
         <p class="check-row">리허설 계정은 참가자에게 배정하지 않고, 좌석 정리 방법을 정함</p>
         <div class="notice warning"><strong>미확인 항목이 있으면 인계를 보류합니다.</strong> 이 문서는 가입·구매·권한 부여를 자동 실행하지 않았고, 특정 행사의 전체 동작을 검증한 기록도 아닙니다.</div>
@@ -276,7 +281,8 @@ Copilot 제공 방식: &lt;Copilot Business | Enterprise | Copilot access&gt;
 허용 모델 / 사용량 한도: &lt;allowed-models&gt; / &lt;ai-credits-policy&gt;
 개인 Copilot 유료 플랜: 조직 좌석을 받으면 자동 취소·일할 환불될 수 있음 (사전 안내 완료)
 실습 저장소 / 브랜치: &lt;org&gt;/&lt;repo&gt; / &lt;branch&gt;
-환경: &lt;브라우저만 | Codespaces | 로컬 VS Code&gt;
+환경: &lt;브라우저만 | Codespaces | 로컬 VS Code | Copilot CLI | GitHub Copilot 앱&gt;
+Copilot CLI·앱 정책: &lt;CLI 허용 여부&gt; / &lt;앱 허용 여부&gt; (사용하는 경우)
 Codespaces 비용 부담 / 한도: &lt;organization-or-user&gt; / &lt;budget&gt;
 실습 시각 / 조직 삭제 예정일: &lt;time-and-timezone&gt; / &lt;deletion-date&gt;
 산출물 보존 위치: &lt;approved-private-location&gt;
@@ -285,7 +291,7 @@ Codespaces 비용 부담 / 한도: &lt;organization-or-user&gt; / &lt;budget&gt;
 가입 링크·QR·암호·인증 코드: 이 표에 기록하지 않음 (개별 전달)</pre>
         <ol class="task-list">
           <li>가입 링크·QR은 참가자별로 비공개 전달하고, 사용자명 대장은 승인된 비공개 저장소에서만 관리합니다.</li>
-          <li>참가자는 <a href="github-copilot.html">참가자용 GitHub 가이드</a>의 순서(가입 → Copilot 권한 → 환경 → 질문 1개)를 따릅니다.</li>
+          <li>참가자는 <a href="github-copilot.html">참가자용 GitHub 가이드</a>의 순서(계정 확인 → 가입 → Copilot 권한 → 환경 선택 → 질문 1개)를 따릅니다. 이 가이드는 GitHub Copilot을 처음 쓰는 참가자도 따라 할 수 있게 계정 만들기, 용어, 환경별 시작 방법(브라우저·Codespaces·VS Code·Copilot CLI·Copilot 앱)을 포함합니다.</li>
           <li>참가자가 완료를 알릴 경로와 담당 운영자·대체 담당을 미리 지정합니다.</li>
         </ol>
       </section>
@@ -307,6 +313,8 @@ Codespaces 비용 부담 / 한도: &lt;organization-or-user&gt; / &lt;budget&gt;
               <tr><td>브라우저 Copilot이 차단됨</td><td>조직·상위 엔터프라이즈의 <strong>Copilot in the cloud</strong> 정책과 허용 모델·사용 한도를 확인합니다.</td><td>정책 우회.</td></tr>
               <tr><td>브라우저는 되는데 IDE에서 안 됨</td><td>VS Code/Codespaces의 로그인 사용자명, Accounts → Manage Extension Account Preferences → GitHub Copilot Chat의 계정, 조직 정책·네트워크를 확인합니다.</td><td>개인 Free 계정 로그인을 조직 권한으로 착각.</td></tr>
               <tr><td>Codespaces 없음·저장소 접근 불가·결제 요구</td><td>Codespaces access 대상, 저장소 팀 권한, Codespace ownership·예산을 확인합니다.</td><td>개인 카드 등록, 공개 저장소 무단 복제.</td></tr>
+              <tr><td>CLI에서 정책 거부·로그인 실패</td><td>Copilot → Policies의 <strong>Copilot CLI</strong> 정책과 상위 엔터프라이즈 정책(“Let organizations decide”면 좌석을 주는 조직 중 한 곳 이상에서 켜져 있어야 함), 같은 사용자명의 좌석을 확인합니다. 참가자에게는 <code>/user</code>로 로그인한 계정을 확인하게 합니다.</td><td>참가자에게 토큰(PAT) 발급·공유를 요구하거나 개인 유료 구독 권유.</td></tr>
+              <tr><td>앱 설치·로그인 후 플랜 가입 화면</td><td><strong>GitHub Copilot app</strong> 정책(CLI와 별개), 좌석, 로그인한 사용자명을 확인합니다. 회사 PC의 설치 제한·네트워크 차단이면 대체 환경(브라우저·Codespaces)을 안내합니다.</td><td>참가자가 개인 플랜 가입이나 자체 API 키(BYOK) 입력으로 우회.</td></tr>
               <tr><td>개인 Copilot 구독이 바뀜</td><td>조직 좌석 배정 시 개인 Pro·Pro+·Max가 자동 취소·일할 환불됩니다. Settings → Copilot과 공식 라이선스 안내로 확인합니다.</td><td>좌석을 회수하면 개인 플랜이 복구된다고 약속.</td></tr>
             </tbody>
           </table>
@@ -328,12 +336,16 @@ Codespaces 비용 부담 / 한도: &lt;organization-or-user&gt; / &lt;budget&gt;
       </section>
 
       <footer class="footnotes">
-        <p>기준일 2026.11.09 · 공식 문서의 메뉴 이름·한도·정책은 바뀔 수 있으므로 개최 전에 다시 확인합니다. 워크샵 준비 흐름은 <a href="https://github.com/msft-github-hackathons-organizer/bootstrap" target="_blank" rel="noopener noreferrer">Bootstrap 운영 가이드</a>(운영자 전용 접근·SSO가 필요할 수 있음)를 참고했으며, 원문 코드·이미지·내부 식별자·비밀 값은 복사하지 않았습니다. 이 페이지는 특정 행사의 전체 동작을 검증한 기록이 아닙니다.</p>
+        <p>기준일 2026.11.10 · 공식 문서의 메뉴 이름·한도·정책은 바뀔 수 있으므로 개최 전에 다시 확인합니다. 워크샵 준비 흐름은 <a href="https://github.com/msft-github-hackathons-organizer/bootstrap" target="_blank" rel="noopener noreferrer">Bootstrap 운영 가이드</a>(운영자 전용 접근·SSO가 필요할 수 있음)를 참고했으며, 원문 코드·이미지·내부 식별자·비밀 값은 복사하지 않았습니다. 이 페이지는 특정 행사의 전체 동작을 검증한 기록이 아닙니다.</p>
         <p>공식 기준:
           <a href="https://docs.github.com/en/organizations/managing-membership-in-your-organization/inviting-users-to-join-your-organization" target="_blank" rel="noopener noreferrer">조직 초대·수락</a>
           <a href="https://docs.github.com/en/copilot/how-tos/administer-copilot/manage-for-organization/manage-access/grant-access" target="_blank" rel="noopener noreferrer">Copilot 좌석 배정</a>
           <a href="https://docs.github.com/en/copilot/how-tos/administer-copilot/manage-for-organization/manage-access/manage-requests-for-access" target="_blank" rel="noopener noreferrer">Copilot 권한 신청 승인</a>
           <a href="https://docs.github.com/en/copilot/how-tos/administer-copilot/manage-for-organization/manage-copilot-in-the-cloud" target="_blank" rel="noopener noreferrer">Copilot in the cloud 정책</a>
+          <a href="https://docs.github.com/en/copilot/how-tos/administer-copilot/manage-for-organization/manage-policies" target="_blank" rel="noopener noreferrer">조직 정책 관리</a>
+          <a href="https://docs.github.com/en/copilot/how-tos/copilot-cli/administer-copilot-cli-for-your-enterprise" target="_blank" rel="noopener noreferrer">Copilot CLI 관리</a>
+          <a href="https://docs.github.com/en/copilot/tutorials/roll-out-at-scale/enable-developers/copilot-app-for-teams" target="_blank" rel="noopener noreferrer">Copilot 앱 롤아웃</a>
+          <a href="https://docs.github.com/en/copilot/reference/copilot-allowlist-reference" target="_blank" rel="noopener noreferrer">Copilot allowlist</a>
           <a href="https://docs.github.com/en/copilot/concepts/billing-and-usage/organizations-and-enterprises/seats-and-billing-cycles" target="_blank" rel="noopener noreferrer">좌석·청구 주기</a>
           <a href="https://docs.github.com/en/billing/concepts/product-billing/github-copilot-licenses" target="_blank" rel="noopener noreferrer">라이선스 영향</a>
           <a href="https://docs.github.com/en/codespaces/managing-codespaces-for-your-organization/choosing-who-owns-and-pays-for-codespaces-in-your-organization" target="_blank" rel="noopener noreferrer">Codespaces 소유·비용</a>

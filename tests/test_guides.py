@@ -20,18 +20,27 @@ class PageParser(HTMLParser):
         self.pre_labels: list[str | None] = []
         self.switch_links: list[tuple[str, bool]] = []
         self.scripts: list[str] = []
+        self.toc_targets: list[str] = []
+        self.observed_sections: list[str] = []
         self._in_switch = False
+        self._in_toc = False
 
     def handle_starttag(self, tag, attrs):
         attributes = dict(attrs)
         if "id" in attributes:
             self.ids.append(attributes["id"])
+            if "observed-section" in (attributes.get("class") or "").split():
+                self.observed_sections.append(attributes["id"])
         if tag == "nav" and attributes.get("class") == "guide-switch":
             self._in_switch = True
+        if tag == "nav" and attributes.get("id") == "toc":
+            self._in_toc = True
         if tag in {"a", "link"} and attributes.get("href"):
             self.links.append(attributes["href"])
             if self._in_switch and tag == "a":
                 self.switch_links.append((attributes["href"], attributes.get("aria-current") == "page"))
+            if self._in_toc and tag == "a" and attributes["href"].startswith("#"):
+                self.toc_targets.append(attributes["href"][1:])
         for name in ("src", "poster"):
             if tag in {"img", "script", "source", "video"} and attributes.get(name):
                 self.links.append(attributes[name])
@@ -43,6 +52,7 @@ class PageParser(HTMLParser):
     def handle_endtag(self, tag):
         if tag == "nav":
             self._in_switch = False
+            self._in_toc = False
 
 
 def parse(name: str) -> tuple[PageParser, str]:
@@ -91,6 +101,12 @@ class GuidePageTests(unittest.TestCase):
             self.assertEqual([name], [href for href, current in parser.switch_links if current], name)
             for script in ("assets/theme.js", "assets/navigation.js", "assets/copy.js"):
                 self.assertIn(script, parser.scripts, f"{name} must load {script}")
+
+    def test_github_guide_sidebars_list_every_section_in_order(self):
+        # navigation.js highlights the sidebar link whose target is an observed section.
+        for name in ("github-copilot.html", "github-copilot-operator.html"):
+            parser, _ = parse(name)
+            self.assertEqual(parser.observed_sections, parser.toc_targets, f"{name}: sidebar and sections differ")
 
     def test_pages_workflow_publishes_every_guide(self):
         workflow = (ROOT / ".github" / "workflows" / "pages.yml").read_text(encoding="utf-8")
