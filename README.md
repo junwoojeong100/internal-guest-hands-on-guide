@@ -72,6 +72,15 @@ python3 scripts/verify_workshop.py --config config/workshop.local.json
 python3 -m unittest discover -s tests -v
 ```
 
+## 고객 안내 EDM
+
+해커톤·핸즈온 워크샵을 진행하는 고객에게 전달하는 **한 페이지 안내문**입니다. 위 가이드 4종과 별개이며 가이드 전환 메뉴에는 없습니다.
+
+- **웹에서 보기:** <https://junwoojeong100.github.io/internal-guest-hands-on-guide/edm/github-copilot-workshop-edm-ko.html>
+- **소스:** [`edm/github-copilot-workshop-edm-ko.html`](edm/github-copilot-workshop-edm-ko.html) — 외부 리소스 없는 단일 파일이며, 시스템 테마와 무관하게 항상 라이트 테마입니다.
+- 검색 결과에 나타나지 않도록 `noindex`를 지정했습니다. 링크를 아는 사람은 열 수 있으므로 공개 가능한 내용만 넣고, 담당자 이름·이메일·실제 명단·링크는 넣지 않습니다.
+- 수정은 이 파일을 고쳐 `main`에 푸시하면 됩니다. Pages 배포에 함께 포함됩니다.
+
 ## 배포
 
-`main`에 푸시하면 GitHub Actions가 위 테스트를 통과한 뒤 HTML·영상·공개 스크립트·예제 설정만 빌드해 GitHub Pages에 배포합니다. CI는 Azure 계정·RG·역할을 만들지 않습니다. 화면 출처·재사용 조건은 [ATTRIBUTION](assets/onboarding/ATTRIBUTION.txt)에 있습니다.
+`main`에 푸시하면 GitHub Actions가 위 테스트를 통과한 뒤 HTML·영상·공개 스크립트·예제 설정·고객 안내 EDM만 빌드해 GitHub Pages에 배포합니다. CI는 Azure 계정·RG·역할을 만들지 않습니다. 화면 출처·재사용 조건은 [ATTRIBUTION](assets/onboarding/ATTRIBUTION.txt)에 있습니다.

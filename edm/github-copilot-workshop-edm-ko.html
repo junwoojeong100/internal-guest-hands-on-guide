@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex, nofollow">
+<title>해커톤·핸즈온 워크샵 AI Credit 안내</title>
+<script>
+  (() => {
+    // 고객 발송용이라 시스템·앱 테마와 무관하게 항상 화이트(라이트) 모드로 고정합니다.
+    const FORCE_THEME = "light";
+    const param = new URLSearchParams(window.location.search).get("scoutTheme");
+    const theme =
+      FORCE_THEME || param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", theme);
+  })();
+</script>
+<style>
+:root {
+  color-scheme: light;
+  --cp-bg: #f7f4ef;
+  --cp-bg-elevated: #fcfbf8;
+  --cp-surface: #ffffff;
+  --cp-surface-soft: #f5f5f5;
+  --cp-border: #dedede;
+  --cp-border-strong: #919191;
+  --cp-text: #242424;
+  --cp-text-muted: #5c5c5c;
+  --cp-text-soft: #6f6f6f;
+  --cp-accent: #b11f4b;
+  --cp-accent-hover: #9a1a41;
+  --cp-accent-soft: rgba(177, 31, 75, 0.08);
+  --cp-accent-fg: #ffffff;
+  --cp-success: #16a34a;
+  --cp-danger: #dc2626;
+  --cp-warning: #f59e0b;
+  --cp-link: #0078d4;
+  --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.12);
+  --cp-overlay: rgba(255, 255, 255, 0.8);
+  --cp-panel: rgba(255, 255, 255, 0.86);
+  --cp-panel-strong: rgba(255, 255, 255, 0.96);
+  --cp-sheen: rgba(255, 255, 255, 0.55);
+  --cp-highlight: rgba(177, 31, 75, 0.12);
+}
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --cp-bg: #3d3b3a;
+  --cp-bg-elevated: #343231;
+  --cp-surface: #292929;
+  --cp-surface-soft: #2e2e2e;
+  --cp-border: #474747;
+  --cp-border-strong: #5f5f5f;
+  --cp-text: #dedede;
+  --cp-text-muted: #919191;
+  --cp-text-soft: #b0b0b0;
+  --cp-accent: #fd8ea1;
+  --cp-accent-hover: #fb7b91;
+  --cp-accent-soft: rgba(253, 142, 161, 0.14);
+  --cp-accent-fg: #1a1a1a;
+  --cp-success: #4ade80;
+  --cp-danger: #f87171;
+  --cp-warning: #fbbf24;
+  --cp-link: #4da6ff;
+  --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+  --cp-overlay: rgba(41, 41, 41, 0.88);
+  --cp-panel: rgba(41, 41, 41, 0.72);
+  --cp-panel-strong: rgba(41, 41, 41, 0.96);
+  --cp-sheen: rgba(255, 255, 255, 0.04);
+  --cp-highlight: rgba(253, 142, 161, 0.12);
+}
+
+:root {
+  --font: "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
+  --mono: Consolas, "Courier New", Courier, monospace;
+  --r-ui: 0.625rem;
+  --r-card: 16px;
+  --card-shadow: 0 0 2px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.14);
+  --ms-blue: #0078d4;
+  --ms-blue-dark: #005a9e;
+  --ms-blue-soft: rgba(0, 120, 212, 0.08);
+  --ms-on-blue: #ffffff;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 32px 16px 48px;
+  background: var(--cp-bg);
+  color: var(--cp-text);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.65;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  -webkit-text-size-adjust: 100%;
+}
+
+.wrap { max-width: 720px; margin: 0 auto; display: grid; gap: 28px; }
+
+h1, h2, h3, p, ul, ol { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+b, strong { font-weight: 700; }
+a { color: var(--cp-link); text-underline-offset: 2px; }
+
+code {
+  font-family: var(--mono);
+  font-size: 0.9em;
+  background: var(--cp-surface-soft);
+  border: 1px solid var(--cp-border);
+  border-radius: 6px;
+  padding: 1px 6px;
+  white-space: nowrap;
+}
+
+/* ---------- 최상단: 로고 + 핵심 메시지 ---------- */
+.top {
+  border-radius: var(--r-card);
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+}
+.brand {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  background: var(--cp-surface);
+  padding: 18px 32px;
+}
+.brand svg { display: block; flex: none; }
+.logo-ms { height: 24px; width: auto; aspect-ratio: 337.6 / 72; }
+.brand .bar { width: 1px; height: 26px; background: var(--cp-border); }
+.gh { display: inline-flex; align-items: center; gap: 8px; color: var(--cp-text); }
+.gh svg { width: 28px; height: 28px; fill: currentColor; }
+.gh-name { font-size: 19px; font-weight: 700; letter-spacing: -0.01em; line-height: 1; }
+
+.hero {
+  background: var(--ms-blue);
+  color: var(--ms-on-blue);
+  padding: 30px 32px 32px;
+}
+.eyebrow { font-size: 14px; font-weight: 700; letter-spacing: 0.02em; margin-bottom: 14px; }
+.hero h1 { display: grid; gap: 6px; margin-bottom: 16px; }
+.h1-top {
+  font-size: clamp(15px, 4vw, 19px);
+  font-weight: 600;
+  line-height: 1.5;
+  text-wrap: balance;
+}
+.h1-mid {
+  font-size: clamp(17px, 4.6vw, 24px);
+  font-weight: 700;
+  line-height: 1.4;
+  text-wrap: balance;
+  margin-bottom: 4px;
+}
+.h1-big {
+  display: block;
+  font-size: clamp(22px, 6.6vw, 40px);
+  font-weight: 800;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+}
+.amt {
+  display: inline-block;
+  background: var(--ms-on-blue);
+  color: var(--ms-blue);
+  border-radius: 10px;
+  padding: 0 10px;
+  line-height: 1.25;
+}
+.lead { font-size: 16.5px; line-height: 1.6; }
+
+/* ---------- 공통 ---------- */
+.card {
+  background: var(--cp-surface);
+  border: 1px solid var(--cp-border);
+  border-radius: var(--r-card);
+  box-shadow: var(--card-shadow);
+  padding: 22px 26px;
+}
+.sec-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 14px;
+}
+.sec-title::before {
+  content: "";
+  flex: none;
+  width: 4px;
+  height: 1.1em;
+  border-radius: 2px;
+  background: var(--ms-blue);
+}
+.muted { color: var(--cp-text-muted); }
+
+/* ---------- 알려 주실 정보 ---------- */
+.ask { border: 1.5px solid var(--ms-blue); }
+.ask-title {
+  font-size: clamp(18px, 4.6vw, 21px);
+  font-weight: 700;
+  line-height: 1.5;
+  text-wrap: balance;
+  margin-bottom: 16px;
+}
+.em { color: var(--ms-blue); }
+.choice { display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; align-items: stretch; }
+.field {
+  background: var(--cp-surface-soft);
+  border: 1px solid var(--cp-border);
+  border-radius: var(--r-ui);
+  padding: 14px 18px;
+}
+.or {
+  align-self: center;
+  background: var(--ms-blue-soft);
+  color: var(--ms-blue-dark);
+  border-radius: 999px;
+  padding: 3px 12px;
+  font-size: 14px;
+  font-weight: 700;
+}
+.fname { font-size: 17px; font-weight: 700; line-height: 1.4; }
+.fex { font-size: 14.5px; line-height: 1.5; color: var(--cp-text-muted); margin-top: 4px; }
+.nb { white-space: nowrap; }
+.note {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--cp-border);
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--cp-text-muted);
+}
+.stop { color: var(--cp-danger); font-weight: 700; }
+
+/* ---------- 진행 순서 ---------- */
+.flow { display: grid; grid-template-columns: 1fr 1.7fr 1fr; gap: 12px; }
+.flow .card { padding: 16px 18px; }
+.when {
+  display: inline-block;
+  background: var(--ms-blue-soft);
+  color: var(--ms-blue-dark);
+  border-radius: 999px;
+  padding: 2px 12px;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.flow h3 { font-size: 16.5px; font-weight: 700; line-height: 1.4; margin-bottom: 4px; text-wrap: balance; }
+.flow p { font-size: 14.5px; line-height: 1.55; color: var(--cp-text-muted); text-wrap: balance; }
+
+/* ---------- 꼭 알아 두세요 ---------- */
+.notes { padding: 4px 26px; }
+.notes li {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: 12px;
+  align-items: start;
+  padding: 14px 0;
+}
+.notes li + li { border-top: 1px solid var(--cp-border); }
+.dot {
+  width: 24px;
+  height: 24px;
+  margin-top: 2px;
+  border-radius: 50%;
+  border: 1.5px solid var(--cp-warning);
+  display: grid;
+  place-items: center;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* ---------- 문의 ---------- */
+.contact { text-align: center; color: var(--cp-text-muted); font-size: 15px; text-wrap: balance; }
+.contact b { color: var(--cp-text); }
+
+/* ---------- 반응형 · 인쇄 ---------- */
+@media (max-width: 640px) {
+  body { padding: 16px 12px 32px; }
+  .wrap { gap: 24px; }
+  .brand { padding: 14px 20px; gap: 8px 14px; }
+  .logo-ms { height: 20px; }
+  .brand .bar { height: 22px; }
+  .gh svg { width: 24px; height: 24px; }
+  .gh-name { font-size: 16px; }
+  .hero { padding: 24px 20px 26px; }
+  .lead { font-size: 16px; }
+  .choice { grid-template-columns: 1fr; }
+  .or { justify-self: center; }
+  .flow { grid-template-columns: 1fr; }
+  .card { padding: 18px 16px; }
+  .notes { padding: 2px 16px; }
+}
+
+@media (max-width: 350px) {
+  .brand { padding: 12px 20px; gap: 8px 10px; }
+  .logo-ms { height: 17px; }
+  .brand .bar { height: 18px; }
+  .gh { gap: 6px; }
+  .gh svg { width: 21px; height: 21px; }
+  .gh-name { font-size: 14.5px; }
+}
+
+@media print {
+  body { padding: 0; }
+  .card, .top { box-shadow: none; break-inside: avoid; }
+  .hero, .amt { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+
+  <header class="top">
+    <div class="brand">
+      <svg class="logo-ms" role="img" aria-label="Microsoft" focusable="false" viewBox="0 0 337.6 72"><path fill="#737373" d="M140.4,14.4v43.2h-7.5V23.7h-0.1l-13.4,33.9h-5l-13.7-33.9h-0.1v33.9h-6.9V14.4h10.8l12.4,32h0.2l13.1-32H140.4 z M146.6,17.7c0-1.2,0.4-2.2,1.3-3c0.9-0.8,1.9-1.2,3.1-1.2c1.3,0,2.4,0.4,3.2,1.2s1.3,1.8,1.3,3c0,1.2-0.4,2.2-1.3,3 c-0.9,0.8-1.9,1.2-3.2,1.2s-2.3-0.4-3.1-1.2C147.1,19.8,146.6,18.8,146.6,17.7z M154.7,26.6v31h-7.3v-31H154.7z M176.8,52.3 c1.1,0,2.3-0.2,3.6-0.8c1.3-0.5,2.5-1.2,3.6-2v6.8c-1.2,0.7-2.5,1.2-4,1.5c-1.5,0.3-3.1,0.5-4.9,0.5c-4.6,0-8.3-1.4-11.1-4.3 c-2.9-2.9-4.3-6.6-4.3-11c0-5,1.5-9.1,4.4-12.3c2.9-3.2,7-4.8,12.4-4.8c1.4,0,2.8,0.2,4.1,0.5c1.4,0.3,2.5,0.8,3.3,1.2v7 c-1.1-0.8-2.3-1.5-3.4-1.9c-1.2-0.4-2.4-0.7-3.6-0.7c-2.9,0-5.2,0.9-7,2.8s-2.6,4.4-2.6,7.6c0,3.1,0.9,5.6,2.6,7.3 C171.6,51.4,173.9,52.3,176.8,52.3z M204.7,26.1c0.6,0,1.1,0,1.6,0.1s0.9,0.2,1.2,0.3v7.4c-0.4-0.3-0.9-0.6-1.7-0.8 s-1.6-0.4-2.7-0.4c-1.8,0-3.3,0.8-4.5,2.3s-1.9,3.8-1.9,7v15.6h-7.3v-31h7.3v4.9h0.1c0.7-1.7,1.7-3,3-4 C201.2,26.6,202.8,26.1,204.7,26.1z M207.9,42.6c0-5.1,1.5-9.2,4.3-12.2c2.9-3,6.9-4.5,12-4.5c4.8,0,8.6,1.4,11.3,4.3 s4.1,6.8,4.1,11.7c0,5-1.5,9-4.3,12c-2.9,3-6.8,4.5-11.8,4.5c-4.8,0-8.6-1.4-11.4-4.2C209.3,51.3,207.9,47.4,207.9,42.6z M215.5,42.3c0,3.2,0.7,5.7,2.2,7.4s3.6,2.6,6.3,2.6c2.6,0,4.7-0.8,6.1-2.6c1.4-1.7,2.1-4.2,2.1-7.6c0-3.3-0.7-5.8-2.1-7.6 c-1.4-1.7-3.5-2.6-6-2.6c-2.7,0-4.7,0.9-6.2,2.7C216.2,36.5,215.5,39,215.5,42.3z M250.5,34.8c0,1,0.3,1.9,1,2.5 c0.7,0.6,2.1,1.3,4.4,2.2c2.9,1.2,5,2.5,6.1,3.9c1.2,1.5,1.8,3.2,1.8,5.3c0,2.9-1.1,5.2-3.4,7c-2.2,1.8-5.3,2.6-9.1,2.6 c-1.3,0-2.7-0.2-4.3-0.5c-1.6-0.3-2.9-0.7-4-1.2v-7.2c1.3,0.9,2.8,1.7,4.3,2.2c1.5,0.5,2.9,0.8,4.2,0.8c1.6,0,2.9-0.2,3.6-0.7 c0.8-0.5,1.2-1.2,1.2-2.3c0-1-0.4-1.8-1.2-2.6c-0.8-0.7-2.4-1.5-4.6-2.4c-2.7-1.1-4.6-2.4-5.7-3.8s-1.7-3.2-1.7-5.4 c0-2.8,1.1-5.1,3.3-6.9c2.2-1.8,5.1-2.7,8.6-2.7c1.1,0,2.3,0.1,3.6,0.4s2.5,0.6,3.4,0.9V34c-1-0.6-2.1-1.2-3.4-1.7 c-1.3-0.5-2.6-0.7-3.8-0.7c-1.4,0-2.5,0.3-3.2,0.8C250.9,33.1,250.5,33.8,250.5,34.8z M266.9,42.6c0-5.1,1.5-9.2,4.3-12.2 c2.9-3,6.9-4.5,12-4.5c4.8,0,8.6,1.4,11.3,4.3s4.1,6.8,4.1,11.7c0,5-1.5,9-4.3,12c-2.9,3-6.8,4.5-11.8,4.5c-4.8,0-8.6-1.4-11.4-4.2 C268.4,51.3,266.9,47.4,266.9,42.6z M274.5,42.3c0,3.2,0.7,5.7,2.2,7.4s3.6,2.6,6.3,2.6c2.6,0,4.7-0.8,6.1-2.6 c1.4-1.7,2.1-4.2,2.1-7.6c0-3.3-0.7-5.8-2.1-7.6c-1.4-1.7-3.5-2.6-6-2.6c-2.7,0-4.7,0.9-6.2,2.7C275.3,36.5,274.5,39,274.5,42.3z M322.9,32.6h-10.9v25h-7.4v-25h-5.2v-6h5.2v-4.3c0-3.2,1.1-5.9,3.2-8s4.8-3.1,8.1-3.1c0.9,0,1.7,0.1,2.4,0.1s1.3,0.2,1.8,0.4v6.3 c-0.2-0.1-0.7-0.3-1.3-0.5c-0.6-0.2-1.3-0.3-2.1-0.3c-1.5,0-2.7,0.5-3.5,1.4c-0.8,0.9-1.2,2.4-1.2,4.2v3.7h10.9v-7l7.3-2.2v9.2h7.4 v6h-7.4v14.5c0,1.9,0.4,3.2,1,4c0.7,0.8,1.8,1.2,3.3,1.2c0.4,0,0.9-0.1,1.5-0.3c0.6-0.2,1.1-0.4,1.5-0.7v6c-0.5,0.3-1.2,0.5-2.3,0.7 c-1.1,0.2-2.1,0.3-3.2,0.3c-3.1,0-5.4-0.8-6.9-2.4c-1.5-1.6-2.3-4.1-2.3-7.4L322.9,32.6L322.9,32.6z"/> <rect fill="#F25022" width="34.2" height="34.2"/> <rect x="37.8" fill="#7FBA00" width="34.2" height="34.2"/> <rect y="37.8" fill="#00A4EF" width="34.2" height="34.2"/> <rect x="37.8" y="37.8" fill="#FFB900" width="34.2" height="34.2"/></svg>
+      <span class="bar" aria-hidden="true"></span>
+      <span class="gh">
+        <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24"><path d="M23.922 16.992c-.861 1.495-5.859 5.023-11.922 5.023-6.063 0-11.061-3.528-11.922-5.023A.641.641 0 0 1 0 16.736v-2.869a.841.841 0 0 1 .053-.22c.372-.935 1.347-2.292 2.605-2.656.167-.429.414-1.055.644-1.517a10.195 10.195 0 0 1-.052-1.086c0-1.331.282-2.499 1.132-3.368.397-.406.89-.717 1.474-.952 1.399-1.136 3.392-2.093 6.122-2.093 2.731 0 4.767.957 6.166 2.093.584.235 1.077.546 1.474.952.85.869 1.132 2.037 1.132 3.368 0 .368-.014.733-.052 1.086.23.462.477 1.088.644 1.517 1.258.364 2.233 1.721 2.605 2.656a.832.832 0 0 1 .053.22v2.869a.641.641 0 0 1-.078.256ZM12.172 11h-.344a4.323 4.323 0 0 1-.355.508C10.703 12.455 9.555 13 7.965 13c-1.725 0-2.989-.359-3.782-1.259a2.005 2.005 0 0 1-.085-.104L4 11.741v6.585c1.435.779 4.514 2.179 8 2.179 3.486 0 6.565-1.4 8-2.179v-6.585l-.098-.104s-.033.045-.085.104c-.793.9-2.057 1.259-3.782 1.259-1.59 0-2.738-.545-3.508-1.492a4.323 4.323 0 0 1-.355-.508h-.016.016Zm.641-2.935c.136 1.057.403 1.913.878 2.497.442.544 1.134.938 2.344.938 1.573 0 2.292-.337 2.657-.751.384-.435.558-1.15.558-2.361 0-1.14-.243-1.847-.705-2.319-.477-.488-1.319-.862-2.824-1.025-1.487-.161-2.192.138-2.533.529-.269.307-.437.808-.438 1.578v.021c0 .265.021.562.063.893Zm-1.626 0c.042-.331.063-.628.063-.894v-.02c-.001-.77-.169-1.271-.438-1.578-.341-.391-1.046-.69-2.533-.529-1.505.163-2.347.537-2.824 1.025-.462.472-.705 1.179-.705 2.319 0 1.211.175 1.926.558 2.361.365.414 1.084.751 2.657.751 1.21 0 1.902-.394 2.344-.938.475-.584.742-1.44.878-2.497Z"/><path d="M14.5 14.25a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1Zm-5 0a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1Z"/></svg>
+        <span class="gh-name">GitHub Copilot</span>
+      </span>
+    </div>
+    <div class="hero">
+      <p class="eyebrow">GitHub Copilot 핸즈온 지원 안내</p>
+      <h1>
+        <span class="h1-top">각 고객사 주관 해커톤 및 핸즈온 워크샵을 진행하시면,</span>
+        <span class="h1-mid">최소 10명, 최대 50명 참여하시는 분들에 대해서</span>
+        <span class="h1-big">1인당 <span class="amt">$100</span>의</span>
+        <span class="h1-big">AI Credit을 드립니다</span>
+      </h1>
+      <p class="lead">행사 전용 GitHub 조직에서 GitHub Copilot을 바로 사용하실 수 있어요.</p>
+    </div>
+  </header>
+
+  <section class="card ask" aria-labelledby="h-ask">
+    <h2 class="ask-title" id="h-ask">참여자 분들의 GitHub username 또는 <span class="nb">GitHub에 등록된 이메일 계정</span> 리스트를 <span class="em">본 메일에 회신해 주세요</span></h2>
+    <div class="choice">
+      <div class="field">
+        <p class="fname">GitHub username</p>
+        <p class="fex">예: <code>octocat</code>, <code>monalisa</code></p>
+      </div>
+      <span class="or">또는</span>
+      <div class="field">
+        <p class="fname">GitHub에 등록된 이메일 계정</p>
+        <p class="fex">예: <code>kim@example.com</code>, <code>lee@example.com</code></p>
+      </div>
+    </div>
+    <p class="note"><b>개인 GitHub 계정</b>만 사용할 수 있어요. <span class="stop">회사 관리 계정(EMU, 사용자명에 <code>_</code> 포함)은 사용할 수 없습니다.</span> 계정이 없다면 <a href="https://github.com/signup">github.com/signup</a>에서 무료로 만들 수 있어요.</p>
+  </section>
+
+  <section aria-labelledby="h-flow">
+    <h2 class="sec-title" id="h-flow">이후에는 이렇게 진행돼요</h2>
+    <ol class="flow">
+      <li class="card">
+        <span class="when">행사 약 7일 전</span>
+        <h3>초대 메일이 도착해요</h3>
+        <p>메일의 수락 버튼을 눌러 조직에 참여해 주세요.</p>
+      </li>
+      <li class="card">
+        <span class="when">행사 당일</span>
+        <h3>Copilot으로 실습해요</h3>
+        <p><span class="nb">GitHub Codespaces</span>, <span class="nb">GitHub Copilot CLI</span>, <span class="nb">GitHub Copilot App</span>, <span class="nb">GitHub.com</span>, <span class="nb">GitHub Mobile App</span>, <span class="nb">VS Code</span> 등에서 GitHub Copilot을 사용할 수 있습니다.</p>
+      </li>
+      <li class="card">
+        <span class="when">행사 약 3일 후</span>
+        <h3>조직과 자료가 삭제돼요</h3>
+        <p>필요한 코드는 행사 중에 개인 저장소로 옮겨 두세요.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section aria-labelledby="h-must">
+    <h2 class="sec-title" id="h-must">꼭 알아 두세요</h2>
+    <ul class="card notes">
+      <li>
+        <span class="dot" aria-hidden="true">!</span>
+        <p><b>개인(Individual) Copilot 구독</b>이 있다면 조직 참여 시 <b>취소되고 환불</b>돼요. 행사용 새 GitHub 계정을 권장합니다.</p>
+      </li>
+      <li>
+        <span class="dot" aria-hidden="true">!</span>
+        <p><b>회사(Business/Enterprise) 라이선스</b>는 유지돼요. 행사 중에는 <a href="https://github.com/settings/copilot/features">Copilot 설정</a>에서 <code>Usage billed to</code>를 <code>MSFT/GH Hackathons</code>로 바꾸고, 행사 후 원래대로 되돌려 주세요.</p>
+      </li>
+      <li>
+        <span class="dot" aria-hidden="true">!</span>
+        <p><b>기밀·민감 정보, 개인정보, 회사 소유 자료는 올리지 마세요.</b> 작업물이 다른 참가자나 인터넷상 누구에게나 보일 수 있어요.</p>
+      </li>
+    </ul>
+  </section>
+
+  <footer class="contact">
+    <p>문의 사항은 <span class="nb"><b>본 메일에 회신</b>해 주시면,</span> <span class="nb">담당자를 통해 답변드리겠습니다.</span></p>
+  </footer>
+
+</main>
+</body>
+</html>
