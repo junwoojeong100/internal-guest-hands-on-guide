@@ -1,7 +1,9 @@
 """Static checks for the published guide pages: local links, anchors, ids and Pages coverage."""
 
 from html.parser import HTMLParser
+import importlib.util
 from pathlib import Path
+import posixpath
 import re
 import unittest
 from urllib.parse import unquote, urlsplit
@@ -10,6 +12,8 @@ ROOT = Path(__file__).resolve().parents[1]
 PAGES = sorted(path.name for path in ROOT.glob("*.html"))
 EXTERNAL = ("http://", "https://", "mailto:", "data:", "javascript:")
 SWITCH_ORDER = ["index.html", "github-copilot.html", "operator.html", "github-copilot-operator.html"]
+# Single-file page outside the guide family: built from src/, linked from github-copilot.html, not in the switch.
+CODESPACES_GUIDE = "github-copilot-cli-codespaces/index.html"
 
 
 class PageParser(HTMLParser):
@@ -80,15 +84,17 @@ class GuidePageTests(unittest.TestCase):
             self.assertTrue(all(parser.pre_labels), f"{name}: every <pre> needs an aria-label for its copy button")
 
     def test_local_links_and_anchors_resolve(self):
-        known = {name: set(parse(name)[0].ids) | dynamic_ids(parse(name)[1]) for name in PAGES}
+        checked = [*PAGES, CODESPACES_GUIDE]
+        known = {name: set(parse(name)[0].ids) | dynamic_ids(parse(name)[1]) for name in checked}
         problems = []
-        for name in PAGES:
+        for name in checked:
             for link in parse(name)[0].links:
                 if link.startswith(EXTERNAL):
                     continue
                 parts = urlsplit(link)
-                target = name if not parts.path else parts.path
-                if not (ROOT / unquote(target)).is_file():
+                # Links are relative to the page, which may sit in a subfolder.
+                target = posixpath.normpath(posixpath.join(posixpath.dirname(name), unquote(parts.path))) if parts.path else name
+                if not (ROOT / target).is_file():
                     problems.append(f"{name}: missing file {link}")
                 elif parts.fragment and target in known and unquote(parts.fragment) not in known[target]:
                     problems.append(f"{name}: missing anchor {link}")
@@ -114,6 +120,30 @@ class GuidePageTests(unittest.TestCase):
         for name in PAGES:
             self.assertIn(f"test -s {name}", workflow)
             self.assertIn(name, copy_line)
+
+
+class CodespacesGuideTests(unittest.TestCase):
+    def test_published_page_is_a_fresh_build_of_its_source(self):
+        script = ROOT / "github-copilot-cli-codespaces" / "build.py"
+        spec = importlib.util.spec_from_file_location("codespaces_guide_build", script)
+        build = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(build)
+        committed = (ROOT / CODESPACES_GUIDE).read_text(encoding="utf-8")
+        self.assertEqual(build.render(), committed, "run python3 github-copilot-cli-codespaces/build.py and commit index.html")
+
+    def test_ids_are_unique(self):
+        parser, _ = parse(CODESPACES_GUIDE)
+        duplicates = {value for value in parser.ids if parser.ids.count(value) > 1}
+        self.assertFalse(duplicates, f"duplicate ids {sorted(duplicates)}")
+
+    def test_github_guide_links_to_the_page(self):
+        self.assertIn(CODESPACES_GUIDE, parse("github-copilot.html")[0].links)
+
+    def test_pages_workflow_publishes_the_page_at_its_repository_path(self):
+        # The guide links use repository paths, so the published path has to be the same.
+        workflow = (ROOT / ".github" / "workflows" / "pages.yml").read_text(encoding="utf-8")
+        self.assertIn(f"test -s {CODESPACES_GUIDE}", workflow)
+        self.assertIn(f"cp {CODESPACES_GUIDE} _site/{posixpath.dirname(CODESPACES_GUIDE)}/", workflow)
 
 
 if __name__ == "__main__":

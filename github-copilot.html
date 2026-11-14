@@ -414,6 +414,7 @@ Do you trust the files in this folder?
                 <p>직접 내려받으려면 <a href="https://github.com/github/copilot-cli/releases" target="_blank" rel="noopener noreferrer">copilot-cli Releases ↗</a>에서 내 플랫폼용 실행 파일을 받아 압축을 풀고 실행합니다.</p>
               </div>
             </details>
+            <p class="screen-note"><strong>선택 심화(필수 아님):</strong> Codespaces에서 Copilot CLI를 쓰고 Microsoft Learn·Azure·Playwright MCP까지 연결해 보려면 <a href="github-copilot-cli-codespaces/index.html">Codespaces + Copilot CLI + MCP 실습 가이드</a>를 따르세요. Codespace를 만든 계정과 Copilot 계정이 다른 경우도 다루며, Copilot CLI 1.0.105(2026.10.31) 기준으로 검증했습니다.</p>
             <p class="screen-note">공식: <a href="https://docs.github.com/en/copilot/how-tos/copilot-cli/set-up-copilot-cli/install-copilot-cli" target="_blank" rel="noopener noreferrer">CLI 설치 ↗</a> · <a href="https://docs.github.com/en/copilot/get-started/cli-quickstart" target="_blank" rel="noopener noreferrer">CLI 빠른 시작 ↗</a> · <a href="https://docs.github.com/en/copilot/how-tos/copilot-cli/set-up-copilot-cli/authenticate-copilot-cli" target="_blank" rel="noopener noreferrer">CLI 로그인 ↗</a></p>
           </div>
         </details>
@@ -607,7 +608,7 @@ Do you trust the files in this folder?
               <tr><td>copilot 명령을 찾을 수 없음</td><td>설치 직후라면 터미널을 닫고 새로 엽니다. <code>copilot --version</code>을 다시 실행해 보고, 안 되면 설치 명령을 다시 실행합니다. npm이라면 <code>node --version</code>이 22 이상인지, Windows라면 <strong>PowerShell 7</strong>에서 실행했는지 확인합니다.</td></tr>
               <tr><td>CLI <code>/login</code>이 끝나지 않음</td><td>터미널에 표시된 URL을 직접 열거나 <code>/login</code>에서 <strong>Sign in with a device code</strong>를 골라 <a href="https://github.com/login/device" target="_blank" rel="noopener noreferrer">github.com/login/device</a>에 코드를 입력합니다. 조직 SSO 안내가 보이면 조직 옆 <strong>Authorize</strong>를 누릅니다.</td></tr>
               <tr><td>CLI에서 정책 거부(403)</td><td><code>Access denied by policy settings</code> 같은 메시지는 조직의 Copilot CLI 정책이 꺼져 있거나 좌석이 없다는 뜻일 수 있습니다. 우회하지 말고 사용자명과 화면(민감 정보 가림)을 운영자에게 전달합니다.</td></tr>
-              <tr><td>CLI가 다른 계정으로 로그인됨</td><td><code>/user</code>로 현재 계정을 확인하고, <code>/user switch</code> 또는 <code>/logout</code> 후 <code>/login</code>으로 조직 좌석을 받은 계정에 다시 로그인합니다. <code>GH_TOKEN</code>·<code>GITHUB_TOKEN</code> 같은 환경 변수가 있으면 로그인보다 우선하니, 토큰 값이 아닌 <strong>설정 여부</strong>만 확인합니다.</td></tr>
+              <tr><td>CLI가 다른 계정으로 로그인됨</td><td><code>/user</code>로 현재 계정을 확인하고, <code>/user switch</code> 또는 <code>/logout</code> 후 <code>/login</code>으로 조직 좌석을 받은 계정에 다시 로그인합니다. <code>GH_TOKEN</code>·<code>GITHUB_TOKEN</code> 같은 환경 변수가 있으면 로그인보다 우선하니, 토큰 값이 아닌 <strong>설정 여부</strong>만 확인합니다. Codespaces에서 Codespace를 만든 계정과 좌석 계정이 다르면 <a href="github-copilot-cli-codespaces/index.html#step3">Codespaces 가이드의 3단계</a>를 따릅니다.</td></tr>
               <tr><td>CLI에서 모델이 안 보임</td><td><code>/model</code>로 내게 허용된 모델을 확인합니다. 목록이 비었거나 오류가 나면 모델 정책이나 좌석 문제일 수 있으니 운영자에게 확인합니다.</td></tr>
               <tr class="group-row"><th colspan="2" scope="colgroup">GitHub Copilot 앱</th></tr>
               <tr><td>Copilot 앱이 설치·실행 안 됨</td><td>내 PC에 맞는 파일(macOS Apple Silicon/Intel, Windows x64/Arm)을 받았는지 확인합니다. 회사 PC의 설치 제한이나 보안 프로그램이면 우회하지 말고 운영자에게 알린 뒤 브라우저·Codespaces로 진행합니다.</td></tr>

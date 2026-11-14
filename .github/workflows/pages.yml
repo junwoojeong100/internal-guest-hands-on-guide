@@ -36,13 +36,15 @@ jobs:
           test -s assets/video/summary-walkthrough.mp4
           test -s assets/video/full-walkthrough.mp4
           test -s edm/github-copilot-workshop-edm-ko.html
+          test -s github-copilot-cli-codespaces/index.html
           mkdir -p _site
           cp index.html operator.html github-copilot.html github-copilot-operator.html _site/
           cp -R assets _site/assets
-          mkdir -p _site/scripts _site/config _site/edm
+          mkdir -p _site/scripts _site/config _site/edm _site/github-copilot-cli-codespaces
           cp scripts/provision_workshop.py scripts/verify_workshop.py scripts/workshop_common.py _site/scripts/
           cp config/workshop.example.json _site/config/
           cp edm/github-copilot-workshop-edm-ko.html _site/edm/
+          cp github-copilot-cli-codespaces/index.html _site/github-copilot-cli-codespaces/
           find _site -type f -name .DS_Store -delete
           touch _site/.nojekyll
       - name: Upload the site

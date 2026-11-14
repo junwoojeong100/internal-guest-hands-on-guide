@@ -66,7 +66,7 @@ python3 scripts/verify_workshop.py --config config/workshop.local.json
 
 - **확인한 것:** Internal Guest 1명의 기본 Prompt Agent E2E(2026.11.05, GPT-5 mini)와 새 Guest 1개의 초기 암호 + Software OATH(TOTP) MFA 로그인(2026.11.08). [비밀 값 없는 검증 JSON](assets/guest-auth-verification.json)을 제공합니다.
 - **아직 확인하지 않은 것:** 75개 환경 생성·동시 부하, `gpt-6.1-terra` E2E, 고객 교육망, Microsoft Authenticator 푸시, GitHub 좌석 사용, Traces의 Create new resource 이후 화면(녹화에는 Azure Portal 사전 생성 방식만 있음). 개최 전 운영자 가이드의 필수 점검으로 확인하세요.
-- **오프라인 테스트:** Azure에 접속하지 않고 스크립트와 가이드 링크·앵커를 검사합니다.
+- **오프라인 테스트:** Azure에 접속하지 않고 스크립트, 가이드 링크·앵커, Codespaces 가이드가 소스의 최신 빌드인지를 검사합니다.
 
 ```bash
 python3 -m unittest discover -s tests -v
@@ -81,6 +81,14 @@ python3 -m unittest discover -s tests -v
 - 검색 결과에 나타나지 않도록 `noindex`를 지정했습니다. 링크를 아는 사람은 열 수 있으므로 공개 가능한 내용만 넣고, 담당자 이름·이메일·실제 명단·링크는 넣지 않습니다.
 - 수정은 이 파일을 고쳐 `main`에 푸시하면 됩니다. Pages 배포에 함께 포함됩니다.
 
+## Codespaces · Copilot CLI · MCP 선택 실습
+
+Codespaces에서 Copilot CLI를 설치하고, Codespace를 만든 계정과 **다른 계정**으로 로그인해 Microsoft Learn · Azure · Playwright MCP까지 연결해 보는 **선택 심화 가이드**입니다. 위 가이드 4종과 별개이며 가이드 전환 메뉴에는 없고, [GitHub 실습자 가이드](https://junwoojeong100.github.io/internal-guest-hands-on-guide/github-copilot.html)의 Copilot CLI 시작 절과 도움말에서 링크합니다.
+
+- **웹에서 보기:** <https://junwoojeong100.github.io/internal-guest-hands-on-guide/github-copilot-cli-codespaces/>
+- **소스·빌드:** [`github-copilot-cli-codespaces/`](github-copilot-cli-codespaces/README.md) — 스크린샷을 인라인한 단일 파일이며 `python3 github-copilot-cli-codespaces/build.py`로 `src/`에서 `index.html`을 만듭니다. 소스를 고치면 빌드 결과도 함께 커밋하세요. 테스트가 확인합니다.
+- **검증 기준:** 2026.10.31, Copilot CLI 1.0.105, 서로 다른 두 계정(A≠B)으로 직접 실행했습니다. GitHub 실습자 가이드의 기준(1.0.108)보다 이전 버전이며, 이후 버전에서는 다시 확인하지 않았습니다.
+
 ## 배포
 
-`main`에 푸시하면 GitHub Actions가 위 테스트를 통과한 뒤 HTML·영상·공개 스크립트·예제 설정·고객 안내 EDM만 빌드해 GitHub Pages에 배포합니다. CI는 Azure 계정·RG·역할을 만들지 않습니다. 화면 출처·재사용 조건은 [ATTRIBUTION](assets/onboarding/ATTRIBUTION.txt)에 있습니다.
+`main`에 푸시하면 GitHub Actions가 위 테스트를 통과한 뒤 HTML·영상·공개 스크립트·예제 설정·고객 안내 EDM·Codespaces 가이드만 빌드해 GitHub Pages에 배포합니다. CI는 Azure 계정·RG·역할을 만들지 않습니다. 화면 출처·재사용 조건은 [ATTRIBUTION](assets/onboarding/ATTRIBUTION.txt)에 있습니다.

@@ -3,12 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2040%2040'%3E%3Crect%20width='40'%20height='40'%20rx='10'%20fill='%2310263d'/%3E%3Ctext%20x='20'%20y='26'%20text-anchor='middle'%20fill='white'%20font-family='sans-serif'%20font-size='16'%20font-weight='700'%3EGH%3C/text%3E%3C/svg%3E">
+<meta name="description" content="GitHub Codespaces에서 GitHub Copilot CLI를 설치하고, Codespace를 만든 계정과 다른 계정으로 로그인한 뒤 Microsoft Learn · Azure · Playwright(headless) MCP를 연결하는 선택 심화 실습 가이드.">
 <title>Codespaces + Copilot CLI + MCP 3종 실습 가이드</title>
 <script>
   (() => {
     const param = new URLSearchParams(window.location.search).get("scoutTheme");
+    let saved = null;
+    try {
+      // Same key as assets/theme.js, so the theme chosen in the guides carries over to this page.
+      saved = window.localStorage.getItem("internal-guest-guide-theme");
+    } catch (error) {
+      // Storage can be blocked; fall back to the system theme.
+    }
+    const stored = saved === "light" || saved === "dark" ? saved : null;
     const theme =
-      param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      param || stored || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
     document.documentElement.setAttribute("data-theme", theme);
   })();
 </script>
@@ -258,7 +268,7 @@ footer { max-width: 1180px; margin: 0 auto; padding: 0 20px 48px; color: var(--c
 </div></div>
 
 <header class="hero"><div class="hero-in">
-  <p class="eyebrow">실습 가이드 · 2026-10-31 직접 실행 검증</p>
+  <p class="eyebrow"><a href="../github-copilot.html">GitHub 실습자 가이드</a> · 선택 심화 · 2026.10.31 직접 실행 검증</p>
   <h1>Codespaces에서 Copilot CLI + MCP 3종 설치하기</h1>
   <p class="lead"><b>Codespace를 만든 계정(A)과 Copilot을 쓰는 계정(B)이 서로 다른 경우</b>를 다룹니다. 계정 A로 Codespace를 만들고 Copilot CLI를 설치한 뒤, <b>계정 B로 로그인</b>해서 Microsoft Learn · Azure · Playwright(headless) MCP를 연결합니다.</p>
   <div class="chips">
@@ -279,7 +289,7 @@ footer { max-width: 1180px; margin: 0 auto; padding: 0 20px 48px; color: var(--c
   <div class="legend">
     <span><span class="badge ok">검증됨</span> 서로 다른 두 계정(A≠B)으로 직접 실행하고 결과를 확인</span>
     <span><span class="badge">문서 기준</span> 공식 문서 인용 (이번에 실행하지 않음)</span>
-    <span><span class="badge">컨테이너에서 확인</span> Codespace가 아닌 Ubuntu 24.04 컨테이너에서 실행해 확인 (Step 2 대안 설치, 2026-11-03)</span>
+    <span><span class="badge">컨테이너에서 확인</span> Codespace가 아닌 Ubuntu 24.04 컨테이너에서 실행해 확인 (Step 2 대안 설치, 2026.11.03)</span>
   </div>
 </div></header>
 
@@ -355,7 +365,7 @@ footer { max-width: 1180px; margin: 0 auto; padding: 0 20px 48px; color: var(--c
     <li>하단 터미널(<kbd>Ctrl</kbd>+<kbd>`</kbd>)의 프롬프트에 <b>A의 사용자명</b>(<code>@사용자명</code> 형태)이 보이면 A 소유 Codespace입니다.
       <figure class="shot"><div class="frame">
         <img src="{{IMG:shot-terminal}}" alt="웹 VS Code 하단 터미널. 프롬프트에 A 계정의 사용자명이 표시되어 있다" loading="lazy">
-        <span class="hl" style="left:30.7%;top:88%;width:28.5%;height:3.2%"><span>A 계정</span></span>
+        <span class="hl" style="left:30.7%;top:88%;width:26.3%;height:3.2%"><span>A 계정</span></span>
       </div><figcaption>그림 ③ 터미널 프롬프트</figcaption></figure>
     </li>
     <li>환경을 확인합니다.
@@ -695,14 +705,14 @@ and use Linux for Python Functions.</pre></div>
 
 <!-- log -->
 <section class="card" id="log">
-  <h2>검증 기록 <span class="badge ok">2026-10-31 KST</span></h2>
-  <p class="sub">서로 다른 두 계정 A, B로 실제 실행한 내용입니다. 실제 사용자명은 <code>account-a</code>·<code>account-b</code>로 가렸습니다. “대안 설치” 행만 2026-11-03에 Codespace가 아닌 Ubuntu 24.04 컨테이너에서 확인한 내용입니다.</p>
+  <h2>검증 기록 <span class="badge ok">2026.10.31 KST</span></h2>
+  <p class="sub">서로 다른 두 계정 A, B로 실제 실행한 내용입니다. 실제 사용자명은 <code>account-a</code>·<code>account-b</code>로 가렸습니다. “대안 설치” 행만 2026.11.03에 Codespace가 아닌 Ubuntu 24.04 컨테이너에서 확인한 내용입니다.</p>
   <div class="tw"><table>
     <thead><tr><th>단계</th><th>실행</th><th>관측 결과</th></tr></thead>
     <tbody>
       <tr><td>1. Codespace</td><td>A로 로그인 → Blank 템플릿</td><td>기존 Codespace 0개 → 생성, 웹 VS Code 약 20초 후 열림. Ubuntu 24.04.5 · x86_64 · 2 vCPU · 7.8GiB · Node v24.22.2 · npm 11.19.1</td></tr>
       <tr><td>2. CLI 설치</td><td><code>npm install -g @github/copilot</code></td><td>6초. 1.0.105 (사전 설치본과 동일), <code>copilot update</code> → 최신. 첫 실행은 A로 자동 인증</td></tr>
-      <tr><td>2. 대안 설치 <span class="badge">컨테이너 · 2026-11-03</span></td><td>Ubuntu 24.04.5 컨테이너(arm64, 일반 사용자 + 비밀번호 없는 sudo)에서 <code>copilot</code>·<code>node</code>·<code>npm</code>이 없는 상태로 시작</td><td>
+      <tr><td>2. 대안 설치 <span class="badge">컨테이너 · 2026.11.03</span></td><td>Ubuntu 24.04.5 컨테이너(arm64, 일반 사용자 + 비밀번호 없는 sudo)에서 <code>copilot</code>·<code>node</code>·<code>npm</code>이 없는 상태로 시작</td><td>
         <ul style="margin:0;padding-left:18px">
           <li><code>sudo apt update</code> → <code>sudo apt install -y nodejs npm</code>: 패키지 642개, 약 76초. Node v18.19.1 · npm 9.2.0</li>
           <li><code>npm install -g @github/copilot</code>(일반 사용자): <code>EACCES … mkdir '/usr/local/lib/node_modules'</code>. <code>sudo</code>를 붙이면 4 packages, <code>copilot --version</code> → 1.0.105</li>
@@ -787,7 +797,7 @@ copilot mcp list</code></pre></div></div>
 </main>
 </div>
 
-<footer>이 가이드의 “실제 출력”은 2026-10-31에 서로 다른 두 계정(A, B)으로 Codespace에서 직접 실행한 결과입니다. “컨테이너 출력”(Step 2의 대안 설치)은 2026-11-03에 Codespace가 아닌 Ubuntu 24.04 컨테이너에서 실행한 결과입니다. 계정 사용자명은 가려서 표기했고, 버전·모델 응답은 시점에 따라 달라질 수 있습니다.</footer>
+<footer>이 가이드의 “실제 출력”은 2026.10.31에 서로 다른 두 계정(A, B)으로 Codespace에서 직접 실행한 결과입니다. “컨테이너 출력”(Step 2의 대안 설치)은 2026.11.03에 Codespace가 아닌 Ubuntu 24.04 컨테이너에서 실행한 결과입니다. 계정 사용자명은 가려서 표기했고, 버전·모델 응답은 시점에 따라 달라질 수 있습니다.</footer>
 
 <script>
 (() => {
@@ -858,7 +868,13 @@ copilot mcp list</code></pre></div></div>
 
   $("#theme").addEventListener("click", () => {
     const r = document.documentElement;
-    r.setAttribute("data-theme", r.getAttribute("data-theme") === "dark" ? "light" : "dark");
+    const next = r.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    r.setAttribute("data-theme", next);
+    try {
+      window.localStorage.setItem("internal-guest-guide-theme", next);
+    } catch (error) {
+      // Storage can be blocked; the choice then applies to this page only.
+    }
   });
 })();
 </script>

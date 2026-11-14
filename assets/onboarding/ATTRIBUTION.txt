@@ -133,6 +133,21 @@ The example analyzes sample code and is not a workshop execution record.
 The recipient's invitation acceptance screen requires that recipient's personal
 sign-in. The guide does not fabricate a screenshot or sign in on their behalf.
 
+CODESPACES + COPILOT CLI GUIDE SCREENSHOTS
+Reviewed: 2026-11-14
+github-copilot-cli-codespaces/assets/shot-codespaces-home.jpg
+github-copilot-cli-codespaces/assets/shot-trust.jpg
+github-copilot-cli-codespaces/assets/shot-terminal.jpg
+Product/service: GitHub Codespaces (github.com/codespaces) and its browser editor.
+Captured: 2026-10-31 by the guide author in a test Codespace, then resized for
+display. They are not captures of workshop participants.
+Change: shot-terminal.jpg - the GitHub username in the shell prompt is repainted
+as account-a. shot-trust.jpg - the random suffix of the Codespace name in the
+status bar is repainted as x characters. Both are changed in the image pixels,
+not hidden with CSS. shot-codespaces-home.jpg - none.
+No token, device code, e-mail address or identifiable individual appears in them.
+They are embedded in github-copilot-cli-codespaces/index.html.
+
 ADDITIONAL MICROSOFT REPOSITORY NOTICE
 The source repository also contains the following MIT notice in LICENSE.
 It is reproduced here in addition to the documentation attribution above.

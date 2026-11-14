@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""Build the single-file guide.
+"""Build the single-file Codespaces + Copilot CLI + MCP guide.
 
 Inlines every image referenced as {{IMG:name}} in the source template
-(src/github-copilot-cli-codespaces.src.html) from assets/name.(jpg|png|webp)
-as a data: URI, and writes github-copilot-cli-codespaces.html at the repo root.
+(src/index.src.html) from assets/name.(jpg|png|webp) as a data: URI, and
+writes index.html next to this script. Pages publishes that file as it is,
+and tests/test_guides.py fails when it differs from a fresh build.
 
-Usage:  python3 build.py        (Python 3.8+, standard library only)
+Usage:  python3 github-copilot-cli-codespaces/build.py   (standard library only)
 """
 import base64
 import mimetypes
@@ -14,8 +15,8 @@ import re
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent
-SRC = ROOT / "src" / "github-copilot-cli-codespaces.src.html"
-OUT = ROOT / "github-copilot-cli-codespaces.html"
+SRC = ROOT / "src" / "index.src.html"
+OUT = ROOT / "index.html"
 ASSETS = ROOT / "assets"
 PLACEHOLDER = re.compile(r"\{\{IMG:([A-Za-z0-9_-]+)\}\}")
 
@@ -30,10 +31,15 @@ def data_uri(name: str) -> str:
     sys.exit(f"missing image asset: assets/{name}.(jpg|png|webp)")
 
 
-def main() -> None:
+def render() -> str:
     html = PLACEHOLDER.sub(lambda m: data_uri(m.group(1)), SRC.read_text(encoding="utf-8"))
     if "{{IMG" in html:
         sys.exit("unresolved {{IMG:...}} placeholder remains")
+    return html
+
+
+def main() -> None:
+    html = render()
     OUT.write_text(html, encoding="utf-8")
     print(f"{OUT.name}: {len(html.encode('utf-8')) / 1024:.0f} KB")
 
