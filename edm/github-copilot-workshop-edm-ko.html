@@ -5,81 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light">
 <meta name="robots" content="noindex, nofollow">
-<title>해커톤·핸즈온 워크샵 AI Credit 안내</title>
-<script>
-  (() => {
-    // 고객 발송용이라 시스템·앱 테마와 무관하게 항상 화이트(라이트) 모드로 고정합니다.
-    const FORCE_THEME = "light";
-    const param = new URLSearchParams(window.location.search).get("scoutTheme");
-    const theme =
-      FORCE_THEME || param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-    document.documentElement.setAttribute("data-theme", theme);
-  })();
-</script>
+<title>GitHub Copilot 해커톤·핸즈온 AI Credit 지원 안내</title>
 <style>
 :root {
   color-scheme: light;
-  --cp-bg: #f7f4ef;
-  --cp-bg-elevated: #fcfbf8;
-  --cp-surface: #ffffff;
-  --cp-surface-soft: #f5f5f5;
-  --cp-border: #dedede;
-  --cp-border-strong: #919191;
-  --cp-text: #242424;
-  --cp-text-muted: #5c5c5c;
-  --cp-text-soft: #6f6f6f;
-  --cp-accent: #b11f4b;
-  --cp-accent-hover: #9a1a41;
-  --cp-accent-soft: rgba(177, 31, 75, 0.08);
-  --cp-accent-fg: #ffffff;
-  --cp-success: #16a34a;
-  --cp-danger: #dc2626;
-  --cp-warning: #f59e0b;
-  --cp-link: #0078d4;
-  --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.12);
-  --cp-overlay: rgba(255, 255, 255, 0.8);
-  --cp-panel: rgba(255, 255, 255, 0.86);
-  --cp-panel-strong: rgba(255, 255, 255, 0.96);
-  --cp-sheen: rgba(255, 255, 255, 0.55);
-  --cp-highlight: rgba(177, 31, 75, 0.12);
-}
-html[data-theme="dark"] {
-  color-scheme: dark;
-  --cp-bg: #3d3b3a;
-  --cp-bg-elevated: #343231;
-  --cp-surface: #292929;
-  --cp-surface-soft: #2e2e2e;
-  --cp-border: #474747;
-  --cp-border-strong: #5f5f5f;
-  --cp-text: #dedede;
-  --cp-text-muted: #919191;
-  --cp-text-soft: #b0b0b0;
-  --cp-accent: #fd8ea1;
-  --cp-accent-hover: #fb7b91;
-  --cp-accent-soft: rgba(253, 142, 161, 0.14);
-  --cp-accent-fg: #1a1a1a;
-  --cp-success: #4ade80;
-  --cp-danger: #f87171;
-  --cp-warning: #fbbf24;
-  --cp-link: #4da6ff;
-  --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
-  --cp-overlay: rgba(41, 41, 41, 0.88);
-  --cp-panel: rgba(41, 41, 41, 0.72);
-  --cp-panel-strong: rgba(41, 41, 41, 0.96);
-  --cp-sheen: rgba(255, 255, 255, 0.04);
-  --cp-highlight: rgba(253, 142, 161, 0.12);
-}
-
-:root {
   --font: "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
   --mono: Consolas, "Courier New", Courier, monospace;
-  --r-ui: 0.625rem;
-  --r-card: 16px;
-  --card-shadow: 0 0 2px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.14);
-  --ms-blue: #0078d4;
+  --cp-bg: #f3f6fa;
+  --cp-surface: #ffffff;
+  --cp-surface-soft: #f6f8fb;
+  --cp-border: #dce3ec;
+  --cp-text: #1b2b42;
+  --cp-text-muted: #4b5c72;
+  --cp-danger: #b42318;
+  --ms-blue: #0067b8;
   --ms-blue-dark: #005a9e;
-  --ms-blue-soft: rgba(0, 120, 212, 0.08);
-  --ms-on-blue: #ffffff;
+  --ms-blue-soft: #eef6ff;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -91,22 +32,29 @@ body {
   color: var(--cp-text);
   font-family: var(--font);
   font-size: 16px;
-  line-height: 1.65;
+  line-height: 1.7;
   word-break: keep-all;
   overflow-wrap: break-word;
   -webkit-text-size-adjust: 100%;
 }
 
-.wrap { max-width: 720px; margin: 0 auto; display: grid; gap: 28px; }
+.wrap {
+  max-width: 720px;
+  margin: 0 auto;
+  background: var(--cp-surface);
+  border: 1px solid var(--cp-border);
+  border-radius: 16px;
+}
 
-h1, h2, h3, p, ul, ol { margin: 0; }
+h1, h2, h3, p, ul, ol, dl, dd { margin: 0; }
 ul, ol { padding: 0; list-style: none; }
 b, strong { font-weight: 700; }
-a { color: var(--cp-link); text-underline-offset: 2px; }
+a { color: var(--ms-blue); text-underline-offset: 3px; }
+a:focus-visible { outline: 3px solid var(--ms-blue); outline-offset: 3px; }
 
 code {
   font-family: var(--mono);
-  font-size: 0.9em;
+  font-size: 0.9375em;
   background: var(--cp-surface-soft);
   border: 1px solid var(--cp-border);
   border-radius: 6px;
@@ -114,192 +62,157 @@ code {
   white-space: nowrap;
 }
 
-/* ---------- 최상단: 로고 + 핵심 메시지 ---------- */
-.top {
-  border-radius: var(--r-card);
-  overflow: hidden;
-  box-shadow: var(--card-shadow);
-}
 .brand {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   gap: 10px 20px;
-  background: var(--cp-surface);
-  padding: 18px 32px;
+  padding: 20px 32px;
+  border-bottom: 1px solid var(--cp-border);
 }
 .brand svg { display: block; flex: none; }
-.logo-ms { height: 24px; width: auto; aspect-ratio: 337.6 / 72; }
-.brand .bar { width: 1px; height: 26px; background: var(--cp-border); }
+.logo-ms { height: 22px; width: auto; aspect-ratio: 337.6 / 72; }
+.brand .bar { width: 1px; height: 24px; background: var(--cp-border); }
 .gh { display: inline-flex; align-items: center; gap: 8px; color: var(--cp-text); }
-.gh svg { width: 28px; height: 28px; fill: currentColor; }
-.gh-name { font-size: 19px; font-weight: 700; letter-spacing: -0.01em; line-height: 1; }
+.gh svg { width: 26px; height: 26px; fill: currentColor; }
+.gh-name { font-size: 18px; font-weight: 700; line-height: 1; }
 
 .hero {
-  background: var(--ms-blue);
-  color: var(--ms-on-blue);
-  padding: 30px 32px 32px;
+  background: var(--ms-blue-soft);
+  padding: 26px 32px;
 }
-.eyebrow { font-size: 14px; font-weight: 700; letter-spacing: 0.02em; margin-bottom: 14px; }
-.hero h1 { display: grid; gap: 6px; margin-bottom: 16px; }
+.eyebrow { color: var(--ms-blue-dark); font-size: 14px; font-weight: 700; margin-bottom: 12px; }
+.hero h1 { line-height: 1.4; letter-spacing: -0.02em; }
 .h1-top {
-  font-size: clamp(15px, 4vw, 19px);
+  display: block;
+  font-size: 20px;
   font-weight: 600;
-  line-height: 1.5;
-  text-wrap: balance;
-}
-.h1-mid {
-  font-size: clamp(17px, 4.6vw, 24px);
-  font-weight: 700;
-  line-height: 1.4;
-  text-wrap: balance;
   margin-bottom: 4px;
 }
 .h1-big {
   display: block;
-  font-size: clamp(22px, 6.6vw, 40px);
-  font-weight: 800;
-  line-height: 1.3;
-  letter-spacing: -0.015em;
-}
-.amt {
-  display: inline-block;
-  background: var(--ms-on-blue);
   color: var(--ms-blue);
-  border-radius: 10px;
-  padding: 0 10px;
-  line-height: 1.25;
+  font-size: clamp(22px, 5vw, 34px);
+  font-weight: 700;
+  line-height: 1.5;
 }
-.lead { font-size: 16.5px; line-height: 1.6; }
+.amt { font-size: 1.6em; font-weight: 800; line-height: 1.2; }
+.credit-copy { white-space: nowrap; }
+.scope {
+  color: var(--cp-text-muted);
+  margin-top: 14px;
+  text-wrap: balance;
+}
+.eligibility {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid #cbdff3;
+}
+.eligibility span { color: var(--cp-text-muted); }
 
-/* ---------- 공통 ---------- */
-.card {
-  background: var(--cp-surface);
-  border: 1px solid var(--cp-border);
-  border-radius: var(--r-card);
-  box-shadow: var(--card-shadow);
-  padding: 22px 26px;
+.section {
+  padding: 26px 32px;
+  border-top: 1px solid var(--cp-border);
 }
 .sec-title {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 21px;
-  font-weight: 700;
-  line-height: 1.3;
-  margin-bottom: 14px;
-}
-.sec-title::before {
-  content: "";
-  flex: none;
-  width: 4px;
-  height: 1.1em;
-  border-radius: 2px;
-  background: var(--ms-blue);
-}
-.muted { color: var(--cp-text-muted); }
-
-/* ---------- 알려 주실 정보 ---------- */
-.ask { border: 1.5px solid var(--ms-blue); }
-.ask-title {
-  font-size: clamp(18px, 4.6vw, 21px);
+  font-size: 22px;
   font-weight: 700;
   line-height: 1.5;
   text-wrap: balance;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
 }
-.em { color: var(--ms-blue); }
-.choice { display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; align-items: stretch; }
-.field {
-  background: var(--cp-surface-soft);
-  border: 1px solid var(--cp-border);
-  border-radius: var(--r-ui);
-  padding: 14px 18px;
+.ask .sec-title { margin-bottom: 8px; }
+.reply-target { display: inline-block; color: var(--ms-blue); }
+.section-intro { color: var(--cp-text-muted); margin-bottom: 16px; }
+.reply-options { border-top: 1px solid var(--cp-border); }
+.reply-options > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--cp-border);
 }
-.or {
-  align-self: center;
-  background: var(--ms-blue-soft);
-  color: var(--ms-blue-dark);
-  border-radius: 999px;
-  padding: 3px 12px;
-  font-size: 14px;
-  font-weight: 700;
+.reply-options dt { font-weight: 600; }
+.reply-options dd { color: var(--cp-text-muted); }
+.account-note { margin-top: 16px; color: var(--cp-text-muted); }
+.account-note p + p { margin-top: 6px; }
+.account-note b { color: var(--cp-text); }
+.stop { color: var(--cp-danger); }
+.account-warning {
+  margin-top: 18px;
+  padding: 14px 16px;
+  background: #fff8e8;
+  border-left: 3px solid #ac7416;
+  border-radius: 0 8px 8px 0;
+  color: #604618;
 }
-.fname { font-size: 17px; font-weight: 700; line-height: 1.4; }
-.fex { font-size: 14.5px; line-height: 1.5; color: var(--cp-text-muted); margin-top: 4px; }
-.nb { white-space: nowrap; }
-.note {
-  margin-top: 12px;
-  padding-top: 12px;
+.account-warning h3 { font-size: 16px; line-height: 1.6; }
+.account-warning p { margin-top: 6px; }
+
+.flow > li {
+  display: grid;
+  grid-template-columns: 122px minmax(0, 1fr);
+  gap: 20px;
+  padding: 18px 0;
+}
+.flow > li + li { border-top: 1px solid var(--cp-border); }
+.flow > li:first-child { padding-top: 0; }
+.flow > li:last-child { padding-bottom: 0; }
+.when { color: var(--ms-blue-dark); font-size: 15px; font-weight: 700; }
+.flow h3 { font-size: 17px; line-height: 1.6; margin-bottom: 4px; }
+.flow p { color: var(--cp-text-muted); }
+.environments {
+  margin-top: 20px;
+  padding-top: 16px;
   border-top: 1px dashed var(--cp-border);
-  font-size: 14.5px;
-  line-height: 1.6;
   color: var(--cp-text-muted);
 }
-.stop { color: var(--cp-danger); font-weight: 700; }
+.environments h3 { color: var(--cp-text); font-size: 16px; margin-bottom: 6px; }
+.nb { white-space: nowrap; }
 
-/* ---------- 진행 순서 ---------- */
-.flow { display: grid; grid-template-columns: 1fr 1.7fr 1fr; gap: 12px; }
-.flow .card { padding: 16px 18px; }
-.when {
-  display: inline-block;
-  background: var(--ms-blue-soft);
-  color: var(--ms-blue-dark);
-  border-radius: 999px;
-  padding: 2px 12px;
-  font-size: 13px;
-  font-weight: 700;
-  margin-bottom: 10px;
+.notes > li + li { margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--cp-border); }
+.notes h3 { font-size: 17px; line-height: 1.6; margin-bottom: 6px; }
+.notes p { color: var(--cp-text-muted); }
+.notes p + p { margin-top: 8px; }
+.notes b { color: var(--cp-text); }
+.billing-setting {
+  padding: 12px 16px;
+  background: var(--cp-surface-soft);
+  border-radius: 8px;
 }
-.flow h3 { font-size: 16.5px; font-weight: 700; line-height: 1.4; margin-bottom: 4px; text-wrap: balance; }
-.flow p { font-size: 14.5px; line-height: 1.55; color: var(--cp-text-muted); text-wrap: balance; }
+.billing-setting code { background: none; border: 0; padding: 0; }
+.billing-setting b { color: var(--ms-blue); }
 
-/* ---------- 꼭 알아 두세요 ---------- */
-.notes { padding: 4px 26px; }
-.notes li {
-  display: grid;
-  grid-template-columns: 24px 1fr;
-  gap: 12px;
-  align-items: start;
-  padding: 14px 0;
+.contact {
+  padding: 20px 32px;
+  border-top: 1px solid var(--cp-border);
+  border-radius: 0 0 15px 15px;
+  background: var(--cp-surface-soft);
+  color: var(--cp-text-muted);
+  font-size: 15px;
 }
-.notes li + li { border-top: 1px solid var(--cp-border); }
-.dot {
-  width: 24px;
-  height: 24px;
-  margin-top: 2px;
-  border-radius: 50%;
-  border: 1.5px solid var(--cp-warning);
-  display: grid;
-  place-items: center;
-  font-size: 13px;
-  font-weight: 700;
-}
-
-/* ---------- 문의 ---------- */
-.contact { text-align: center; color: var(--cp-text-muted); font-size: 15px; text-wrap: balance; }
 .contact b { color: var(--cp-text); }
 
-/* ---------- 반응형 · 인쇄 ---------- */
-@media (max-width: 640px) {
-  body { padding: 16px 12px 32px; }
-  .wrap { gap: 24px; }
-  .brand { padding: 14px 20px; gap: 8px 14px; }
+@media (max-width: 520px) {
+  body { padding: 12px 12px 24px; }
+  .brand { padding: 18px 20px; gap: 8px 14px; }
   .logo-ms { height: 20px; }
   .brand .bar { height: 22px; }
   .gh svg { width: 24px; height: 24px; }
   .gh-name { font-size: 16px; }
-  .hero { padding: 24px 20px 26px; }
-  .lead { font-size: 16px; }
-  .choice { grid-template-columns: 1fr; }
-  .or { justify-self: center; }
-  .flow { grid-template-columns: 1fr; }
-  .card { padding: 18px 16px; }
-  .notes { padding: 2px 16px; }
+  .hero, .section { padding: 24px 20px; }
+  .h1-top { font-size: 18px; }
+  .sec-title { font-size: 20px; }
+  .reply-options > div { grid-template-columns: 1fr; gap: 4px; }
+  .flow > li { grid-template-columns: 1fr; gap: 6px; }
+  .contact { padding: 18px 20px; }
 }
 
 @media (max-width: 350px) {
-  .brand { padding: 12px 20px; gap: 8px 10px; }
+  .brand { gap: 8px 10px; }
   .logo-ms { height: 17px; }
   .brand .bar { height: 18px; }
   .gh { gap: 6px; }
@@ -308,9 +221,10 @@ code {
 }
 
 @media print {
-  body { padding: 0; }
-  .card, .top { box-shadow: none; break-inside: avoid; }
-  .hero, .amt { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { padding: 0; background: #ffffff; }
+  .wrap { border: 0; border-radius: 0; }
+  .hero, .account-warning { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .flow > li, .notes > li, .account-warning { break-inside: avoid; }
 }
 </style>
 </head>
@@ -327,74 +241,90 @@ code {
       </span>
     </div>
     <div class="hero">
-      <p class="eyebrow">GitHub Copilot 핸즈온 지원 안내</p>
+      <p class="eyebrow">GitHub Copilot 해커톤 · 핸즈온 지원 안내</p>
       <h1>
-        <span class="h1-top">각 고객사 주관 해커톤 및 핸즈온 워크샵을 진행하시면,</span>
-        <span class="h1-mid">최소 10명, 최대 50명 참여하시는 분들에 대해서</span>
-        <span class="h1-big">1인당 <span class="amt">$100</span>의</span>
-        <span class="h1-big">AI Credit을 드립니다</span>
+        <span class="h1-top">참여자 1인당</span>
+        <span class="h1-big"><span class="amt">$100</span> <span class="credit-copy">AI Credit 지원</span></span>
       </h1>
-      <p class="lead">행사 전용 GitHub 조직에서 GitHub Copilot을 바로 사용하실 수 있어요.</p>
+      <p class="scope">각 고객사별 해커톤, 핸즈온 워크샵, 핸즈온 세션을 위해.</p>
+      <p class="eligibility"><span>지원 인원</span><b>최소 10명 · 최대 50명</b></p>
     </div>
   </header>
 
-  <section class="card ask" aria-labelledby="h-ask">
-    <h2 class="ask-title" id="h-ask">참여자 분들의 GitHub username 또는 <span class="nb">GitHub에 등록된 이메일 계정</span> 리스트를 <span class="em">본 메일에 회신해 주세요</span></h2>
-    <div class="choice">
-      <div class="field">
-        <p class="fname">GitHub username</p>
-        <p class="fex">예: <code>octocat</code>, <code>monalisa</code></p>
+  <section class="section ask" aria-labelledby="h-ask">
+    <h2 class="sec-title" id="h-ask">참여자 명단을 <span class="reply-target">본 메일에 회신해 주세요</span></h2>
+    <p class="section-intro">참여자별로 아래 정보 중 <b>하나만</b> 보내 주세요.</p>
+    <dl class="reply-options">
+      <div>
+        <dt>GitHub 사용자명 (username)</dt>
+        <dd>예: <code>octocat</code></dd>
       </div>
-      <span class="or">또는</span>
-      <div class="field">
-        <p class="fname">GitHub에 등록된 이메일 계정</p>
-        <p class="fex">예: <code>kim@example.com</code>, <code>lee@example.com</code></p>
+      <div>
+        <dt>또는 GitHub에 등록된 이메일</dt>
+        <dd>예: <code>name@example.com</code></dd>
       </div>
+    </dl>
+    <div class="account-note">
+      <p><b>개인 GitHub 계정만 참여할 수 있습니다.</b></p>
+      <p class="stop">회사 관리 계정(EMU, 사용자명에 <code>_</code> 포함)은 사용할 수 없습니다.</p>
+      <p>계정이 없다면 <a href="https://github.com/signup">GitHub 계정을 무료로 만들어 주세요.</a></p>
     </div>
-    <p class="note"><b>개인 GitHub 계정</b>만 사용할 수 있어요. <span class="stop">회사 관리 계정(EMU, 사용자명에 <code>_</code> 포함)은 사용할 수 없습니다.</span> 계정이 없다면 <a href="https://github.com/signup">github.com/signup</a>에서 무료로 만들 수 있어요.</p>
+    <aside class="account-warning" aria-labelledby="h-account-warning">
+      <h3 id="h-account-warning">개인 Copilot 구독이 있다면</h3>
+      <p>행사 조직에 가입하면 기존 개인(Individual) 구독이 <b>취소되고 환불됩니다.</b> <b>행사용 새 GitHub 계정을 권장합니다.</b></p>
+    </aside>
   </section>
 
-  <section aria-labelledby="h-flow">
-    <h2 class="sec-title" id="h-flow">이후에는 이렇게 진행돼요</h2>
+  <section class="section" aria-labelledby="h-flow">
+    <h2 class="sec-title" id="h-flow">명단 회신 후 진행 일정</h2>
     <ol class="flow">
-      <li class="card">
+      <li>
         <span class="when">행사 약 7일 전</span>
-        <h3>초대 메일이 도착해요</h3>
-        <p>메일의 수락 버튼을 눌러 조직에 참여해 주세요.</p>
+        <div>
+          <h3>참여자에게 초대 메일 발송</h3>
+          <p>참여자가 메일의 수락 버튼을 누르면 행사 전용 GitHub 조직에 가입됩니다.</p>
+        </div>
       </li>
-      <li class="card">
+      <li>
         <span class="when">행사 당일</span>
-        <h3>Copilot으로 실습해요</h3>
-        <p><span class="nb">GitHub Codespaces</span>, <span class="nb">GitHub Copilot CLI</span>, <span class="nb">GitHub Copilot App</span>, <span class="nb">GitHub.com</span>, <span class="nb">GitHub Mobile App</span>, <span class="nb">VS Code</span> 등에서 GitHub Copilot을 사용할 수 있습니다.</p>
+        <div>
+          <h3>GitHub Copilot으로 실습</h3>
+          <p>행사 전용 조직에서 GitHub Copilot을 사용합니다.</p>
+        </div>
       </li>
-      <li class="card">
+      <li>
         <span class="when">행사 약 3일 후</span>
-        <h3>조직과 자료가 삭제돼요</h3>
-        <p>필요한 코드는 행사 중에 개인 저장소로 옮겨 두세요.</p>
+        <div>
+          <h3>행사 조직과 자료 삭제</h3>
+          <p>필요한 코드는 <b>행사 중에 개인 저장소로</b> 옮겨 주세요.</p>
+        </div>
       </li>
     </ol>
+    <div class="environments">
+      <h3>실습 가능한 환경</h3>
+      <p><span class="nb">GitHub Codespaces</span> · <span class="nb">GitHub Copilot CLI</span> · <span class="nb">GitHub Copilot App</span> · <span class="nb">GitHub.com</span> · <span class="nb">GitHub Mobile App</span> · <span class="nb">VS Code</span></p>
+    </div>
   </section>
 
-  <section aria-labelledby="h-must">
-    <h2 class="sec-title" id="h-must">꼭 알아 두세요</h2>
-    <ul class="card notes">
+  <section class="section" aria-labelledby="h-must">
+    <h2 class="sec-title" id="h-must">라이선스와 자료 이용 안내</h2>
+    <ul class="notes">
       <li>
-        <span class="dot" aria-hidden="true">!</span>
-        <p><b>개인(Individual) Copilot 구독</b>이 있다면 조직 참여 시 <b>취소되고 환불</b>돼요. 행사용 새 GitHub 계정을 권장합니다.</p>
+        <h3>회사 Copilot 라이선스는 유지됩니다</h3>
+        <p>Business/Enterprise 사용자는 행사 중 <a href="https://github.com/settings/copilot/features">Copilot 설정</a>에서 아래 과금 대상을 선택해 주세요.</p>
+        <p class="billing-setting"><code>Usage billed to</code><br><b><code>MSFT/GH Hackathons</code> 선택</b></p>
+        <p><b>행사 후에는 원래 과금 대상으로 되돌려 주세요.</b></p>
       </li>
       <li>
-        <span class="dot" aria-hidden="true">!</span>
-        <p><b>회사(Business/Enterprise) 라이선스</b>는 유지돼요. 행사 중에는 <a href="https://github.com/settings/copilot/features">Copilot 설정</a>에서 <code>Usage billed to</code>를 <code>MSFT/GH Hackathons</code>로 바꾸고, 행사 후 원래대로 되돌려 주세요.</p>
-      </li>
-      <li>
-        <span class="dot" aria-hidden="true">!</span>
-        <p><b>기밀·민감 정보, 개인정보, 회사 소유 자료는 올리지 마세요.</b> 작업물이 다른 참가자나 인터넷상 누구에게나 보일 수 있어요.</p>
+        <h3>공개 가능한 자료만 사용해 주세요</h3>
+        <p><b>기밀·민감 정보, 개인정보, 회사 소유 자료는 올리지 마세요.</b></p>
+        <p>작업물이 다른 참가자나 인터넷상 누구에게나 보일 수 있습니다.</p>
       </li>
     </ul>
   </section>
 
   <footer class="contact">
-    <p>문의 사항은 <span class="nb"><b>본 메일에 회신</b>해 주시면,</span> <span class="nb">담당자를 통해 답변드리겠습니다.</span></p>
+    <p>신청·문의는 <b>본 메일에 회신해 주세요.</b></p>
   </footer>
 
 </main>
